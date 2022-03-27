@@ -31,6 +31,9 @@ default_target: all
 
 .SUFFIXES: .hpux_make_needs_suffix_list
 
+# Produce verbose output by default.
+VERBOSE = 1
+
 # Command-line flag to silence nested $(MAKE).
 $(VERBOSE)MAKESILENT = -s
 
@@ -129,6 +132,54 @@ graph_library/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/build
 .PHONY : graph_library/fast
 
+3rd_party/json11/json11.o: 3rd_party/json11/json11.cpp.o
+.PHONY : 3rd_party/json11/json11.o
+
+# target to build an object file
+3rd_party/json11/json11.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.o
+.PHONY : 3rd_party/json11/json11.cpp.o
+
+3rd_party/json11/json11.i: 3rd_party/json11/json11.cpp.i
+.PHONY : 3rd_party/json11/json11.i
+
+# target to preprocess a source file
+3rd_party/json11/json11.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.i
+.PHONY : 3rd_party/json11/json11.cpp.i
+
+3rd_party/json11/json11.s: 3rd_party/json11/json11.cpp.s
+.PHONY : 3rd_party/json11/json11.s
+
+# target to generate assembly for a file
+3rd_party/json11/json11.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.s
+.PHONY : 3rd_party/json11/json11.cpp.s
+
+3rd_party/loguru/loguru.o: 3rd_party/loguru/loguru.cpp.o
+.PHONY : 3rd_party/loguru/loguru.o
+
+# target to build an object file
+3rd_party/loguru/loguru.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.o
+.PHONY : 3rd_party/loguru/loguru.cpp.o
+
+3rd_party/loguru/loguru.i: 3rd_party/loguru/loguru.cpp.i
+.PHONY : 3rd_party/loguru/loguru.i
+
+# target to preprocess a source file
+3rd_party/loguru/loguru.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.i
+.PHONY : 3rd_party/loguru/loguru.cpp.i
+
+3rd_party/loguru/loguru.s: 3rd_party/loguru/loguru.cpp.s
+.PHONY : 3rd_party/loguru/loguru.s
+
+# target to generate assembly for a file
+3rd_party/loguru/loguru.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.s
+.PHONY : 3rd_party/loguru/loguru.cpp.s
+
 config_parser.o: config_parser.cpp.o
 .PHONY : config_parser.o
 
@@ -186,6 +237,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... graph_library"
+	@echo "... 3rd_party/json11/json11.o"
+	@echo "... 3rd_party/json11/json11.i"
+	@echo "... 3rd_party/json11/json11.s"
+	@echo "... 3rd_party/loguru/loguru.o"
+	@echo "... 3rd_party/loguru/loguru.i"
+	@echo "... 3rd_party/loguru/loguru.s"
 	@echo "... config_parser.o"
 	@echo "... config_parser.i"
 	@echo "... config_parser.s"

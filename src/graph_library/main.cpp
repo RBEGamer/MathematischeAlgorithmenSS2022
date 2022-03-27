@@ -20,6 +20,10 @@
 #define CONFIG_FILE_PATH "./graph_libaray_config.ini"
 
 
+volatile bool main_loop_running = false;
+
+
+
 void signal_callback_handler(int signum) {
     main_loop_running = false;
     LOG_F(ERROR, "Caught signal %d\n", signum);
@@ -31,7 +35,7 @@ bool cmdOptionExists(char **begin, char **end, const std::string &option) {
 }
 
 
-volatile bool main_loop_running = false;
+
 
 
 

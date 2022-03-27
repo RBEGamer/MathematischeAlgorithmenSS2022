@@ -28,6 +28,9 @@ default_target: all
 
 .SUFFIXES: .hpux_make_needs_suffix_list
 
+# Produce verbose output by default.
+VERBOSE = 1
+
 # Command-line flag to silence nested $(MAKE).
 $(VERBOSE)MAKESILENT = -s
 
@@ -81,12 +84,12 @@ clean: CMakeFiles/graph_library.dir/clean
 CMakeFiles/graph_library.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/graph_library.dir/build.make CMakeFiles/graph_library.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target graph_library"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target graph_library"
 .PHONY : CMakeFiles/graph_library.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/graph_library.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/graph_library.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/graph_library.dir/rule

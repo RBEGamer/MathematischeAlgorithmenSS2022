@@ -27,6 +27,9 @@
 
 .SUFFIXES: .hpux_make_needs_suffix_list
 
+# Produce verbose output by default.
+VERBOSE = 1
+
 # Command-line flag to silence nested $(MAKE).
 $(VERBOSE)MAKESILENT = -s
 
@@ -66,9 +69,35 @@ include CMakeFiles/graph_library.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/graph_library.dir/flags.make
 
+CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.o: CMakeFiles/graph_library.dir/flags.make
+CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.o: ../3rd_party/json11/json11.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.o -c /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/json11/json11.cpp
+
+CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/json11/json11.cpp > CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.i
+
+CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/json11/json11.cpp -o CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.s
+
+CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.o: CMakeFiles/graph_library.dir/flags.make
+CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.o: ../3rd_party/loguru/loguru.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.o -c /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/loguru/loguru.cpp
+
+CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/loguru/loguru.cpp > CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.i
+
+CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/loguru/loguru.cpp -o CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.s
+
 CMakeFiles/graph_library.dir/main.cpp.o: CMakeFiles/graph_library.dir/flags.make
 CMakeFiles/graph_library.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/graph_library.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/graph_library.dir/main.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graph_library.dir/main.cpp.o -c /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/main.cpp
 
 CMakeFiles/graph_library.dir/main.cpp.i: cmake_force
@@ -81,7 +110,7 @@ CMakeFiles/graph_library.dir/main.cpp.s: cmake_force
 
 CMakeFiles/graph_library.dir/config_parser.cpp.o: CMakeFiles/graph_library.dir/flags.make
 CMakeFiles/graph_library.dir/config_parser.cpp.o: ../config_parser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/graph_library.dir/config_parser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/graph_library.dir/config_parser.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graph_library.dir/config_parser.cpp.o -c /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/config_parser.cpp
 
 CMakeFiles/graph_library.dir/config_parser.cpp.i: cmake_force
@@ -94,21 +123,25 @@ CMakeFiles/graph_library.dir/config_parser.cpp.s: cmake_force
 
 # Object files for target graph_library
 graph_library_OBJECTS = \
+"CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.o" \
+"CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.o" \
 "CMakeFiles/graph_library.dir/main.cpp.o" \
 "CMakeFiles/graph_library.dir/config_parser.cpp.o"
 
 # External object files for target graph_library
 graph_library_EXTERNAL_OBJECTS =
 
-graph_library: CMakeFiles/graph_library.dir/main.cpp.o
-graph_library: CMakeFiles/graph_library.dir/config_parser.cpp.o
-graph_library: CMakeFiles/graph_library.dir/build.make
-graph_library: CMakeFiles/graph_library.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable graph_library"
+../graph_library: CMakeFiles/graph_library.dir/3rd_party/json11/json11.cpp.o
+../graph_library: CMakeFiles/graph_library.dir/3rd_party/loguru/loguru.cpp.o
+../graph_library: CMakeFiles/graph_library.dir/main.cpp.o
+../graph_library: CMakeFiles/graph_library.dir/config_parser.cpp.o
+../graph_library: CMakeFiles/graph_library.dir/build.make
+../graph_library: CMakeFiles/graph_library.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../graph_library"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/graph_library.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/graph_library.dir/build: graph_library
+CMakeFiles/graph_library.dir/build: ../graph_library
 .PHONY : CMakeFiles/graph_library.dir/build
 
 CMakeFiles/graph_library.dir/clean:
