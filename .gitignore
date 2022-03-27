@@ -75,3 +75,4 @@ Temporary Items
 .nfs*
 src/graph_library/cmake-build-debug/Testing/Temporary/LastTest.log
 *.log
+*.log
