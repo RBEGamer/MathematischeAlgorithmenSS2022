@@ -2,13 +2,14 @@
 
 #include <filesystem>
 #include <string>
+#include <map>
 #include <iostream>
 //---- 3RD_PARTY---------//
 #include "3rd_party/loguru/loguru.hpp"
 
 //---- LOCAL ----------//
 #include "config_parser.h"
-
+#include "graph.h"
 
 
 #ifndef VERSION
@@ -86,13 +87,30 @@ int main(int argc, char *argv[]) {
 
 
 
-
+    std::map<std::string, graph> loaded_graphs { };
 
     //LOAD EXAMPLE GRAPHS
     if(config_parser::getInstance()->getBool_nocheck(config_parser::CFG_ENTRY::LOAD_EXAMPLE_GRAPHS)){
         std::string example_graph_path = config_parser::getInstance()->get(config_parser::CFG_ENTRY::GRAPH_STORAGE_PATH);
         for (const auto & entry : std::filesystem::directory_iterator(example_graph_path)){
             std::cout << entry.path() << std::endl;
+
+            std::string file_name = entry.path();
+            if(entry.is_symlink()){
+                file_name = std::filesystem::read_symlink(entry).string();
+            }
+
+
+
+
+
+            //LOAD GRAPH
+            graph g;
+            //todo assert
+            g.load_grapth_from_file(file_name);
+
+            loaded_graphs[""] = g;
+
         }
     }
 
