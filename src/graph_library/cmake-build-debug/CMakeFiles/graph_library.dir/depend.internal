@@ -13,10 +13,15 @@ CMakeFiles/graph_library.dir/config_parser.cpp.o
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/magic_enum/include/magic_enum.hpp
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/config_parser.cpp
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/config_parser.h
+CMakeFiles/graph_library.dir/graph.cpp.o
+ /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/loguru/loguru.hpp
+ /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/graph.cpp
+ /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/graph.h
 CMakeFiles/graph_library.dir/main.cpp.o
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/inih/INIReader.h
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/json11/json11.hpp
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/loguru/loguru.hpp
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/3rd_party/magic_enum/include/magic_enum.hpp
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/config_parser.h
+ /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/graph.h
  /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/main.cpp

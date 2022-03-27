@@ -107,15 +107,21 @@ int main(int argc, char *argv[]) {
             //LOAD GRAPH
             graph g;
             //todo assert
-            g.load_grapth_from_file(file_name);
-
-            loaded_graphs[""] = g;
+            if(!g.load_graph_from_file(file_name)){
+                LOG_F(ERROR, "CAN LOAD - PARSING ERROR: %s", file_name.c_str());
+            }
+            //SAVE GRATH TO DICT
+            loaded_graphs[entry.path().stem()] = g;
 
         }
     }
 
+    //NOW PERFORM ANALYSIS ON LOADED GRATH
+    const std::string GN = "grapth1";
 
-
+    if(loaded_graphs.count(GN) <= 0){
+        graph gl = loaded_graphs["graph1"];
+    }
 
     return 0;
 }

@@ -23,7 +23,7 @@ set(SOURCE_FILES
         3rd_party/inih/INIReader.h
         3rd_party/magic_enum/include/magic_enum.hpp
         main.cpp config_parser.cpp config_parser.h
-        graph.cpp graph.h)
+        graph.cpp graph.h graph_node.cpp graph_node.h graph_edge.cpp graph_edge.h)
 
 file(GLOB SOURCES *.h *.hpp *.cpp)
 
