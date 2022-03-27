@@ -13,4 +13,6 @@ First line: Number of nodes; following lines: Edges (i->j, numbering: 0 ... node
 
 ## TASKS
 
-### 
+### Structure and storage format
+
+Width search or depth search to determine the number of the connected components (graphs)
