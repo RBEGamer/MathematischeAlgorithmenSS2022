@@ -33,7 +33,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${SOURCES})
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set_target_properties(${PROJECT_NAME} PROPERTIES
             BUNDLE True
-            MACOSX_BUNDLE_GUI_IDENTIFIER my.domain.style.identifier.${PROJECT_NAME}
+            MACOSX_BUNDLE_GUI_IDENTIFIER com.prodevmo.graphlibrary.${PROJECT_NAME}
             MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME}
             MACOSX_BUNDLE_BUNDLE_VERSION "0.1"
             MACOSX_BUNDLE_SHORT_VERSION_STRING "0.1"
