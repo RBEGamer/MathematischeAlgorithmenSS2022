@@ -10,7 +10,7 @@ to = _to;
 weigth = GRAPH_EDGE_WEIGTH_DEFAULT;
 }
 
-graph_edge::graph_edge(graph_node _from, graph_node _to, graph_edge_weight_type _weigth) {
+graph_edge::graph_edge(const graph_node _from, const graph_node _to, const graph_edge_weight_type _weigth) {
     from = _from;
     to = _to;
     weigth = _weigth;

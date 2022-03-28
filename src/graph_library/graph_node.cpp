@@ -16,12 +16,15 @@ void graph_node::remove_edge(graph_edge _edge) {
 
 }
 
-graph_edge graph_node::get_edge(graph_edge _to) {
-    return graph_edge(graph_node(), graph_node());
+std::vector<graph_edge> graph_node::get_edges_to(graph_edge _to) {
+    std::vector<graph_edge> tmp;
+
+    return tmp;
 }
 
-std::vector graph_node::get_edges() {
-    return std::vector();
+std::vector<graph_edge> graph_node::get_edges() {
+    std::vector<graph_edge> tmp;
+    return tmp;
 }
 
 void graph_node::set_label(graph_node_label_type _label) {
@@ -59,7 +62,7 @@ graph_node_value_type graph_node::get_payload() const {
 }
 
 size_t graph_node::edge_count() {
-    return ed;
+    return get_edges().size();
 }
 
 bool graph_node::visited() {
@@ -69,3 +72,5 @@ bool graph_node::visited() {
 std::string graph_node::toString() {
     return toJson().dump();
 }
+
+

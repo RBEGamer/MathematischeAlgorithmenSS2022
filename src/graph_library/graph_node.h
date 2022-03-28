@@ -17,13 +17,13 @@ class graph_node {
 
 
 public:
-    grap_node(graph_node_label_type _node_id);
+    graph_node(graph_node_label_type _node_id);
 
     void add_edge(graph_edge _edge);
     void remove_edge(graph_edge _edge);
 
-    graph_edge get_edge(graph_edge _to);
-    std::vector get_edges();
+    std::vector<graph_edge> get_edges_to(graph_edge _to);
+    std::vector<graph_edge> get_edges();
 
     void set_label(graph_node_label_type _label);
     graph_node_label_type get_label();
