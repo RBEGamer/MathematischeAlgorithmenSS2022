@@ -17,12 +17,14 @@ class graph_node {
 
 
 public:
+    graph_node();
     graph_node(graph_node_label_type _node_id);
 
-    void add_edge(graph_edge _edge);
-    void remove_edge(graph_edge _edge);
+    void add_edge(graph_edge& _edge);
+    void remove_edge(graph_edge& _edge);
 
-    std::vector<graph_edge> get_edges_to(graph_edge _to);
+    std::vector<graph_edge> get_edges_to(graph_node& _to);
+
     std::vector<graph_edge> get_edges();
 
     void set_label(graph_node_label_type _label);
@@ -38,12 +40,16 @@ public:
     graph_node_value_type get_payload() const;
 
 
-
+    operator== (const graph_node& c1) const;
+    bool equals(const graph_node& c1) const;
 private:
+
     std::vector<graph_edge> node_edges;
-    graph_node_label_type node_id;
     graph_node_value_type node_payload;
     bool node_visited;
+    graph_node_label_type node_id;
+
+
 };
 
 

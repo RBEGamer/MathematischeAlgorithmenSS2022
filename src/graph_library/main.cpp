@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <signal.h>
 //---- 3RD_PARTY---------//
 #include "3rd_party/loguru/loguru.hpp"
 

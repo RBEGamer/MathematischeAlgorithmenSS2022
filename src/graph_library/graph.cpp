@@ -44,20 +44,24 @@ std::vector<graph_edge> graph::get_edges() {
     return std::vector<graph_edge>();
 }
 
-graph_edge graph::get_edge_from_node(graph_node &_from) {
-    return graph_edge(graph_node(), graph_node());
+std::vector<graph_edge> graph::get_edge_from_node(graph_node &_from) {
+    std::vector<graph_edge> t;
+    return _from.;
 }
 
-graph_edge graph::get_edge_to_node(graph_node &_to) {
-    return graph_edge(graph_node(), graph_node());
+std::vector<graph_edge> graph::get_edge_to_node(graph_node &_to) {
+    std::vector<graph_edge> t;
+    return t;
 }
 
-graph_edge graph::get_edge_from_to_node(graph_node &_from, graph_node &_to) {
-    return graph_edge(graph_node(), graph_node());
+std::vector<graph_edge> graph::get_edge_from_to_node(graph_node &_from, graph_node &_to) {
+    std::vector<graph_edge> t;
+    return t;
 }
 
 std::vector<graph_node> graph::get_nodes() {
-    return std::vector<graph_node>();
+    std::vector<graph_node> t;
+    return t;
 }
 
 double graph::get_total_costs() {

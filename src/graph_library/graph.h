@@ -28,9 +28,9 @@ public:
     size_t count_edges();
     size_t count_nodes();
     std::vector<graph_edge> get_edges();
-    graph_edge get_edge_from_node(graph_node& _from);
-    graph_edge get_edge_to_node(graph_node& _to);
-    graph_edge get_edge_from_to_node(graph_node& _from, graph_node& _to);
+    std::vector<graph_edge> get_edge_from_node(graph_node& _from);
+    std::vector<graph_edge> get_edge_to_node(graph_node& _to);
+    std::vector<graph_edge> get_edge_from_to_node(graph_node& _from, graph_node& _to);
     std::vector<graph_node> get_nodes();
     double get_total_costs();
     std::string toString();

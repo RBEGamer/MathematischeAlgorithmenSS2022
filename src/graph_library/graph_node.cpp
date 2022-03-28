@@ -4,27 +4,12 @@
 
 #include "graph_node.h"
 
+graph_node::graph_node() {
+
+}
+
 graph_node::graph_node(graph_node_label_type _node_id) {
     set_label(_node_id);
-}
-
-void graph_node::add_edge(graph_edge _edge) {
-
-}
-
-void graph_node::remove_edge(graph_edge _edge) {
-
-}
-
-std::vector<graph_edge> graph_node::get_edges_to(graph_edge _to) {
-    std::vector<graph_edge> tmp;
-
-    return tmp;
-}
-
-std::vector<graph_edge> graph_node::get_edges() {
-    std::vector<graph_edge> tmp;
-    return tmp;
 }
 
 void graph_node::set_label(graph_node_label_type _label) {
@@ -35,22 +20,69 @@ graph_node_label_type graph_node::get_label() {
     return node_id;
 }
 
-void graph_node::set_visited(bool _visited) {
-    node_visited = _visited;
+std::vector<graph_edge> graph_node::get_edges() {
+    return node_edges;
+}
+
+std::vector<graph_edge> graph_node::get_edges_to(graph_node &_to) {
+    std::vector<graph_edge> t;
+
+    for (graph_edge& e: get_edges()) {
+
+
+        //if(_to.equals()){
+        //    t.push_back(e);
+       // }
+    }
+    return t;
 }
 
 
+bool graph_node::operator== (const graph_node& c1) const
+{
+    return c1.node_id == node_id;
+}
+
+bool graph_node::equals(const graph_node& c1) const {
+    return c1.node_id == node_id;
+}
+
+void graph_node::add_edge(graph_edge &_edge) {
+    node_edges.push_back(_edge);
+}
+
+void graph_node::remove_edge(graph_edge &_edge) {
+   // node_edges.erase(_edge);
+}
+
+void graph_node::set_visited(bool _visited) {
+ node_visited = _visited;
+}
+
+bool graph_node::visited() {
+    return node_visited;
+}
+
+size_t graph_node::edge_count() {
+    return get_edges().size();
+}
+
+std::string graph_node::toString() {
+    return toJson().dump();
+}
 
 json11::Json graph_node::toJson() {
-    json11::Json je = json11::Json::array();
-    for (auto &e : node_edges){
+    const json11::Json t = json11::Json::object{
+            {"type", "node"},
+            {"visited", visited()},
+            {"id", node_id},
+            {"label", get_label()},
+            {"payload", get_payload()},
+            {"edge_count", (int)edge_count()},
 
-    }
 
-    const json11::Json t = json11::Json::object{{"id", node_id},
-                                                {"payload", node_payload},
-                                                {"visited", node_visited}};
-    return t.dump();
+    };
+    return t;
 }
 
 void graph_node::set_payload(graph_node_value_type _payload) {
@@ -61,16 +93,6 @@ graph_node_value_type graph_node::get_payload() const {
     return node_payload;
 }
 
-size_t graph_node::edge_count() {
-    return get_edges().size();
-}
 
-bool graph_node::visited() {
-    return node_visited;
-}
-
-std::string graph_node::toString() {
-    return toJson().dump();
-}
 
 
