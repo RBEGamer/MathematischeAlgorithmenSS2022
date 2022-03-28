@@ -36,9 +36,6 @@ public:
     std::string toString();
     std::string toJson();
 private:
-
-
-    void add_node(const graph_node &_node);
 };
 
 
