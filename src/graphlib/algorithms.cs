@@ -9,7 +9,33 @@ namespace graphlib
     public class algorithms
     {
 
-        public static List<node> getDepthFirstSearchTrees(graph _g, node _start)
+
+        static public int getCorrelationComponents(graph _g)
+        {
+            System.Console.WriteLine("------------------------");
+            System.Console.WriteLine("getCorrelationComponents");
+            System.Console.WriteLine("------------------------");
+
+            graph tmp_g = new graph(_g);
+            tmp_g.set_all_unvisited();
+
+            int result = 0;
+
+            //AVOID WHILE
+            for (int i = 0; i < tmp_g.get_unvisited().Count; i++)
+            {
+
+                if(getDepthFirstSearchTrees(tmp_g, tmp_g.get_unvisited().ElementAt(0), false, false).Count > 0)
+                {
+                    result++;
+                }
+            }
+
+            return result;
+        }
+
+
+        public static List<node> getDepthFirstSearchTrees(graph _g, node _start, bool _copy, bool _startover)
         {
             System.Console.WriteLine("------------------------");
             System.Console.WriteLine("getDepthFirstSearchTrees");
@@ -18,10 +44,20 @@ namespace graphlib
             List<node> depthFirstSearchTrees = new List<node>();
 
             //COPY GRAPTH
-            graph tmp_g = new graph(_g);
-            node tmp_start = new node(_start);  
+            graph tmp_g = _g;
+            node tmp_start = _start;
+            if (_copy)
+            {
+                tmp_g = new graph(_g);
+                tmp_start = new node(_start);
+            }
 
-            tmp_g.set_all_unvisited();
+
+            if (_startover)
+            {
+                tmp_g.set_all_unvisited();
+            }
+            
 
 
             Stack<node> stack = new Stack<node>();

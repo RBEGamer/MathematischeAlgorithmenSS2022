@@ -73,7 +73,7 @@ namespace graphlib
         {
             string tmp = "";
 
-            tmp += "=> NODE "+ Id.ToString()+" :";
+            tmp += "=> NODE "+ Id.ToString()+" : VISITED:" + visited.ToString();
             tmp += "\n";
             
             foreach(edge e in edges)

@@ -266,7 +266,7 @@ namespace graphlib
             List<node> result = new List<node>();
             foreach (node n in nodes)
             {
-                if (n.Visited)
+                if (!n.Visited)
                 {
                     result.Add(n);
                 }

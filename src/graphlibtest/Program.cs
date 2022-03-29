@@ -27,8 +27,11 @@ namespace graphlibtest
             Console.WriteLine(g.ToString());
 
 
-            algorithms.getDepthFirstSearchTrees(g, g.Nodes[0]);
-            
+          //  algorithms.getDepthFirstSearchTrees(g, g.Nodes[0], true);
+
+            Console.WriteLine("getCorrelationComponents: " + algorithms.getCorrelationComponents(g).ToString());
+
+
         }
     }
 }
