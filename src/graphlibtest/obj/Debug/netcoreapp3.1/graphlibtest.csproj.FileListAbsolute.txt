@@ -1,0 +1,17 @@
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.csproj.AssemblyReference.cache
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.AssemblyInfoInputs.cache
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.AssemblyInfo.cs
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.csproj.CoreCompileInputs.cache
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\bin\Debug\netcoreapp3.1\graphlibtest.exe
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\bin\Debug\netcoreapp3.1\graphlibtest.deps.json
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\bin\Debug\netcoreapp3.1\graphlibtest.runtimeconfig.json
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\bin\Debug\netcoreapp3.1\graphlibtest.runtimeconfig.dev.json
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\bin\Debug\netcoreapp3.1\graphlibtest.dll
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\bin\Debug\netcoreapp3.1\graphlibtest.pdb
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\bin\Debug\netcoreapp3.1\graphlib.dll
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\bin\Debug\netcoreapp3.1\graphlib.pdb
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.csproj.CopyComplete
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.dll
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.pdb
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\graphlibtest\obj\Debug\netcoreapp3.1\graphlibtest.genruntimeconfig.cache
