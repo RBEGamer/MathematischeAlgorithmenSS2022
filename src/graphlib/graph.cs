@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 namespace graphlib
 {
     public class graph
     {
 
         private List<node> nodes;
+
+        public List<node> Nodes { get => nodes; }
 
         public graph()
         {
@@ -18,7 +21,16 @@ namespace graphlib
             nodes = _g.nodes;
         }
 
-        
+        public void sort_nodes_by_id()
+        {
+            nodes.Sort();
+        }
+
+
+        public void remove_duplicate_nodes()
+        {
+            nodes.Distinct().ToList().ForEach(node => nodes.Remove(node));
+        }
         public bool load_from_file(string _file)
         {
             if (!File.Exists(_file))
@@ -64,6 +76,9 @@ namespace graphlib
                     }
                 }
             }
+            
+            sort_nodes_by_id();
+
 
             bool import_ok = true;
             if(int.Parse(lines[0]) != node_count())
@@ -174,7 +189,7 @@ namespace graphlib
                     }
                     else
                     {
-                        result.AddRange(n.get_edges_to());
+                        result.AddRange(n.get_edges_to(_to));
                     }
                     
 

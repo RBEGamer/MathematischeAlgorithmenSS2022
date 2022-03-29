@@ -7,23 +7,39 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace graphlib
 {
-    public class node 
+    public class node: IComparable
     {
 
         List<edge> edges;
         private int id;
         private bool visited;
+        private string label;
      
         public int Id { get => id; }
         public bool Visited { get => visited; set => visited = value; }
+        public string Label { get => label; set => label = value; }
 
         public node(int _id)
         {
             edges = new List<edge>();
             id = _id; 
             visited = false;
+            label = id.ToString();  
         }
 
+        public int Compare(node x, node y)
+        {
+            int compareDate = x.id.CompareTo(y.id);
+            return compareDate;
+        }
+
+        public node(node _g)
+        {
+            edges = _g.edges;
+            id = _g.id;
+            visited = _g.visited;
+            label = _g.label;
+        }
 
         public List<edge> get_edges()
         {
@@ -82,6 +98,12 @@ namespace graphlib
             if(this.Id == e.Id) { return true; }
 
             return base.Equals(obj);
+        }
+
+        public int CompareTo(object obj)
+        {
+            node tmp = (node)obj;
+            return Compare(this, tmp);
         }
     }
 }

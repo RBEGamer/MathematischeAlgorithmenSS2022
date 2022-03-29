@@ -28,8 +28,9 @@ namespace graphlib
         public float Weigth { get => weigth; set => weigth = value; }
         public node To { get => to; set => to = value; }
         public node From { get => from; set => from = value; }
+        public bool Directed { get => directed; set => directed = value; }
 
-    public override bool Equals(object obj)
+        public override bool Equals(object obj)
         {
 
             if (obj == null || GetType() != obj.GetType())

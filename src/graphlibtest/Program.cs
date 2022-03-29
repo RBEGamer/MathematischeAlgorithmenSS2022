@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using graphlib;
+
 namespace graphlibtest
 {
     internal class Program
@@ -24,6 +25,10 @@ namespace graphlibtest
             int c = g.edge_count();
             
             Console.WriteLine(g.ToString());
+
+
+            algorithms.getDepthFirstSearchTrees(g, g.Nodes[0]);
+            
         }
     }
 }
