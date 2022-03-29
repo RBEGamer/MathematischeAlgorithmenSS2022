@@ -60,18 +60,44 @@ namespace graphlib
 
         public override String ToString()
         {
+
+            string w = this.Weigth.ToString();
+
+            if (!this.weigthed)
+            {
+                w = "X";
+            }
+
             if (this.directed)
             {
-                return "[" + this.From.ToString() + " <=> " + this.To.ToString() + " : " + this.Weigth + "]";
+                return "[" + this.From.ToString() + " <=> " + this.To.ToString() + " : " + w + "]";
             }
             else
             {
-                return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + this.Weigth + "]";
+                return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + w + "]";
             }
             
         }
 
+        public String ToStringStatisticsEdgeOnly()
+        {
 
+            string w = this.Weigth.ToString();
+
+            if (!this.weigthed)
+            {
+                w = "X";
+            }
+            if (this.directed)
+            {
+                return "==> [" + this.To.Id + " WEIGTH:" +w + "]";
+            }
+            else
+            {
+                return "<==> [" + this.To.Id + " WEIGTH:" +w + "]";
+            }
+          
+        }
        
 
        

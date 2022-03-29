@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibtest\\graphlibtest.csproj": {}
+    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibtest\\graphlibtest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibtest\\graphlibtest.csproj": {
+    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibtest\\graphlibtest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibtest\\graphlibtest.csproj",
+        "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibtest\\graphlibtest.csproj",
         "projectName": "graphlibtest",
-        "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibtest\\graphlibtest.csproj",
+        "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibtest\\graphlibtest.csproj",
         "packagesPath": "C:\\Users\\prodevmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibtest\\obj\\",
+        "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibtest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\prodevmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj": {
-                "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj"
+              "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj": {
+                "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj"
               }
             }
           }
@@ -62,14 +62,14 @@
         }
       }
     },
-    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj": {
+    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj",
+        "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj",
         "projectName": "graphlib",
-        "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj",
+        "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj",
         "packagesPath": "C:\\Users\\prodevmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\obj\\",
+        "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\prodevmo\\AppData\\Roaming\\NuGet\\NuGet.Config",

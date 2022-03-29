@@ -1,6 +1,0 @@
-arguments: /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library/graph_library
-Current dir: /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graph_library
-File verbosity level: -1
-date       time         ( uptime  ) [ thread name/id ]                   file:line     v| 
-2022-03-27 21:51:05.301 (   0.002s) [main thread     ]               main.cpp:78    WARN| --- CREATE LOCAL CONFIG FILE -----
-2022-03-27 21:51:05.301 (   0.003s) [main thread     ]               main.cpp:83     ERR| WRITE NEW CONFIGFILE DUE MISSING ONE

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TiBJGdwR706WVzxpWuroviabHqQ1FSEb5x72Qr0IzRmJpFXc/qJ+o/cqheE2W7aDOz9/yZU7KcJwn5XY6gEZBQ==",
+  "dgSpecHash": "C/PTNrkTbGc0mODSpFWHCcjOryeseZ/d3Aymf/UoSvaxNbRlSGNiOLLkrLFuPuGMHH8NcIcocr6eswk1OYeUqg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj",
+  "projectFilePath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -11,18 +11,17 @@ namespace graphlib
     {
 
         List<edge> edges;
-        int id;
+        private int id;
 
-
-
-
-
+     
+        public int Id { get => id; }
 
         public node(int _id)
         {
             edges = new List<edge>();
             id = _id; 
         }
+
 
         public List<edge> get_edges()
         {
@@ -48,14 +47,17 @@ namespace graphlib
         {
             string tmp = "";
 
-            tmp += "---- NODE "+ id.ToString()+" ----";
+            tmp += "=> NODE "+ Id.ToString()+" :";
             tmp += "\n";
             
             foreach(edge e in edges)
             {
-                tmp += e.ToString() + "\n";
+                if (!e.To.Equals(this))
+                {
+                    tmp += "" +e.ToStringStatisticsEdgeOnly() + "\n";
+                }
             }
-            tmp += "---------------------------------";
+            tmp += "\n";
             return tmp;
         }
 
@@ -67,7 +69,7 @@ namespace graphlib
             }
             node e = (node)obj;
 
-            if(this.id == e.id) { return true; }
+            if(this.Id == e.Id) { return true; }
 
             return base.Equals(obj);
         }

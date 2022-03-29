@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj": {}
+    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj": {}
   },
   "projects": {
-    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj": {
+    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj",
+        "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj",
         "projectName": "graphlib",
-        "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\graphlib.csproj",
+        "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj",
         "packagesPath": "C:\\Users\\prodevmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlib\\obj\\",
+        "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\prodevmo\\AppData\\Roaming\\NuGet\\NuGet.Config",

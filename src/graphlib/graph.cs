@@ -29,7 +29,7 @@ namespace graphlib
 
             var lines = File.ReadAllLines(_file);
 
-               
+            int imported_lines = 0;
             if(lines.Length > 1)
             {
                 for (int i = 1; i < lines.Length; i++)
@@ -51,10 +51,11 @@ namespace graphlib
                         //ADD STUFF
                         add_node(to, true);
                         add_node(from, true);
-                       // add_edge(ed);
+                        add_edge(ed);
 
-                   //     Console.WriteLine(ed.ToString());
+                        //     Console.WriteLine(ed.ToString());
                         //WEIGHTED EDGE
+                        imported_lines++;
                     }
                    
                     else
@@ -64,13 +65,19 @@ namespace graphlib
                 }
             }
 
-
-            if(int.Parse(lines[0]) == node_count())
+            bool import_ok = true;
+            if(int.Parse(lines[0]) != node_count())
             {
-                return true;
+                import_ok = false;
             }
 
-            return false;
+            if (imported_lines != edge_count())
+            {
+                import_ok = false;
+            }
+
+
+            return import_ok;
         }
 
 
@@ -81,17 +88,31 @@ namespace graphlib
             if (!nodes.Contains(_e.To))
             {
                 throw new IndexOutOfRangeException("_e.To node did not exists:" +  _e.ToString());
+                return false;
             }
             if (!nodes.Contains(_e.From))
             {
                 throw new IndexOutOfRangeException("_e.From node did not exists:" + _e.ToString());
+                return false;
             }
 
-            _e.From.add_edge(_e);
 
-            return false;
-            //GET FROM NODE
-            //ADD EDGE
+            node? nd = null;
+            foreach(var node in nodes)
+            {
+                if (node.Equals(_e.From)){
+                    nd = node;
+                    break;
+                }
+            }
+
+            if(nd != null)
+            {
+                nd.add_edge(_e);
+            }
+
+            
+            return true;
         }
 
         public bool add_node(node _n, bool check_exists = true)
@@ -109,13 +130,23 @@ namespace graphlib
 
         public bool remove_node(node _n)
         {
-            return false;   
+            return nodes.Remove(_n);
         }
 
         public bool contains_node(node _n)
         {
+            return nodes.Contains(_n);
+        }
+
+        public bool contains_node_id(int _node_id)
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                if (nodes[i].Id == _node_id) { return true; }       
+            }
             return false;
         }
+
 
         public int node_count()
         {
@@ -168,6 +199,8 @@ namespace graphlib
                 result.AddRange(n.get_edges());
             }
 
+            
+            
             return result;
         }
 

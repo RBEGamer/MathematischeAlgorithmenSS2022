@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibvisu\\graphlibvisu.csproj": {}
+    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibvisu\\graphlibvisu.csproj": {}
   },
   "projects": {
-    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibvisu\\graphlibvisu.csproj": {
+    "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibvisu\\graphlibvisu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibvisu\\graphlibvisu.csproj",
+        "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibvisu\\graphlibvisu.csproj",
         "projectName": "graphlibvisu",
-        "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibvisu\\graphlibvisu.csproj",
+        "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibvisu\\graphlibvisu.csproj",
         "packagesPath": "C:\\Users\\prodevmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\graphlibvisu\\obj\\",
+        "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibvisu\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\prodevmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
