@@ -12,14 +12,16 @@ namespace graphlib
 
         List<edge> edges;
         private int id;
-
+        private bool visited;
      
         public int Id { get => id; }
+        public bool Visited { get => visited; set => visited = value; }
 
         public node(int _id)
         {
             edges = new List<edge>();
             id = _id; 
+            visited = false;
         }
 
 
@@ -28,10 +30,18 @@ namespace graphlib
             return edges;
         }
 
-        public List<edge> get_edges_to()
+        public List<edge> get_edges_to(node _node)
         {
             List<edge> edges_to = new List<edge>();
-                
+            
+            foreach(edge e in edges)
+            {
+                if (e.To.Equals(_node))
+                {
+                    edges_to.Add(e);
+                }
+            }
+
             return edges_to;
         }
 

@@ -37,8 +37,6 @@ namespace graphlib
                 return false;
             }
 
-
-
             edge e = (edge)obj;
             if(this.To == e.To && this.From == e.From && this.Weigth == e.Weigth && this.directed == e.directed && this.weigthed == e.weigthed)
             {

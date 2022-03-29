@@ -216,5 +216,49 @@ namespace graphlib
 
             return tmp; 
         }
+
+
+        public void set_all_visited()
+        {
+            foreach(node n in nodes)
+            {
+                n.Visited = true;
+            }
+        }
+
+        public void set_all_unvisited()
+        {
+            foreach (node n in nodes)
+            {
+                n.Visited = false;
+            }
+        }
+
+        
+        public int count_visited()
+        {
+            int tmp = 0;
+            foreach (node n in nodes)
+            {
+                tmp += n.Visited ? 1 : 0;
+            }
+
+            return (tmp);
+        }
+
+        public List<node> get_unvisited()
+        {
+            List<node> result = new List<node>();
+            foreach (node n in nodes)
+            {
+                if (n.Visited)
+                {
+                    result.Add(n);
+                }
+            }
+            return result;
+        }
+
+
     }
 }
