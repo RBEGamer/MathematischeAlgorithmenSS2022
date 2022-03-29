@@ -252,13 +252,12 @@ namespace graphlib
         
         public int count_visited()
         {
-            int tmp = 0;
-            foreach (node n in nodes)
-            {
-                tmp += n.Visited ? 1 : 0;
-            }
+           return get_visited().Count();
+        }
 
-            return (tmp);
+        public int count_unvisited()
+        {
+            return get_unvisited().Count();
         }
 
         public List<node> get_unvisited()
@@ -267,6 +266,19 @@ namespace graphlib
             foreach (node n in nodes)
             {
                 if (!n.Visited)
+                {
+                    result.Add(n);
+                }
+            }
+            return result;
+        }
+
+        public List<node> get_visited()
+        {
+            List<node> result = new List<node>();
+            foreach (node n in nodes)
+            {
+                if (n.Visited)
                 {
                     result.Add(n);
                 }

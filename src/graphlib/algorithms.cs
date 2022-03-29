@@ -24,7 +24,7 @@ namespace graphlib
             //AVOID WHILE
             for (int i = 0; i < tmp_g.get_unvisited().Count; i++)
             {
-
+                //PERFORM DEPTH SEARCH REPEAT FOR NEXT UNVISITED
                 if(getDepthFirstSearchTrees(tmp_g, tmp_g.get_unvisited().ElementAt(0), false, false).Count > 0)
                 {
                     result++;
