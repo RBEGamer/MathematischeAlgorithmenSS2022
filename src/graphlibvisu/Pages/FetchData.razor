@@ -1,13 +1,13 @@
-﻿@page "/fetchdata"
+﻿@page "/loadgraph"
 
 @using graphlibvisu.Data
-@inject WeatherForecastService ForecastService
+@inject FileSystemLoader fs_loader
 
-<h1>Weather forecast</h1>
+<h1>Load example graphs</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
+<p>Please select a graph to load from the list below</p>
 
-@if (forecasts == null)
+@if (graphs == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -16,20 +16,23 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+              
+                <th>TITLE</th>
+                <th>TYPE</th>
+                <th>OPEN</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            
+            @foreach (var g in graphs)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@g.filename</td>
+                  
+                    <td>@g.type</td>
+                    <td>
+                        <a class="btn btn-primary" href="/visu?f=@g.filename" role="button">OPEN</a>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -37,10 +40,10 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private GraphLoadingItem[] graphs;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        graphs = await fs_loader.GetGraphLoadingItem();
     }
 }

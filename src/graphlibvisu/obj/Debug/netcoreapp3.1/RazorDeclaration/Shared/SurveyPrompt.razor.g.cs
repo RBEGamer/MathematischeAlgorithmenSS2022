@@ -83,7 +83,7 @@ using graphlibvisu.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 12 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Shared\SurveyPrompt.razor"
+#line 9 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Shared\SurveyPrompt.razor"
        
     // Demonstrates how a parent component can supply parameters
     [Parameter]
