@@ -249,7 +249,14 @@ namespace graphlib
             }
         }
 
-        
+        public void ungroup_all()
+        {
+            foreach (node n in nodes)
+            {
+                n.ungroup_node();
+            }
+        }
+
         public int count_visited()
         {
            return get_visited().Count();
@@ -287,7 +294,7 @@ namespace graphlib
         }
 
 
-        public 
+         
 
     }
 }

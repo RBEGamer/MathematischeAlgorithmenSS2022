@@ -21,8 +21,7 @@ namespace graphlibtest
             graph g =  new graph();
 
             g.load_from_file(files[0]);
-            int b = g.node_count();
-            int c = g.edge_count();
+           
             
             Console.WriteLine(g.ToString());
 
@@ -31,6 +30,8 @@ namespace graphlibtest
 
             Console.WriteLine("getCorrelationComponents: " + algorithms.getCorrelationComponents(g).ToString());
 
+            string t = graphlib.graph_export.ToJsonString(g, null);
+            int b = 0;
 
         }
     }

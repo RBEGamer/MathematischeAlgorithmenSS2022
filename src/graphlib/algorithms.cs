@@ -10,6 +10,59 @@ namespace graphlib
     {
 
 
+        static public void CreateCorrelationComponentGroups(ref graph _g)
+        {
+            System.Console.WriteLine("--------------------------------");
+            System.Console.WriteLine("CreateCorrelationComponentGroups");
+            System.Console.WriteLine("--------------------------------");
+
+           
+            _g.set_all_unvisited();
+            _g.ungroup_all();
+            node start_node = _g.get_unvisited().ElementAt(0);
+            //START NODE = GROUP ID
+
+            int group_id = 0;
+
+            //AVOID WHILE
+            for (int i = 0; i < _g.get_unvisited().Count; i++)
+            {
+                //PERFORM DEPTH SEARCH REPEAT FOR NEXT UNVISITED
+
+                List<node> found_nodes = getDepthFirstSearchTrees(_g, _g.get_unvisited().ElementAt(0), false, false);
+                if (found_nodes.Count > 0)
+                {
+
+                    //prüfe ob eine node bereits in einer node gruppe ist
+                    int group_found = 0;
+                   
+                    foreach (node nc in found_nodes)
+                    {
+                        if (!nc.is_in_group())
+                        {
+                            group_found = nc.Group_id; //SET ID
+                            break;
+                        }
+                    }
+
+                    if(group_found < 0)
+                    {
+                        group_id++; //NEUE GROUP ID
+                        group_found = group_id;
+                    }
+
+                    //ALLE NODES DER NEUEN GRUPPE ZUWEISEN
+                    foreach (node nc in found_nodes)
+                    {
+                        nc.set_group((uint)group_found);
+                    }
+
+                }
+            }
+
+           
+        }
+
         static public int getCorrelationComponents(graph _g)
         {
             System.Console.WriteLine("------------------------");

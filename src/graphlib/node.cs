@@ -14,17 +14,41 @@ namespace graphlib
         private int id;
         private bool visited;
         private string label;
-     
+        private int group_id = -1; //-1 = NOGROUP
         public int Id { get => id; }
         public bool Visited { get => visited; set => visited = value; }
         public string Label { get => label; set => label = value; }
+        public int Group_id { get => group_id; }
 
+        
         public node(int _id)
         {
             edges = new List<edge>();
             id = _id; 
             visited = false;
-            label = id.ToString();  
+            label = id.ToString();
+            group_id = -1; //NO GROUP
+        }
+
+
+
+        public void ungroup_node()
+        {
+            group_id = -1;
+        }
+
+        public bool is_in_group()
+        {
+            if(group_id >= 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public void set_group(uint _id)
+        {
+            group_id = (int)_id;
         }
 
         public int Compare(node x, node y)
@@ -87,6 +111,7 @@ namespace graphlib
             return tmp;
         }
 
+       
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
