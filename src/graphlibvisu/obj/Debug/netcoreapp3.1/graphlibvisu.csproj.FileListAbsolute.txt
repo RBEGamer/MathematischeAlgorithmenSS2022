@@ -98,3 +98,4 @@ C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\obj\De
 C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\obj\Debug\netcoreapp3.1\graphlibvisu.pdb
 C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\obj\Debug\netcoreapp3.1\graphlibvisu.genruntimeconfig.cache
 C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\obj\Debug\netcoreapp3.1\graphlibvisu.csproj.CopyComplete
+C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\obj\Debug\netcoreapp3.1\Razor\Pages\graph.cshtml.g.cs

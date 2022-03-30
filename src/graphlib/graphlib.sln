@@ -5,9 +5,9 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "graphlib", "graphlib.csproj", "{A79DD037-F8C7-4C9F-A85E-32E2C74021BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "graphlibvisu", "..\graphlibvisu\graphlibvisu.csproj", "{5F9B5A59-8191-497B-9E81-77915C082EAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "graphlibvisu", "..\graphlibvisu\graphlibvisu.csproj", "{5F9B5A59-8191-497B-9E81-77915C082EAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "graphlibtest", "..\graphlibtest\graphlibtest.csproj", "{BB1D821A-D235-4F0E-8142-EE9EE8CDF672}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "graphlibtest", "..\graphlibtest\graphlibtest.csproj", "{BB1D821A-D235-4F0E-8142-EE9EE8CDF672}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
