@@ -294,6 +294,11 @@ namespace graphlib
         }
 
 
+        public List<int> get_group_ids()
+        {
+            //TODOs
+        }
+
          
 
     }
