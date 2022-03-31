@@ -13,64 +13,71 @@ namespace graphlibvisu.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 1 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 2 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 3 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 4 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 5 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 6 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 7 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 8 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using graphlibvisu;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 9 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using graphlibvisu.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
+using graphlibvisu.Data;
 
 #line default
 #line hidden
@@ -83,6 +90,32 @@ using graphlibvisu.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 54 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
+       
+    private GraphLoadingItem[] graphs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        graphs = await fs_loader.GetGraphLoadingItem();
+
+
+    }
+
+    private async Task load_graph()
+    {
+
+        string json_graph = "{\"nodes\": [{\"caption\": \"A\",\"type\": \"award\", \"id\": 1},{\"caption\": \"B\",\"type\": \"award\", \"id\": 2}],\"edges\":[{\"source\":1, \"target\":2, \"caption\":\"1 - 2\"}]}";
+        await JS.InvokeAsync<string>("create_alchemy_visualisation", json_graph);
+    }
+
+    
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JS { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private FileSystemLoader fs_loader { get; set; }
     }
 }
 #pragma warning restore 1591

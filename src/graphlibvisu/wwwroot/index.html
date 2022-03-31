@@ -1,0 +1,21 @@
+<html>
+<head>
+  <link rel="stylesheet" href="alchemy/alchemy.min.css"/>
+</head>
+<body>
+
+  <div class="alchemy" id="alchemy"></div>
+  <script src="d3.min.js"></script>
+  
+  <script src="alchemy/scripts/vendor.js"></script>
+  <script src="alchemy/alchemy.min.js"></script>
+
+  <script type="text/javascript">
+        var config = {
+            dataSource: 'graph.json',
+            };
+
+        alchemy = new Alchemy(config)
+    </script>
+  </body>
+</html>

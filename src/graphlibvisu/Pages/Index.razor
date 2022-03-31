@@ -1,13 +1,79 @@
 ﻿@page "/"
+@using graphlibvisu.Data
+@inject FileSystemLoader fs_loader
+@inject IJSRuntime JS
+
+
 
 <h1>GRAPHLIB - INTERACTIVE VISUALISATION</h1>
 
 
-<SurveyPrompt Title="Please select a menu entry" />
-
-
-
-
 <div class="alchemy" id="alchemy"></div>
+
+
+
+
+<h1>Load example graphs</h1>
+
+<p>Please select a graph to load from the list below</p>
+
+@if (graphs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>TITLE</th>
+                <th>TYPE</th>
+                <th>OPEN</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var g in graphs)
+            {
+                <tr>
+                    <td>@g.filename</td>
+
+                    <td>@g.type</td>
+                    <td>
+                        <a class="btn btn-primary" @onclick="load_graph" role="button">OPEN</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+    private GraphLoadingItem[] graphs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        graphs = await fs_loader.GetGraphLoadingItem();
+
+
+    }
+
+    private async Task load_graph()
+    {
+
+        string json_graph = "{\"nodes\": [{\"caption\": \"A\",\"type\": \"award\", \"id\": 1},{\"caption\": \"B\",\"type\": \"award\", \"id\": 2}],\"edges\":[{\"source\":1, \"target\":2, \"caption\":\"1 - 2\"}]}";
+        await JS.InvokeAsync<string>("create_alchemy_visualisation", json_graph);
+    }
+
+    }
+
+
+}
+
+
+
 
 

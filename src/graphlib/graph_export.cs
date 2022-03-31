@@ -17,7 +17,7 @@ namespace graphlib
         public bool root { get; set; }
         public string caption { get; set; } //LABEEL
         public int type { get; set; } //GROUP
-
+        public float betweeness { get; set; }  //distance between node in pixel
 
         public graph_json_format_node(int id, bool root, string caption , int type )
         {
@@ -25,6 +25,7 @@ namespace graphlib
             this.root = root;
             this.caption = caption;
             this.type = type;
+            this.betweeness = 0.2f;
         }
 
         
@@ -49,6 +50,11 @@ namespace graphlib
         public List<graph_json_format_edge> edges { get; set; }
     }
 
+
+
+    public class graph_json_format_node_style {
+        public 
+    }
 
     public class graph_export
     {
