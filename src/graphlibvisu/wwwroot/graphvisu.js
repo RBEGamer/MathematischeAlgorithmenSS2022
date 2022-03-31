@@ -16,11 +16,25 @@ function create_alchemy_visualisation(_json_data) {
         alert("graph loading failed");
         return;
     }
+
+
+
+    var types = {};
+
+    if (graph.node_types !== null) {
+        types = {
+            "types": graph.node_types
+        }
+    }
     var config = {
         dataSource: graph.data,
         forceLocked: false,
         linkDistance: function () { return 1; },
-        nodeTypes: graph.node_types,
+        nodeTypes: types,
+        caption: function (node) {
+            return node.caption;
+        },
+        initialScale: 0.1,
        // captionToggle: true,
       //  edgesToggle: true,
      //   nodesToggle: true,

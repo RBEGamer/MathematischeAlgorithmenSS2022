@@ -66,7 +66,7 @@ namespace graphlib
         public string[] node_types;
     }
 
-    public 
+     
     public class graph_export
     {
 
