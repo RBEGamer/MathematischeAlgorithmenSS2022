@@ -47,11 +47,11 @@ namespace graphlibvisu.Data
                 graphlib.graph g = new graph();
                 if (g.load_from_file(real_path))
                 {
-                    return graph_export.ToJsonString(g, null);
+                    return graph_export.ToJsonStringAlchemyJS(g, null);
                 }
             }
 
-            return "{\"nodes\": [],\"edges\":[}]}";
+            return "{\"nodes\": [],\"edges\":[}], \"nodeTypes\": null}";
         }
 
 
