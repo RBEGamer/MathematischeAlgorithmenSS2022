@@ -149,3 +149,5 @@ C:/Users/prodevmo/Desktop/MathematischeAlgorithmenSS2022/src/graphlibvisu/obj/De
 /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/obj/Debug/netcoreapp3.1/graphlibvisu.pdb
 /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/obj/Debug/netcoreapp3.1/graphlibvisu.genruntimeconfig.cache
 /Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/obj/Debug/netcoreapp3.1/graphlibvisu.csproj.CopyComplete
+/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/bin/Debug/netcoreapp3.1/graphlib.dll
+/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/bin/Debug/netcoreapp3.1/graphlib.pdb

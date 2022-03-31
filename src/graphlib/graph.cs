@@ -296,6 +296,10 @@ namespace graphlib
 
         public List<int> get_group_ids()
         {
+
+            List<int> ids = new List<int>();
+
+            return ids;
             //TODOs
         }
 

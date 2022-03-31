@@ -1,24 +1,23 @@
 ﻿<Properties StartupConfiguration="{5F9B5A59-8191-497B-9E81-77915C082EAB}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="../graphlibvisu/wwwroot/graphvisu.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="graph_export.cs">
     <Files>
-      <File FileName="../graphlibvisu/Pages/Index.razor" Line="81" Column="1" />
-      <File FileName="../graphlibvisu/Pages/_Host.cshtml" Line="21" Column="8" />
-      <File FileName="graph_export.cs" Line="75" Column="15" />
-      <File FileName="../graphlibvisu/Data/GraphLoadingItem.cs" Line="28" Column="36" />
-      <File FileName="../graphlibvisu/wwwroot/graphvisu.js" Line="1" Column="22" />
+      <File FileName="../graphlibvisu/Pages/Index.razor" Line="94" Column="1" />
+      <File FileName="../graphlibvisu/Data/FileSystemLoader.cs" Line="1" Column="1" />
+      <File FileName="graph_export.cs" Line="24" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="graphlib" expanded="True">
-            <Node name="graphlib" expanded="True" />
+            <Node name="graphlib" expanded="True">
+              <Node name="graph_export.cs" selected="True" />
+            </Node>
+            <Node name="graphlibtest" expanded="True" />
             <Node name="graphlibvisu" expanded="True">
               <Node name="Data" expanded="True" />
               <Node name="Pages" expanded="True" />
               <Node name="Properties" expanded="True" />
-              <Node name="wwwroot" expanded="True">
-                <Node name="graphvisu.js" selected="True" />
-              </Node>
+              <Node name="wwwroot" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -30,7 +29,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/wwwroot/graphvisu.js" relfile="visu/wwwroot/graphvisu.js" line="25" column="1" />
+      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/wwwroot/graphvisu.js" relfile="visu/wwwroot/graphvisu.js" line="27" column="1" />
+      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor" relfile="visu/Pages/Index.razor" line="94" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

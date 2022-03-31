@@ -4,6 +4,61 @@
     "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/graphlibvisu.csproj": {}
   },
   "projects": {
+    "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj",
+        "projectName": "graphlib",
+        "projectPath": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj",
+        "packagesPath": "/Users/marcelochsendorf/.nuget/packages/",
+        "outputPath": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/marcelochsendorf/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.406/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/graphlibvisu.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -28,7 +83,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj": {
+                "projectPath": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

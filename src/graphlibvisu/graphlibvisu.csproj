@@ -7,4 +7,9 @@
   <ItemGroup>
     <Content Remove="Pages\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\graphlib\graphlib.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "graphlib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/graphlib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/graphlib.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "graphlib/1.0.0": {
+      "type": "project",
+      "path": "../graphlib/graphlib.csproj",
+      "msbuildProject": "../graphlib/graphlib.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "graphlib >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/marcelochsendorf/.nuget/packages/": {},
@@ -35,7 +54,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj": {
+              "projectPath": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

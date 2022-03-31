@@ -12,7 +12,7 @@ namespace graphlib
     public class graph_json_format_node
     {
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public bool root { get; set; }
         public string caption { get; set; } //LABEEL
@@ -21,7 +21,7 @@ namespace graphlib
 
         public graph_json_format_node(int id, bool root, string caption , int type )
         {
-            Id = id;
+            this.id = id;
             this.root = root;
             this.caption = caption;
             this.type = type;

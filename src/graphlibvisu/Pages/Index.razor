@@ -74,7 +74,7 @@ else
         bool is_in = false;
         foreach (GraphLoadingItem it in fss)
         {
-            if (it.Equals(_fs))
+            if (it.filename == _fs)
             {
                 is_in = true;
                 break;
@@ -83,21 +83,20 @@ else
 
         if (!is_in)
         {
-            await JS.InvokeVoidAsync("show_error", "invalid load file");
+            await JS.InvokeVoidAsync("show_error", "invalid load file:" + _fs);
             return;
         }
 
 
         //FINALLY LOAD FILE
 
-        string json_graph = "{\"nodes\": [],\"edges\":[}]}";
+        string json_graph = FileSystemLoader.LoadGraphToJSONString(_fs);
         await JS.InvokeVoidAsync("create_alchemy_visualisation", json_graph);
     }
 
 }
 
 
-}
 
 
 
