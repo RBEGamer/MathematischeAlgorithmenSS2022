@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("graphlibvisu")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("graphlib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("graphlibvisu")]
-[assembly: System.Reflection.AssemblyTitleAttribute("graphlibvisu")]
+[assembly: System.Reflection.AssemblyProductAttribute("graphlib")]
+[assembly: System.Reflection.AssemblyTitleAttribute("graphlib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Von der MSBuild WriteCodeFragment-Klasse generiert.

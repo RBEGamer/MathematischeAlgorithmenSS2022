@@ -17,12 +17,15 @@ function create_alchemy_visualisation(_json_data) {
         return;
     }
     var config = {
-        dataSource: graph,
-        captionToggle: true,
-        edgesToggle: true,
-        nodesToggle: true,
-        toggleRootNotes: false,
-        cluster: true,
+        dataSource: graph.data,
+        forceLocked: false,
+        linkDistance: function () { return 1; },
+        nodeTypes: graph.node_types,
+       // captionToggle: true,
+      //  edgesToggle: true,
+     //   nodesToggle: true,
+     //   toggleRootNotes: false,
+     //  cluster: true,
         zoomControls: true
     };
 

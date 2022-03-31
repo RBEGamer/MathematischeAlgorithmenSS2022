@@ -59,12 +59,44 @@ namespace graphlib
         public string borderColor;
     }
 
+
+    public class graph_json_format_alchemy_js
+    {
+        public graph_json_format_root data;
+        public string[] node_types;
+    }
+
+    public 
     public class graph_export
     {
 
 
+        public static string ToJsonStringAlchemyJS(graph _g, node? _root_node)
+        {
+            
+
+
+            graph_json_format_alchemy_js tmp = new graph_json_format_alchemy_js();
+
+            tmp.data = ToNodeEdgeObj(_g, _root_node);
+
+            //ADD TYPES = NODE CAPITONS AS STRING ARRAY
+
+
+            //ADD NODE COLORS
+
+
+            return JsonSerializer.Serialize(tmp);
+
+        }
 
         public static string ToJsonString(graph _g, node? _root_node)
+           
+        {
+            return JsonSerializer.Serialize(ToNodeEdgeObj(_g, _root_node));
+        }
+
+        public static graph_json_format_root ToNodeEdgeObj(graph _g, node? _root_node)
         {
 
             graph_json_format_root gjson = new graph_json_format_root();
@@ -87,8 +119,7 @@ namespace graphlib
             }
 
 
-            string jsonString = JsonSerializer.Serialize(gjson);
-            return jsonString;
+            return gjson; ;
         }
 
     }
