@@ -1,8 +1,11 @@
 ﻿<Properties StartupConfiguration="{5F9B5A59-8191-497B-9E81-77915C082EAB}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="../graphlibvisu/wwwroot/graphvisu.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../graphlibvisu/Pages/Graph.razor">
     <Files>
       <File FileName="graph_export.cs" Line="95" Column="2" />
-      <File FileName="../graphlibvisu/wwwroot/graphvisu.js" Line="31" Column="1" />
+      <File FileName="../graphlibvisu/wwwroot/graphvisu.js" Line="21" Column="28" />
+      <File FileName="../graphlibvisu/wwwroot/alchemy/alchemy.js" Line="1158" Column="22" />
+      <File FileName="../graphlibvisu/Pages/Index.razor" Line="22" Column="2" />
+      <File FileName="../graphlibvisu/Pages/Graph.razor" Line="106" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,10 +14,11 @@
             <Node name="graphlib" expanded="True" />
             <Node name="graphlibtest" expanded="True" />
             <Node name="graphlibvisu" expanded="True">
-              <Node name="Pages" expanded="True" />
-              <Node name="Properties" expanded="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="Graph.razor" selected="True" />
+              </Node>
               <Node name="wwwroot" expanded="True">
-                <Node name="graphvisu.js" selected="True" />
+                <Node name="alchemy" expanded="True" />
               </Node>
             </Node>
           </Node>

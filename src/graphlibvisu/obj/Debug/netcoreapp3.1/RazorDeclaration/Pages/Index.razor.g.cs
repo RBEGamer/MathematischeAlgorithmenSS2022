@@ -91,7 +91,7 @@ using graphlibvisu.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 54 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
+#line 55 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
        
     private GraphLoadingItem[] graphs;
 
