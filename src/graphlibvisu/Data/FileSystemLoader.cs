@@ -9,8 +9,8 @@ namespace graphlibvisu.Data
     public class FileSystemLoader
     {
        
-
-        public Task<GraphLoadingItem[]> GetGraphLoadingItem()
+       
+        public static Task<GraphLoadingItem[]> GetGraphLoadingItem()
         {
 
             string currentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);

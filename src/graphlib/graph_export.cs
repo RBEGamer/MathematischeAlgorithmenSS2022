@@ -48,12 +48,15 @@ namespace graphlib
     public class graph_json_format_root{
         public List<graph_json_format_node> nodes { get; set; }
         public List<graph_json_format_edge> edges { get; set; }
+
+        public HashSet<graph_json_format_node_style> nodeStyle { get; set;}
     }
 
 
 
     public class graph_json_format_node_style {
-        public 
+        public string color;
+        public string borderColor;
     }
 
     public class graph_export
@@ -67,6 +70,9 @@ namespace graphlib
             graph_json_format_root gjson = new graph_json_format_root();
             gjson.nodes = new List<graph_json_format_node>();
             gjson.edges = new List<graph_json_format_edge>();
+            gjson.nodeStyle = new HashSet<graph_json_format_node_style>();
+
+            //gjson.nodeStyle.
 
             //ADD NODES
             foreach (node n in _g.Nodes)

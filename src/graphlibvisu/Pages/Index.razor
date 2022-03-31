@@ -56,19 +56,45 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        graphs = await fs_loader.GetGraphLoadingItem();
+        graphs = await FileSystemLoader.GetGraphLoadingItem();
 
 
     }
+
+
 
     private async Task load_graph()
     {
+        string? _fs = null;
+        if (_fs == null)
+        {
+            _fs = "Graph1.txt";
+        }
+        GraphLoadingItem[] fss = await FileSystemLoader.GetGraphLoadingItem();
+        bool is_in = false;
+        foreach (GraphLoadingItem it in fss)
+        {
+            if (it.Equals(_fs))
+            {
+                is_in = true;
+                break;
+            }
+        }
 
-        string json_graph = "{\"nodes\": [{\"caption\": \"A\",\"type\": \"award\", \"id\": 1},{\"caption\": \"B\",\"type\": \"award\", \"id\": 2}],\"edges\":[{\"source\":1, \"target\":2, \"caption\":\"1 - 2\"}]}";
-        await JS.InvokeAsync<string>("create_alchemy_visualisation", json_graph);
+        if (!is_in)
+        {
+            await JS.InvokeVoidAsync("show_error", "invalid load file");
+            return;
+        }
+
+
+        //FINALLY LOAD FILE
+
+        string json_graph = "{\"nodes\": [],\"edges\":[}]}";
+        await JS.InvokeVoidAsync("create_alchemy_visualisation", json_graph);
     }
 
-    }
+}
 
 
 }

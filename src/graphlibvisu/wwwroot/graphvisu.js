@@ -1,3 +1,7 @@
+function show_error(_msg) {
+    alert(_msg);
+}
+
 function create_alchemy_visualisation(_json_data) {
     console.log(_json_data)
 
