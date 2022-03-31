@@ -78,7 +78,7 @@ namespace graphlib
             for (int i = 0; i < tmp_g.get_unvisited().Count; i++)
             {
                 //PERFORM DEPTH SEARCH REPEAT FOR NEXT UNVISITED
-                if(getDepthFirstSearchTrees(tmp_g, tmp_g.get_unvisited().ElementAt(0), false, false).Count > 0)
+                if(getDepthFirstSearchTrees(tmp_g, tmp_g.get_unvisited().ElementAt(0), true, false).Count > 0)
                 {
                     result++;
                 }
@@ -117,10 +117,11 @@ namespace graphlib
             stack.Push(tmp_start);
 
             bool finished = false;
-
+            int c = tmp_g.get_all_edges().Count();
             while (stack.Count > 0 && !finished)
             {
                 finished = getDepthFirstSearchTreesStep(ref tmp_g, ref stack, ref depthFirstSearchTrees);
+               
             }
 
             

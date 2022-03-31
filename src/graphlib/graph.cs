@@ -83,12 +83,12 @@ namespace graphlib
             bool import_ok = true;
             if(int.Parse(lines[0]) != node_count())
             {
-                import_ok = false;
+           //     import_ok = false;
             }
 
             if (imported_lines != edge_count())
             {
-                import_ok = false;
+             //   import_ok = false;
             }
 
 
