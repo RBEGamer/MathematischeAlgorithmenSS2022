@@ -77,6 +77,13 @@ using graphlibvisu.Shared;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
+using Microsoft.AspNetCore.WebUtilities;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
 using graphlibvisu.Data;
 
 #line default
@@ -91,7 +98,7 @@ using graphlibvisu.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 55 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
+#line 56 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
        
     private GraphLoadingItem[] graphs;
 
@@ -99,14 +106,22 @@ using graphlibvisu.Data;
     {
         graphs = await FileSystemLoader.GetGraphLoadingItem();
 
-
+      
     }
-
-
-
-    private async Task load_graph()
+    
+     //private async Task load_graph()
+     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        string? _fs = null;
+
+         string? _fs = null;
+         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("fs", out var _initialCount))
+        {
+            _fs = _initialCount;
+        }
+
+
+       
         if (_fs == null)
         {
             _fs = "Graph1.txt";
@@ -139,6 +154,7 @@ using graphlibvisu.Data;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JS { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private FileSystemLoader fs_loader { get; set; }
     }

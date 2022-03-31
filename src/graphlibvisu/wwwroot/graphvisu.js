@@ -3,8 +3,8 @@ function show_error(_msg) {
 }
 
 function create_alchemy_visualisation(_json_data) {
-    console.log(_json_data)
-
+    console.log(_json_data);
+    debugger;
     var graph = null;
     try {
         graph = JSON.parse(_json_data);
@@ -17,7 +17,7 @@ function create_alchemy_visualisation(_json_data) {
         return;
     }
 
-
+   
 
     var types = {};
 
@@ -26,20 +26,32 @@ function create_alchemy_visualisation(_json_data) {
             "types": graph.node_types
         }
     }
+
+    var colors = {};
+    if (graph.clusterColours !== null) {
+        colors = graph.clusterColours;
+    }
+
     var config = {
         dataSource: graph.data,
         forceLocked: false,
-        linkDistance: function () { return 1; },
+        cluster: true,
+        clusterColours: colors,
+        linkDistance: function () { return 0.1; },
         nodeTypes: types,
+
         caption: function (node) {
             return node.caption;
         },
-        initialScale: 0.1,
+        initialScale: 0.4,
+
+        graphHeight: function () { return 800; },
+        graphWidth: function () { return 800; },
        // captionToggle: true,
       //  edgesToggle: true,
      //   nodesToggle: true,
      //   toggleRootNotes: false,
-     //  cluster: true,
+    
         zoomControls: true
     };
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -19,13 +20,15 @@ namespace graphlib
         public int type { get; set; } //GROUP
         public float betweeness { get; set; }  //distance between node in pixel
 
-        public graph_json_format_node(int id, bool root, string caption , int type )
+        public int cluster { get; set; }
+        public graph_json_format_node(int id, bool root, string caption , int type, int cluster )
         {
             this.id = id;
             this.root = root;
             this.caption = caption;
             this.type = type;
-            this.betweeness = 0.2f;
+            this.betweeness = 1.0f;
+            this.cluster = cluster;
         }
 
         
@@ -55,21 +58,58 @@ namespace graphlib
 
 
     public class graph_json_format_node_style {
-        public string color;
-        public string borderColor;
+        public string color { get; set; }
+        public string borderColor { get; set; }
     }
 
 
     public class graph_json_format_alchemy_js
     {
-        public graph_json_format_root data;
-        public string[] node_types;
+        public graph_json_format_root data { get; set; }
+        public string[] node_types { get; set; }
+        public string[] clusterColours { get; set; }
     }
 
      
     public class graph_export
     {
 
+        public static Color ColorFromHSV(double hue, double saturation, double value)
+        {
+            int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
+            double f = hue / 60 - Math.Floor(hue / 60);
+
+            value = value * 255;
+            int v = Convert.ToInt32(value);
+            int p = Convert.ToInt32(value * (1 - saturation));
+            int q = Convert.ToInt32(value * (1 - f * saturation));
+            int t = Convert.ToInt32(value * (1 - (1 - f) * saturation));
+
+            if (hi == 0)
+                return Color.FromArgb(255, v, t, p);
+            else if (hi == 1)
+                return Color.FromArgb(255, q, v, p);
+            else if (hi == 2)
+                return Color.FromArgb(255, p, v, t);
+            else if (hi == 3)
+                return Color.FromArgb(255, p, q, v);
+            else if (hi == 4)
+                return Color.FromArgb(255, t, p, v);
+            else
+                return Color.FromArgb(255, v, p, q);
+        }
+
+        private static String HexConverter(System.Drawing.Color c)
+        {
+            try
+            {
+                return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
+            }
+            catch (Exception ex)
+            {
+                return "#112233";
+            }
+        }
 
         public static string ToJsonStringAlchemyJS(graph _g, node? _root_node)
         {
@@ -78,15 +118,37 @@ namespace graphlib
 
             graph_json_format_alchemy_js tmp = new graph_json_format_alchemy_js();
 
-            tmp.data = ToNodeEdgeObj(_g, _root_node);
+           
+
 
             //ADD TYPES = NODE CAPITONS AS STRING ARRAY
-
-
+            List<string> nt = new List<string>();   
+            foreach(node n in _g.Nodes)
+            {
+                nt.Add(n.Label);
+            }
+            tmp.node_types = nt.ToArray();
             //ADD NODE COLORS
+            int groups = algorithms.getCorrelationComponents(_g) +1; //+1 = DEFAULT GROUP
+
+            //APPLY CLUSTERING
+            algorithms.CreateCorrelationComponentGroups(ref _g);
+            tmp.data = ToNodeEdgeObj(_g, _root_node);
 
 
-            return JsonSerializer.Serialize(tmp);
+            //ADD COLORS FROM THE HSV RAINBOW SPACE
+            tmp.clusterColours = new string[groups];
+            for (int i = 0; i < groups; i++)
+            {
+                tmp.clusterColours[i] = HexConverter(ColorFromHSV((1.0 / (groups * 2)) * (i + 2), 1.0, 1.0));
+            }
+
+
+            
+
+            string ret = JsonSerializer.Serialize(tmp);
+            
+            return ret;
 
         }
 
@@ -109,7 +171,7 @@ namespace graphlib
             //ADD NODES
             foreach (node n in _g.Nodes)
             {
-                gjson.nodes.Add(new graph_json_format_node(n.Id, n.Equals(_root_node), n.Label, n.Group_id));
+                gjson.nodes.Add(new graph_json_format_node(n.Id, n.Equals(_root_node), n.Label, n.Group_id, n.Group_id));
             }
 
             //ADD EDGES
@@ -119,7 +181,7 @@ namespace graphlib
             }
 
 
-            return gjson; ;
+            return gjson;
         }
 
     }

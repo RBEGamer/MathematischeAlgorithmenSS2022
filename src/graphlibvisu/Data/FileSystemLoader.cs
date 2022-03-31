@@ -47,7 +47,9 @@ namespace graphlibvisu.Data
                 graphlib.graph g = new graph();
                 if (g.load_from_file(real_path))
                 {
-                    return graph_export.ToJsonStringAlchemyJS(g, null);
+
+                    string t = graph_export.ToJsonStringAlchemyJS(g, null);
+                    return t;
                 }
             }
 

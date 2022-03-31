@@ -1,8 +1,9 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.WebUtilities
 @using graphlibvisu.Data
 @inject FileSystemLoader fs_loader
 @inject IJSRuntime JS
-
+@inject NavigationManager NavManager
 
 
 <h1>GRAPHLIB - INTERACTIVE VISUALISATION</h1>
@@ -42,7 +43,7 @@ else
 
                     <td>@g.type</td>
                     <td>
-                        <a class="btn btn-primary" @onclick="load_graph" role="button">OPEN</a>
+                        <a class="btn btn-primary" href="/?fs=@g.filename" role="button">OPEN</a>
                     </td>
                 </tr>
             }
@@ -59,14 +60,22 @@ else
     {
         graphs = await FileSystemLoader.GetGraphLoadingItem();
 
-
+      
     }
-
-
-
-    private async Task load_graph()
+    
+     //private async Task load_graph()
+     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        string? _fs = null;
+
+         string? _fs = null;
+         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("fs", out var _initialCount))
+        {
+            _fs = _initialCount;
+        }
+
+
+       
         if (_fs == null)
         {
             _fs = "Graph1.txt";
