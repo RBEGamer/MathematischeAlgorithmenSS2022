@@ -13,7 +13,12 @@
 <div class="alchemy" id="alchemy"></div>
 
 
-
+<table>
+    <tr>
+        <th><a class="btn btn-primary" @onclick="breitensuche" role="button">BREITENSUCHE</a></th>
+        <th><a class="btn btn-primary" @onclick="cluster" role="button">CLUSTER</a></th>
+    </tr>
+</table>
 
 <h1>Load example graphs</h1>
 
@@ -26,27 +31,15 @@
 else
 {
     <table class="table">
-        <thead>
-            <tr>
-
-                <th>TITLE</th>
-                <th>TYPE</th>
-                <th>OPEN</th>
-            </tr>
-        </thead>
         <tbody>
-
-            @foreach (var g in graphs)
-            {
-                <tr>
-                    <td>@g.filename</td>
-
-                    <td>@g.type</td>
+            <tr>
+                @foreach (var g in graphs)
+                {
                     <td>
-                        <a class="btn btn-primary" href="/?fs=@g.filename" role="button">OPEN</a>
+                        <a class="btn btn-primary" href="/?fs=@g.filename" onclick="window.location.reload()" role="button">@g.filename</a>
                     </td>
-                </tr>
-            }
+                }
+            </tr>
         </tbody>
     </table>
 }
@@ -59,23 +52,43 @@ else
     protected override async Task OnInitializedAsync()
     {
         graphs = await FileSystemLoader.GetGraphLoadingItem();
-
-      
     }
-    
-     //private async Task load_graph()
-     protected override async Task OnAfterRenderAsync(bool firstRender)
+
+
+    protected void breitensuche()
+    {
+        FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.BREITENSUCHE);
+        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+    }
+
+    protected void cluster()
+    {
+        FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.CLUSTER);
+        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+    }
+
+
+
+    protected void load_graph(string _fs)
+    {
+        FileSystemLoader.LoadGraphToJSONString(_fs);
+        string json_graph = FileSystemLoader.CurrentGraphToJSONSTring();
+        JS.InvokeVoidAsync("create_alchemy_visualisation", json_graph);
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
 
-         string? _fs = null;
-         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
-         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("fs", out var _initialCount))
+        string? _fs = null;
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("fs", out var _initialCount))
         {
             _fs = _initialCount;
         }
 
 
-       
+
         if (_fs == null)
         {
             _fs = "Graph1.txt";
@@ -97,11 +110,9 @@ else
             return;
         }
 
+        load_graph(_fs);
 
-        //FINALLY LOAD FILE
 
-        string json_graph = FileSystemLoader.LoadGraphToJSONString(_fs);
-        await JS.InvokeVoidAsync("create_alchemy_visualisation", json_graph);
     }
 
 }

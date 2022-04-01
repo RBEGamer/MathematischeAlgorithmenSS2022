@@ -98,30 +98,50 @@ using graphlibvisu.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
+#line 49 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
        
     private GraphLoadingItem[] graphs;
 
     protected override async Task OnInitializedAsync()
     {
         graphs = await FileSystemLoader.GetGraphLoadingItem();
-
-      
     }
-    
-     //private async Task load_graph()
-     protected override async Task OnAfterRenderAsync(bool firstRender)
+
+
+    protected void breitensuche()
+    {
+        FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.BREITENSUCHE);
+        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+    }
+
+    protected void cluster()
+    {
+        FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.CLUSTER);
+        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+    }
+
+
+
+    protected void load_graph(string _fs)
+    {
+        FileSystemLoader.LoadGraphToJSONString(_fs);
+        string json_graph = FileSystemLoader.CurrentGraphToJSONSTring();
+        JS.InvokeVoidAsync("create_alchemy_visualisation", json_graph);
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
 
-         string? _fs = null;
-         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
-         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("fs", out var _initialCount))
+        string? _fs = null;
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("fs", out var _initialCount))
         {
             _fs = _initialCount;
         }
 
 
-       
+
         if (_fs == null)
         {
             _fs = "Graph1.txt";
@@ -143,11 +163,9 @@ using graphlibvisu.Data;
             return;
         }
 
+        load_graph(_fs);
 
-        //FINALLY LOAD FILE
 
-        string json_graph = FileSystemLoader.LoadGraphToJSONString(_fs);
-        await JS.InvokeVoidAsync("create_alchemy_visualisation", json_graph);
     }
 
 

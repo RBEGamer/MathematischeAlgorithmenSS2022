@@ -128,14 +128,12 @@ namespace graphlib
                 nt.Add(kv.Value.Label);
             }
             tmp.node_types = nt.ToArray();
-            //ADD NODE COLORS
-            //int groups = algorithms.getCorrelationComponents(_g)+1;
-
+            
             //APPLY CLUSTERING
-            algorithms.CreateCorrelationComponentGroups(ref _g) ;
+            //algorithms.CreateCorrelationComponentGroups(ref _g) ;
             tmp.data = ToNodeEdgeObj(_g, _root_node);
 
-
+            //ADD NODE COLORS
             int groups = _g.get_group_count() + 1;
 
             //ADD COLORS FROM THE HSV RAINBOW SPACE

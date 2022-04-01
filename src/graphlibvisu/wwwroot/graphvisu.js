@@ -2,9 +2,11 @@ function show_error(_msg) {
     alert(_msg);
 }
 
+
+var alchemy = new Alchemy();
 function create_alchemy_visualisation(_json_data) {
     
-    debugger;
+   // debugger;
     var graph = null;
     try {
         graph = JSON.parse(_json_data);
@@ -29,7 +31,7 @@ function create_alchemy_visualisation(_json_data) {
     }
 
     var colors = {};
-    debugger;
+ //   debugger;
     if (graph.clusterColours !== null) {
         colors = graph.clusterColours;
     }
@@ -57,7 +59,8 @@ function create_alchemy_visualisation(_json_data) {
         zoomControls: true
     };
 
-    var alchemy = new Alchemy(config)
+    
+    alchemy.begin(config)
 
 
     console.log("create_alchemy_visualisation finished");

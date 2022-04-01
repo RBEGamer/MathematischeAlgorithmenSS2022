@@ -13,7 +13,15 @@ namespace graphlibvisu.Data
     public class FileSystemLoader
     {
 
+        public enum ALOGORITHM
+        {
+            NONE,
+            CLUSTER,
+            BREITENSUCHE,
+            TIEFENSUCHE
+        }
 
+        static graph loaded_graph = new graph();
  
         public static string[] get_files_from_fs()
         {
@@ -44,16 +52,38 @@ namespace graphlibvisu.Data
 
             if (fok && real_path != null && real_path.Length > 0)
             {
-                graphlib.graph g = new graph();
-                if (g.load_from_file(real_path))
-                {
-
-                    string t = graph_export.ToJsonStringAlchemyJS(g, null);
-                    return t;
+                
+                if (loaded_graph.load_from_file(real_path))
+                { 
                 }
             }
 
             return "{\"nodes\": [],\"edges\":[}], \"nodeTypes\": null}";
+        }
+
+
+        public static string CurrentGraphToJSONSTring()
+        {
+                return graph_export.ToJsonStringAlchemyJS(loaded_graph, null);
+        }
+
+
+
+
+        public static void ApplyEffectOnGraph(ALOGORITHM _alg)
+        {
+            switch (_alg)
+            {
+                case ALOGORITHM.CLUSTER:
+                    algorithms.CreateCorrelationComponentGroups(ref loaded_graph);
+                    break;
+                case ALOGORITHM.BREITENSUCHE:
+                    algorithms.getDepthFirstSearchTrees(ref loaded_graph, loaded_graph.get_random_node(), false, true);
+                    break;
+
+                default:
+                    break;
+            }
         }
 
 
