@@ -3,7 +3,41 @@ function show_error(_msg) {
 }
 
 
+
+function insertUrlParam(key, value) {
+    if (history.pushState) {
+        let searchParams = new URLSearchParams(window.location.search);
+        searchParams.set(key, value);
+        let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + searchParams.toString();
+        window.history.pushState({ path: newurl }, '', newurl);
+    }
+}
+
+
+ function removeUrlParameter(paramKey) {
+    const url = window.location.href
+    console.log("url", url)
+    var r = new URL(url)
+    r.searchParams.delete(paramKey)
+    const newUrl = r.href
+    console.log("r.href", newUrl)
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+function set_graph_file_param(_fs) {
+    removeUrlParameter("fs");
+    insertUrlParam("fs", _fs);
+}
+
 var alchemy = new Alchemy();
+
+
+function init_alchemy() {
+    alchemy = new Alchemy();
+    alchemy.begin({});
+}
+
+
 function create_alchemy_visualisation(_json_data) {
     
    // debugger;

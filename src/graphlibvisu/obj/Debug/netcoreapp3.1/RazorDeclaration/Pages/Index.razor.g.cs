@@ -98,15 +98,23 @@ using graphlibvisu.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 49 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
+#line 50 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
        
     private GraphLoadingItem[] graphs;
 
     protected override async Task OnInitializedAsync()
     {
         graphs = await FileSystemLoader.GetGraphLoadingItem();
+
+
     }
 
+
+    protected void greset()
+    {
+        FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.RESET);
+        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+    }
 
     protected void breitensuche()
     {
@@ -132,6 +140,7 @@ using graphlibvisu.Data;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await JS.InvokeVoidAsync("init_alchemy");
 
         string? _fs = null;
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);

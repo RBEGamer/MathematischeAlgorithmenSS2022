@@ -18,11 +18,13 @@ namespace graphlibvisu.Data
             NONE,
             CLUSTER,
             BREITENSUCHE,
-            TIEFENSUCHE
+            TIEFENSUCHE,
+            RESET
         }
 
         static graph loaded_graph = new graph();
- 
+        static graph org_loaded_graph = new graph();
+
         public static string[] get_files_from_fs()
         {
             string currentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -54,7 +56,8 @@ namespace graphlibvisu.Data
             {
                 
                 if (loaded_graph.load_from_file(real_path))
-                { 
+                {
+                    org_loaded_graph = loaded_graph;
                 }
             }
 
@@ -80,7 +83,9 @@ namespace graphlibvisu.Data
                 case ALOGORITHM.BREITENSUCHE:
                     algorithms.getDepthFirstSearchTrees(ref loaded_graph, loaded_graph.get_random_node(), false, true);
                     break;
-
+                case ALOGORITHM.RESET:
+                    loaded_graph = org_loaded_graph;
+                    break;
                 default:
                     break;
             }

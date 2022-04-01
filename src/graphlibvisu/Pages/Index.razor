@@ -15,6 +15,7 @@
 
 <table>
     <tr>
+        <th><a class="btn btn-primary" @onclick="greset" role="button">RESET</a></th>
         <th><a class="btn btn-primary" @onclick="breitensuche" role="button">BREITENSUCHE</a></th>
         <th><a class="btn btn-primary" @onclick="cluster" role="button">CLUSTER</a></th>
     </tr>
@@ -36,7 +37,7 @@ else
                 @foreach (var g in graphs)
                 {
                     <td>
-                        <a class="btn btn-primary" href="/?fs=@g.filename" onclick="window.location.reload()" role="button">@g.filename</a>
+                        <a class="btn btn-primary" onclick="set_graph_file_param('@g.filename'); window.location.reload()" role="button">@g.filename</a>
                     </td>
                 }
             </tr>
@@ -52,8 +53,16 @@ else
     protected override async Task OnInitializedAsync()
     {
         graphs = await FileSystemLoader.GetGraphLoadingItem();
+
+
     }
 
+
+    protected void greset()
+    {
+        FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.RESET);
+        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+    }
 
     protected void breitensuche()
     {
@@ -79,6 +88,7 @@ else
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await JS.InvokeVoidAsync("init_alchemy");
 
         string? _fs = null;
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
