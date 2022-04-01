@@ -160,9 +160,22 @@ namespace graphlib
                 s.Visited = true;
 
 
-                foreach(edge e in s.get_edges())
+                foreach(edge e in _g.get_all_edges())
                 {
-                    _stack.Push(e.To.Id);
+                    if (e.Directed && s.Id == e.From.Id)
+                    {
+                        _stack.Push(e.To.Id);
+                    }
+                    else{
+                        if (s.Id != e.To.Id && s.Id == e.From.Id)
+                        {
+                            _stack.Push(e.To.Id);
+                        }else if (s.Id != e.From.Id && s.Id == e.To.Id)
+                        {
+                            _stack.Push(e.From.Id);
+                        }
+                    }
+                    
                     
                     
                     
