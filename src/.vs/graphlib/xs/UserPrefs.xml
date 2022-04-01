@@ -1,12 +1,13 @@
 ﻿<Properties StartupConfiguration="{5F9B5A59-8191-497B-9E81-77915C082EAB}|Default">
   <MonoDevelop.Ide.ItemProperties.graphlibtest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="graphlibvisu/wwwroot/graphvisu.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="graphlibvisu/wwwroot/alchemy/alchemy.js">
     <Files>
-      <File FileName="graphlibvisu/Pages/Index.razor" Line="43" Column="17" />
+      <File FileName="graphlibvisu/Pages/Index.razor" Line="92" Column="1" />
       <File FileName="graphlib/algorithms.cs" Line="99" Column="9" />
       <File FileName="graphlibvisu/Pages/_Host.cshtml" Line="18" Column="69" />
-      <File FileName="graphlibvisu/Data/FileSystemLoader.cs" Line="19" Column="20" />
-      <File FileName="graphlibvisu/wwwroot/graphvisu.js" Line="6" Column="25" />
+      <File FileName="graphlibvisu/Data/FileSystemLoader.cs" Line="61" Column="18" />
+      <File FileName="graphlibvisu/wwwroot/graphvisu.js" Line="96" Column="5" />
+      <File FileName="graphlibvisu/wwwroot/alchemy/alchemy.js" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,7 +19,9 @@
               <Node name="Data" expanded="True" />
               <Node name="Pages" expanded="True" />
               <Node name="wwwroot" expanded="True">
-                <Node name="graphvisu.js" selected="True" />
+                <Node name="alchemy" expanded="True">
+                  <Node name="alchemy.js" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>

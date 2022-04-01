@@ -94,7 +94,7 @@ function create_alchemy_visualisation(_json_data) {
     };
 
     
-    alchemy.begin(config)
+    alchemy.setConf(config)
 
 
     console.log("create_alchemy_visualisation finished");
