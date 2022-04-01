@@ -81,10 +81,10 @@ function create_alchemy_visualisation(_json_data) {
         caption: function (node) {
             return node.caption;
         },
-        initialScale: 0.4,
+        initialScale: 0.8,
 
         graphHeight: function () { return 800; },
-        graphWidth: function () { return 800; },
+        graphWidth: function () { return 1200; },
         captionToggle: true,
         edgesToggle: true,
         nodesToggle: true,
