@@ -3,7 +3,7 @@ function show_error(_msg) {
 }
 
 function create_alchemy_visualisation(_json_data) {
-    console.log(_json_data);
+    
     debugger;
     var graph = null;
     try {
@@ -12,11 +12,12 @@ function create_alchemy_visualisation(_json_data) {
 
     }
 
+    console.log(graph);
+
     if (graph === null) {
         alert("graph loading failed");
         return;
     }
-
    
 
     var types = {};
@@ -28,6 +29,7 @@ function create_alchemy_visualisation(_json_data) {
     }
 
     var colors = {};
+    debugger;
     if (graph.clusterColours !== null) {
         colors = graph.clusterColours;
     }

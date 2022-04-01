@@ -23,10 +23,10 @@ namespace graphlibtest
             g.load_from_file(files[0]);
            
             
-            Console.WriteLine(g.ToString());
+           // Console.WriteLine(g.ToString());
 
 
-          //  algorithms.getDepthFirstSearchTrees(g, g.Nodes[0], true);
+            System.Collections.Generic.List<node> nt =algorithms.getDepthFirstSearchTrees(ref g, g.get_random_node(), false, true);
 
             Console.WriteLine("getCorrelationComponents: " + algorithms.getCorrelationComponents(g).ToString());
 

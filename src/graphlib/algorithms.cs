@@ -10,12 +10,12 @@ namespace graphlib
     {
 
 
-        static public void CreateCorrelationComponentGroups(ref graph _g)
+        static public int CreateCorrelationComponentGroups(ref graph _g)
         {
             System.Console.WriteLine("--------------------------------");
             System.Console.WriteLine("CreateCorrelationComponentGroups");
             System.Console.WriteLine("--------------------------------");
-
+            int group_count = 0;
            
             _g.set_all_unvisited();
             _g.ungroup_all();
@@ -29,7 +29,7 @@ namespace graphlib
             {
                 //PERFORM DEPTH SEARCH REPEAT FOR NEXT UNVISITED
 
-                List<node> found_nodes = getDepthFirstSearchTrees(_g, _g.get_unvisited().ElementAt(0), false, false);
+                List<node> found_nodes = getDepthFirstSearchTrees(ref _g, _g.get_unvisited().ElementAt(0), false, false);
                 if (found_nodes.Count > 0)
                 {
 
@@ -51,6 +51,10 @@ namespace graphlib
                         group_found = group_id;
                     }
 
+                    if(group_count < group_found)
+                    {
+                        group_count = group_found;
+                    }
                     //ALLE NODES DER NEUEN GRUPPE ZUWEISEN
                     foreach (node nc in found_nodes)
                     {
@@ -60,7 +64,7 @@ namespace graphlib
                 }
             }
 
-           
+            return group_count;
         }
 
         static public int getCorrelationComponents(graph _g)
@@ -78,7 +82,7 @@ namespace graphlib
             for (int i = 0; i < tmp_g.get_unvisited().Count; i++)
             {
                 //PERFORM DEPTH SEARCH REPEAT FOR NEXT UNVISITED
-                if(getDepthFirstSearchTrees(tmp_g, tmp_g.get_unvisited().ElementAt(0), true, false).Count > 0)
+                if(getDepthFirstSearchTrees(ref tmp_g, tmp_g.get_unvisited().ElementAt(0), true, false).Count > 0)
                 {
                     result++;
                 }
@@ -88,7 +92,12 @@ namespace graphlib
         }
 
 
-        public static List<node> getDepthFirstSearchTrees(graph _g, node _start, bool _copy, bool _startover)
+
+
+     
+
+
+        public static List<node> getDepthFirstSearchTrees(ref graph _g, node _start, bool _copy, bool _startover)
         {
             System.Console.WriteLine("------------------------");
             System.Console.WriteLine("getDepthFirstSearchTrees");
@@ -113,8 +122,8 @@ namespace graphlib
             
 
 
-            Stack<node> stack = new Stack<node>();
-            stack.Push(tmp_start);
+            Stack<int> stack = new Stack<int>();
+            stack.Push(tmp_start.Id);
 
             bool finished = false;
             int c = tmp_g.get_all_edges().Count();
@@ -128,7 +137,7 @@ namespace graphlib
             return depthFirstSearchTrees;
         }
 
-        public static bool getDepthFirstSearchTreesStep(ref graph _g, ref Stack<node> _stack, ref List<node> _tree)
+        public static bool getDepthFirstSearchTreesStep(ref graph _g, ref Stack<int> _stack, ref List<node> _tree)
         {
 
             if(_stack.Count <= 0)
@@ -136,7 +145,12 @@ namespace graphlib
                 return true;
             }
 
-            node s = _stack.Pop();
+            int sid = _stack.Pop();
+            node s = _g.node_lookup[sid];
+            if(s == null)
+            {
+                return true;
+            }
             System.Console.WriteLine(s.ToString());
             if (!s.Visited)
             {
@@ -144,29 +158,11 @@ namespace graphlib
                 s.Visited = true;
 
 
-                foreach(edge e in _g.get_all_edges())
+                foreach(edge e in s.get_edges())
                 {
-                    //DIRECTED
-
-                    if (e.Directed && e.From.Equals(s)) 
-                    {
-                        _stack.Push(e.To);
-                    }
-                    else if(!e.Directed)
-                    {
-                        //ADD OTHER SIDE TO STACK
-                        //THIS ALLOWS LOOP EDGE ALSO
-                        if (e.From.Equals(s))
-                        {
-                            _stack.Push(e.To);
-                        }
-
-                        if (e.To.Equals(s))
-                        {
-                            _stack.Push(e.From);
-                        }
-                        
-                    }
+                    _stack.Push(e.To.Id);
+                    
+                    
                     
                    
               
@@ -174,12 +170,12 @@ namespace graphlib
                 
             }
             
-            Console.WriteLine("----- STACK ------");
-            foreach(node e in _stack.ToArray())
-            {
-                Console.WriteLine(e.Id.ToString());
-            }
-            Console.WriteLine("----- END-STACK ------");
+          //  Console.WriteLine("----- STACK ------");
+          //  foreach(int e in _stack.ToArray())
+          //  {
+          //      Console.WriteLine(e.ToString());
+          //  }
+          //  Console.WriteLine("----- END-STACK ------");
             return false;
         }
     }

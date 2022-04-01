@@ -7,30 +7,22 @@ namespace graphlib
     public class graph
     {
 
-        private List<node> nodes;
-
-        public List<node> Nodes { get => nodes; }
+      //  private List<node> nodes;
+        public Dictionary<int, node> node_lookup { get; }
+        
 
         public graph()
         {
-            nodes = new List<node>();
+            //nodes = new List<node>();
+            node_lookup = new Dictionary<int, node>();
         }
 
         public graph(graph _g)
         {
-            nodes = _g.nodes;
+            node_lookup = _g.node_lookup;
         }
 
-        public void sort_nodes_by_id()
-        {
-            nodes.Sort();
-        }
-
-
-        public void remove_duplicate_nodes()
-        {
-            nodes.Distinct().ToList().ForEach(node => nodes.Remove(node));
-        }
+      
         public bool load_from_file(string _file)
         {
             if (!File.Exists(_file))
@@ -61,8 +53,8 @@ namespace graphlib
                         }
 
                         //ADD STUFF
-                        add_node(to, true);
-                        add_node(from, true);
+                        add_node(to);
+                        add_node(from);
                         add_edge(ed);
 
                         //     Console.WriteLine(ed.ToString());
@@ -77,95 +69,100 @@ namespace graphlib
                 }
             }
             
-            sort_nodes_by_id();
+           
 
 
             bool import_ok = true;
-            if(int.Parse(lines[0]) != node_count())
-            {
-           //     import_ok = false;
-            }
-
-            if (imported_lines != edge_count())
+            int nc = node_count();
+            int ec = edge_count();
+            int nc_check = int.Parse(lines[0]);
+            if (nc_check != nc)
             {
              //   import_ok = false;
+             //   throw new AggregateException("node create failed");
+                
+            }
+
+            if (imported_lines != ec)
+            {
+               // import_ok = false;
+              //  throw new AggregateException("edge creation failed");
+                
             }
 
 
             return import_ok;
         }
 
+        public node? get_node_with_id(int _id)
+        {
+            return node_lookup[_id];
+        }
 
+
+        public node? get_random_node()
+        {
+            if(node_lookup.Count <= 0)
+            {
+                return null;
+            }
+
+            return node_lookup.ElementAt(new Random().Next(0, node_lookup.Count)).Value;
+        }
         public bool add_edge(edge _e)
         {
            
 
-            if (!nodes.Contains(_e.To))
+            if (!contains_node(_e.To))
             {
                 throw new IndexOutOfRangeException("_e.To node did not exists:" +  _e.ToString());
-                return false;
             }
-            if (!nodes.Contains(_e.From))
+            if (!contains_node(_e.From))
             {
                 throw new IndexOutOfRangeException("_e.From node did not exists:" + _e.ToString());
-                return false;
             }
 
 
-            node? nd = null;
-            foreach(var node in nodes)
+             
+            //ADD NODE
+            if(node_lookup[_e.From.Id] != null)
             {
-                if (node.Equals(_e.From)){
-                    nd = node;
-                    break;
-                }
+                node_lookup[_e.From.Id].add_edge(_e);
+                return true;
             }
 
-            if(nd != null)
-            {
-                nd.add_edge(_e);
-            }
-
-            
-            return true;
+            return false;
         }
 
-        public bool add_node(node _n, bool check_exists = true)
+        public bool add_node(node _n)
         {
-
-
-            if(check_exists && nodes.Contains(_n))
+            if(contains_node(_n))
             {
                 return false;
             }
-            nodes.Add(_n);
-
+            node_lookup.Add(_n.Id, _n);
             return true;
         }
 
         public bool remove_node(node _n)
         {
-            return nodes.Remove(_n);
+            return node_lookup.Remove(_n.Id);
         }
 
         public bool contains_node(node _n)
         {
-            return nodes.Contains(_n);
+            return node_lookup.ContainsKey(_n.Id);
         }
 
         public bool contains_node_id(int _node_id)
         {
-            for (int i = 0; i < nodes.Count; i++)
-            {
-                if (nodes[i].Id == _node_id) { return true; }       
-            }
-            return false;
+            return node_lookup.ContainsKey(_node_id);
         }
 
 
         public int node_count()
         {
-            return nodes.Count;
+            return node_lookup.Count;
         }
 
         public int edge_count()
@@ -175,47 +172,33 @@ namespace graphlib
 
         public List<edge> get_edge_from_node(node _from, node? _to)
         {
-            List<edge> result = new List<edge>();
-            //FIND NODE
-    
-            foreach (node n in nodes)
+          
+            if (!contains_node(_from))
             {
-                if (n.Equals(_from))
-                {
-                    //ADD ALL EDGES
-                    if(_to == null)
-                    {
-                        result.AddRange(n.get_edges());
-                    }
-                    else
-                    {
-                        result.AddRange(n.get_edges_to(_to));
-                    }
-                    
-
-                }
+                throw new KeyNotFoundException(_from.ToString() + " not found");
             }
 
-        
-            if(result.Count == 0)
-            {
-                throw new Exception("get_edge_from_node: FROM NODE NOT FOUND");
-            }
-            return result;
 
+            if(_to == null)
+            {
+                return node_lookup[_from.Id].get_edges();
+            }
+            else
+            {
+                return node_lookup[_from.Id].get_edges_to(_to);
+            }
         }
+
 
         public List<edge> get_all_edges()
         {
             List<edge> result = new List<edge>();
 
-            foreach (node n in nodes)
-            {
-                result.AddRange(n.get_edges());
+        
+            foreach (KeyValuePair<int, node> kv in node_lookup){
+                result.AddRange(kv.Value.get_edges());
             }
-
-            
-            
+           
             return result;
         }
 
@@ -223,10 +206,9 @@ namespace graphlib
         public override String ToString()
         {
             string tmp = "";
-            foreach (node n in nodes)
+            foreach (KeyValuePair<int, node> kv in node_lookup)
             {
-                
-                tmp += n.ToString() + "\n";
+                tmp += kv.Value.ToString() + "\n";
             }
 
             return tmp; 
@@ -235,25 +217,25 @@ namespace graphlib
 
         public void set_all_visited()
         {
-            foreach(node n in nodes)
+            foreach (KeyValuePair<int, node> kv in node_lookup)
             {
-                n.Visited = true;
+                node_lookup[kv.Key].Visited = true;
             }
         }
 
         public void set_all_unvisited()
         {
-            foreach (node n in nodes)
+            foreach (KeyValuePair<int, node> kv in node_lookup)
             {
-                n.Visited = false;
+                node_lookup[kv.Key].Visited = false;
             }
         }
 
         public void ungroup_all()
         {
-            foreach (node n in nodes)
+            foreach (KeyValuePair<int, node> kv in node_lookup)
             {
-                n.ungroup_node();
+                node_lookup[kv.Key].ungroup_node();
             }
         }
 
@@ -270,11 +252,11 @@ namespace graphlib
         public List<node> get_unvisited()
         {
             List<node> result = new List<node>();
-            foreach (node n in nodes)
+            foreach (KeyValuePair<int, node> kv in node_lookup)
             {
-                if (!n.Visited)
+                if (!kv.Value.Visited)
                 {
-                    result.Add(n);
+                    result.Add(kv.Value);
                 }
             }
             return result;
@@ -283,24 +265,43 @@ namespace graphlib
         public List<node> get_visited()
         {
             List<node> result = new List<node>();
-            foreach (node n in nodes)
+            foreach (KeyValuePair<int, node> kv in node_lookup)
             {
-                if (n.Visited)
+                if (kv.Value.Visited)
                 {
-                    result.Add(n);
+                    result.Add(kv.Value);
                 }
             }
             return result;
         }
 
 
-        public List<int> get_group_ids()
+        public int get_group_count()
         {
+            return get_group_ids().Count;
+        }
 
-            List<int> ids = new List<int>();
+        
+        public List<KeyValuePair<int, int>> get_group_ids()
+        {
+            Dictionary<int, int> id_list = new Dictionary<int, int>();
+           
 
-            return ids;
-            //TODOs
+            //ADD UP
+            foreach (KeyValuePair<int, node> kv in node_lookup)
+            {
+                if (!id_list.ContainsKey(kv.Value.Group_id)){
+                    id_list.Add(kv.Value.Group_id, 1);
+                }
+                else
+                {
+                    id_list[kv.Value.Group_id]++;
+                }
+                
+            }
+
+
+            return id_list.ToList();
         }
 
          

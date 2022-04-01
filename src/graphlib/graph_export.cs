@@ -86,17 +86,17 @@ namespace graphlib
             int t = Convert.ToInt32(value * (1 - (1 - f) * saturation));
 
             if (hi == 0)
-                return Color.FromArgb(255, v, t, p);
+                return Color.FromArgb(v, t, p);
             else if (hi == 1)
-                return Color.FromArgb(255, q, v, p);
+                return Color.FromArgb(q, v, p);
             else if (hi == 2)
-                return Color.FromArgb(255, p, v, t);
+                return Color.FromArgb(p, v, t);
             else if (hi == 3)
-                return Color.FromArgb(255, p, q, v);
+                return Color.FromArgb(p, q, v);
             else if (hi == 4)
-                return Color.FromArgb(255, t, p, v);
+                return Color.FromArgb(t, p, v);
             else
-                return Color.FromArgb(255, v, p, q);
+                return Color.FromArgb(v, p, q);
         }
 
         private static String HexConverter(System.Drawing.Color c)
@@ -122,29 +122,32 @@ namespace graphlib
 
 
             //ADD TYPES = NODE CAPITONS AS STRING ARRAY
-            List<string> nt = new List<string>();   
-            foreach(node n in _g.Nodes)
+            List<string> nt = new List<string>();
+            foreach (KeyValuePair<int, node> kv in _g.node_lookup)
             {
-                nt.Add(n.Label);
+                nt.Add(kv.Value.Label);
             }
             tmp.node_types = nt.ToArray();
             //ADD NODE COLORS
-            int groups = algorithms.getCorrelationComponents(_g) +1; //+1 = DEFAULT GROUP
+            //int groups = algorithms.getCorrelationComponents(_g)+1;
 
             //APPLY CLUSTERING
-            algorithms.CreateCorrelationComponentGroups(ref _g);
+            algorithms.CreateCorrelationComponentGroups(ref _g) ;
             tmp.data = ToNodeEdgeObj(_g, _root_node);
 
+
+            int groups = _g.get_group_count() + 1;
 
             //ADD COLORS FROM THE HSV RAINBOW SPACE
             tmp.clusterColours = new string[groups];
             for (int i = 0; i < groups; i++)
             {
-                tmp.clusterColours[i] = HexConverter(ColorFromHSV((1.0 / (groups * 2)) * (i + 2), 1.0, 1.0));
+                tmp.clusterColours[i] = HexConverter(ColorFromHSV((360.0 /(groups*1.0)) * (i*1.0), 1.0, 1.0));
             }
 
 
             
+
 
             string ret = JsonSerializer.Serialize(tmp);
             
@@ -169,9 +172,9 @@ namespace graphlib
             //gjson.nodeStyle.
 
             //ADD NODES
-            foreach (node n in _g.Nodes)
+            foreach (KeyValuePair<int, node> kv in _g.node_lookup)
             {
-                gjson.nodes.Add(new graph_json_format_node(n.Id, n.Equals(_root_node), n.Label, n.Group_id, n.Group_id));
+                gjson.nodes.Add(new graph_json_format_node(kv.Value.Id, kv.Value.Equals(_root_node), kv.Value.Label, kv.Value.Group_id, kv.Value.Group_id));
             }
 
             //ADD EDGES

@@ -13,77 +13,77 @@ namespace graphlibvisu.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 1 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 2 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 3 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 4 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 5 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 6 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 7 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 8 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using graphlibvisu;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\_Imports.razor"
+#line 9 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/_Imports.razor"
 using graphlibvisu.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
+#line 2 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
 using Microsoft.AspNetCore.WebUtilities;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
+#line 3 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
 using graphlibvisu.Data;
 
 #line default
@@ -98,7 +98,7 @@ using graphlibvisu.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
+#line 56 "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/Pages/Index.razor"
        
     private GraphLoadingItem[] graphs;
 
