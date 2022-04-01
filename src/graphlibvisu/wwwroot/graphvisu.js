@@ -39,7 +39,7 @@ function create_alchemy_visualisation(_json_data) {
         forceLocked: false,
         cluster: true,
         clusterColours: colors,
-        linkDistance: function () { return 0.1; },
+        linkDistance: function () { return 0.2; },
         nodeTypes: types,
 
         caption: function (node) {
@@ -49,10 +49,10 @@ function create_alchemy_visualisation(_json_data) {
 
         graphHeight: function () { return 800; },
         graphWidth: function () { return 800; },
-       // captionToggle: true,
-      //  edgesToggle: true,
-     //   nodesToggle: true,
-     //   toggleRootNotes: false,
+        captionToggle: true,
+        edgesToggle: true,
+        nodesToggle: true,
+        toggleRootNotes: false,
     
         zoomControls: true
     };

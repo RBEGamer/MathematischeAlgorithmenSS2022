@@ -1,15 +1,16 @@
 ﻿<Properties StartupConfiguration="{5F9B5A59-8191-497B-9E81-77915C082EAB}|Default">
   <MonoDevelop.Ide.ItemProperties.graphlibtest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="graphlibvisu/wwwroot/graphvisu.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="graphlibvisu/Pages/_Host.cshtml">
     <Files>
       <File FileName="graphlibvisu/Pages/Index.razor" Line="1" Column="1" />
-      <File FileName="graphlib/graph_export.cs" Line="136" Column="54" />
-      <File FileName="graphlib/graph.cs" Line="110" Column="20" />
-      <File FileName="graphlib/algorithms.cs" Line="67" Column="32" />
+      <File FileName="graphlib/graph_export.cs" Line="154" Column="1" />
+      <File FileName="graphlib/graph.cs" Line="89" Column="17" />
+      <File FileName="graphlib/algorithms.cs" Line="97" Column="6" />
       <File FileName="graphlib/edge.cs" Line="15" Column="1" />
       <File FileName="graphlib/node.cs" Line="22" Column="1" />
-      <File FileName="graphlibtest/Program.cs" Line="26" Column="47" />
-      <File FileName="graphlibvisu/wwwroot/graphvisu.js" Line="1" Column="1" />
+      <File FileName="graphlibtest/Program.cs" Line="36" Column="10" />
+      <File FileName="graphlibvisu/wwwroot/graphvisu.js" Line="48" Column="26" />
+      <File FileName="graphlibvisu/Pages/_Host.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,10 +19,10 @@
             <Node name="graphlib" expanded="True" />
             <Node name="graphlibtest" expanded="True" />
             <Node name="graphlibvisu" expanded="True">
-              <Node name="Pages" expanded="True" />
-              <Node name="wwwroot" expanded="True">
-                <Node name="graphvisu.js" selected="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="_Host.cshtml" selected="True" />
               </Node>
+              <Node name="wwwroot" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -36,7 +37,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/algorithms.cs" relfile="graphlib/algorithms.cs" line="147" column="1" />
+      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/algorithms.cs" relfile="graphlib/algorithms.cs" line="152" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
