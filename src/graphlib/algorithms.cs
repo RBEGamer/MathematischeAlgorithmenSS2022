@@ -128,7 +128,7 @@ namespace graphlib
             stack.Push(tmp_start.Id);
 
             bool finished = false;
-            int c = tmp_g.get_all_edges().Count();
+
             while (stack.Count > 0 && !finished)
             {
                 finished = getDepthFirstSearchTreesStep(ref tmp_g, ref stack, ref depthFirstSearchTrees);
@@ -153,20 +153,23 @@ namespace graphlib
             {
                 return true;
             }
-            System.Console.WriteLine(s.ToString());
+
             if (!s.Visited)
             {
                 _tree.Add(s);
                 s.Visited = true;
 
-
+                //FOR EACH EGDE IN GRPAH
                 foreach(edge e in _g.get_all_edges())
                 {
+                    //IS MY EDGE AND DIRECTEC => ADD ONLY ONE
                     if (e.Directed && s.Id == e.From.Id)
                     {
                         _stack.Push(e.To.Id);
                     }
-                    else{
+                    //IS MY EDGE AND DIRECTEC => ADD BOTH WAYS
+                    else
+                    {
                         if (s.Id != e.To.Id && s.Id == e.From.Id)
                         {
                             _stack.Push(e.To.Id);
@@ -175,22 +178,9 @@ namespace graphlib
                             _stack.Push(e.From.Id);
                         }
                     }
-                    
-                    
-                    
-                    
-                   
-              
                 }
                 
             }
-            
-          //  Console.WriteLine("----- STACK ------");
-          //  foreach(int e in _stack.ToArray())
-          //  {
-          //      Console.WriteLine(e.ToString());
-          //  }
-          //  Console.WriteLine("----- END-STACK ------");
             return false;
         }
     }

@@ -28,7 +28,6 @@ namespace graphlib
             if (!File.Exists(_file))
             {
                 throw new FileNotFoundException(_file + " not found");
-                return false;
             }
 
             var lines = File.ReadAllLines(_file);
@@ -236,6 +235,15 @@ namespace graphlib
             foreach (KeyValuePair<int, node> kv in node_lookup)
             {
                 node_lookup[kv.Key].ungroup_node();
+            }
+        }
+
+
+        public void set_directed(bool _d)
+        {
+            foreach (edge e in get_all_edges())
+            {
+                e.Directed = _d;
             }
         }
 

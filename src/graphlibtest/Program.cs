@@ -21,17 +21,19 @@ namespace graphlibtest
             graph g =  new graph();
 
             g.load_from_file(files[0]);
-           
-            
-           // Console.WriteLine(g.ToString());
 
 
-            System.Collections.Generic.List<node> nt =algorithms.getDepthFirstSearchTrees(ref g, g.get_random_node(), false, true);
+            // Console.WriteLine(g.ToString());
 
-            Console.WriteLine("getCorrelationComponents: " + algorithms.getCorrelationComponents(g).ToString());
 
-            string t = graphlib.graph_export.ToJsonString(g, null);
-            int b = 0;
+            // System.Collections.Generic.List<node> nt =algorithms.getDepthFirstSearchTrees(ref g, g.get_random_node(), false, true);
+
+
+            g.set_directed(true);
+
+
+            int b = algorithms.getCorrelationComponents(g);
+            b = 5;
 
         }
     }
