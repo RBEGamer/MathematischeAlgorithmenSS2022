@@ -33,10 +33,17 @@ namespace graphlib
             var lines = File.ReadAllLines(_file);
 
             int imported_lines = 0;
+            int empty_lines = 0;
             if(lines.Length > 1)
-            {
+            {   
                 for (int i = 1; i < lines.Length; i++)
-                {
+                    {
+
+                    if(lines[i] == "")
+                    {
+                        empty_lines++;
+                        continue;
+                    }
                     var sp = lines[i].Split('\t');
                     //NORMAL EDGE
                     if(sp.Length >=2)
@@ -52,7 +59,12 @@ namespace graphlib
                         }
 
                         //ADD STUFF
-                        add_node(to);
+                        bool res_from = add_node(from);
+                        bool res_to = add_node(to);
+                        if(!(res_from && res_to))
+                        {
+                           // throw new Exception("not insertation failed:" + from.ToString() + " => " + to.ToString());
+                        }
                         add_node(from);
                         add_edge(ed);
 
@@ -63,31 +75,33 @@ namespace graphlib
                    
                     else
                     {
-
+                        int err = 2;
                     }
                 }
             }
-            
-           
 
+
+
+            get_node_ids();
+            
 
             bool import_ok = true;
             int nc = node_count();
             int ec = edge_count();
             int nc_check = int.Parse(lines[0]);
-            if (nc_check != nc)
+            if (!check_node_completeness(int.Parse(lines[0])))
             {
-             //   import_ok = false;
-             //   throw new AggregateException("node create failed");
+                import_ok = false;
+                throw new AggregateException("node create failed");
                 
             }
 
-            if (imported_lines != ec)
-            {
-               // import_ok = false;
-              //  throw new AggregateException("edge creation failed");
+//            if (imported_lines != ec)
+ //           {
+  //            import_ok = false;
+  //             throw new AggregateException("edge creation failed");
                 
-            }
+  //          }
 
 
             return import_ok;
@@ -283,7 +297,31 @@ namespace graphlib
             return result;
         }
 
+        public List<int> get_node_ids()
+        {
 
+           
+            List<int> result = new List<int>();
+            foreach (KeyValuePair<int, node> kv in node_lookup)
+            {          
+                    result.Add(kv.Value.Id);
+
+            }
+            result.Sort();
+            return result;
+        }
+
+        public bool check_node_completeness(int _to_id)
+        {
+            for(int i = 0; i < _to_id; i++)
+            {
+                if (!contains_node_id(i))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public int get_group_count()
         {
             return get_group_ids().Count;
