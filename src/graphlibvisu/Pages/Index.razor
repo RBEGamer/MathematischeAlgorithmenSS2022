@@ -34,12 +34,19 @@ else
     <table class="table">
         <tbody>
             <tr>
+                <td>
+                <select name="graphtoload" id="graphtoload" onchange="set_graph_file_param()">
                 @foreach (var g in graphs)
                 {
-                    <td>
-                        <a class="btn btn-primary" onclick="set_graph_file_param('@g.filename'); window.location.reload()" role="button">@g.filename</a>
-                    </td>
+                     <option value="@g.filename">@g.filename</option>
+                        //<a class="btn btn-primary" onclick="set_graph_file_param('@g.filename'); window.location.reload()" role="button">@g.filename</a>
+                    
                 }
+                </select>
+                </td>
+                <td>
+                    <a class="btn btn-primary" onclick="window.location.reload()" role="button" >LOAD</a>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -89,6 +96,8 @@ else
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JS.InvokeVoidAsync("init_alchemy");
+        await JS.InvokeVoidAsync("set_graph_select_combobox");
+
 
         string? _fs = null;
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);

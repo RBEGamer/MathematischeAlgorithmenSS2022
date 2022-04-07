@@ -2,7 +2,19 @@ function show_error(_msg) {
     alert(_msg);
 }
 
+function getQueryParams(qs) {
+    qs = qs.split('+').join(' ');
 
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
 
 function insertUrlParam(key, value) {
     if (history.pushState) {
@@ -24,11 +36,22 @@ function insertUrlParam(key, value) {
     window.history.pushState({ path: newUrl }, '', newUrl)
 }
 
-function set_graph_file_param(_fs) {
+function set_graph_file_param() {
     removeUrlParameter("fs");
-    insertUrlParam("fs", _fs);
+
+
+    var fs = $("#graphtoload").val();
+    insertUrlParam("fs", fs);
 }
 
+
+function set_graph_select_combobox() {
+
+    var query = getQueryParams(document.location.search);
+    $("#graphtoload").val(query.fs);
+
+
+}
 var alchemy = new Alchemy();
 
 
@@ -39,7 +62,7 @@ function init_alchemy() {
 
 
 function create_alchemy_visualisation(_json_data) {
-    
+    $("#alchemy").html();
    // debugger;
     var graph = null;
     try {
@@ -65,15 +88,21 @@ function create_alchemy_visualisation(_json_data) {
     }
 
     var colors = {};
+    var cluster_en = false;
  //   debugger;
     if (graph.clusterColours !== null) {
         colors = graph.clusterColours;
+        if (colors.length > 1) {
+            cluster_en = true;
+           
+        }
     }
+   
 
     var config = {
         dataSource: graph.data,
         forceLocked: false,
-        cluster: true,
+        cluster: cluster_en,
         clusterColours: colors,
         linkDistance: function () { return 0.2; },
         nodeTypes: types,
@@ -85,9 +114,9 @@ function create_alchemy_visualisation(_json_data) {
 
         graphHeight: function () { return 800; },
         graphWidth: function () { return 1200; },
-        captionToggle: true,
-        edgesToggle: true,
-        nodesToggle: true,
+        captionToggle: false,
+        edgesToggle: false,
+        nodesToggle: false,
         toggleRootNotes: false,
     
         zoomControls: true

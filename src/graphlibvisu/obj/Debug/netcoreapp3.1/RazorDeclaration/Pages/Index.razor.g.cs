@@ -98,7 +98,7 @@ using graphlibvisu.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 50 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
+#line 57 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
        
     private GraphLoadingItem[] graphs;
 
@@ -141,6 +141,8 @@ using graphlibvisu.Data;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JS.InvokeVoidAsync("init_alchemy");
+        await JS.InvokeVoidAsync("set_graph_select_combobox");
+
 
         string? _fs = null;
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
