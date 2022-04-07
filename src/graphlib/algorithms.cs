@@ -74,6 +74,7 @@ namespace graphlib
             System.Console.WriteLine("------------------------");
 
             graph tmp_g = new graph(_g);
+            tmp_g.set_directed(false); // !!!
             tmp_g.set_all_unvisited();
 
             int result = 0;
@@ -82,7 +83,10 @@ namespace graphlib
             for (int i = 0; i < tmp_g.get_unvisited().Count; i++)
             {
                 //PERFORM DEPTH SEARCH REPEAT FOR NEXT UNVISITED
-                if(getDepthFirstSearchTrees(ref tmp_g, tmp_g.get_unvisited().ElementAt(0), true, false).Count > 0)
+                
+                List<node> vs = getDepthFirstSearchTrees(ref tmp_g, tmp_g.get_unvisited().ElementAt(0), false, false);
+                if (vs.Count > 0)
+                //if(getDepthFirstSearchTreesSimple(ref tmp_g, tmp_g.get_unvisited().ElementAt(0), null).Count > 0)
                 {
                     result++;
                 }
@@ -129,57 +133,125 @@ namespace graphlib
 
             while (stack.Count > 0 && !finished)
             {
-                finished = getDepthFirstSearchTreesStep(ref tmp_g, ref stack, ref depthFirstSearchTrees);
-               
+
+
+                int sid = stack.Pop();
+                node s = _g.node_lookup[sid];
+                if (s == null)
+                {
+                    break;
+                }
+
+                if (!s.Visited)
+                {
+                    depthFirstSearchTrees.Add(s);
+                    _g.node_lookup[sid].Visited = true;
+
+                    //FOR EACH EGDE IN GRPAH
+                    List<edge> ed = _g.node_lookup[sid].get_edges();
+                    if (!tmp_g.Directed)
+                    {
+                        ed = tmp_g.get_all_edges();
+                    }
+                    
+                    
+                    foreach (edge e in ed)
+                    {
+                        //IS MY EDGE AND DIRECTEC => ADD ONLY ONE
+                        if (e.Directed && s.Id == e.From.Id && !e.To.Visited)
+                        {
+
+                            stack.Push(e.To.Id);
+                        }
+                        //IS MY EDGE AND DIRECTEC => ADD BOTH WAYS
+                        else
+                        {
+
+                            if (s.Id == e.To.Id && !e.From.Visited)
+                            {
+                                stack.Push(e.From.Id);
+                            }
+
+                            if (s.Id == e.From.Id && !e.To.Visited)
+                            {
+                                stack.Push(e.To.Id);
+                            }
+                        }
+                    }
+
+                }
+
+
+
             }
 
             
             return depthFirstSearchTrees;
         }
 
-        public static bool getDepthFirstSearchTreesStep(ref graph _g, ref Stack<int> _stack, ref List<node> _tree)
+    
+
+
+        /*
+        public static List<node> getDepthFirstSearchTreesSimple(ref graph _g, node _start, node? _goal)
         {
+            List<node> res = new List<node>();
+            Queue<node> queue = new Queue<node>();
+            _g.set_all_unvisited();
+            queue.Enqueue(_start);
 
-            if(_stack.Count <= 0)
+            _g.get_node_with_id(_start.Id).Visited = true;
+
+            predesessor pre = new predesessor(_g, _start);
+
+            while (queue.Count > 0)
             {
-                return true;
-            }
-
-            int sid = _stack.Pop();
-            node s = _g.node_lookup[sid];
-            if(s == null)
-            {
-                return true;
-            }
-
-            if (!s.Visited)
-            {
-                _tree.Add(s);
-                s.Visited = true;
-
-                //FOR EACH EGDE IN GRPAH
-                foreach(edge e in _g.get_all_edges())
+                node actual = queue.Dequeue();
+                //ZIELKNOTEN ERREICHT
+                if (_goal != null && actual.Equals(_goal))
                 {
-                    //IS MY EDGE AND DIRECTEC => ADD ONLY ONE
-                    if (e.Directed && s.Id == e.From.Id)
+                    break;
+                }
+
+                foreach (edge e in actual.get_edges())
+                {
+
+
+                   
+
+
+                    node target = e.To;
+                    if (!e.To.Visited)
                     {
-                        _stack.Push(e.To.Id);
-                    }
-                    //IS MY EDGE AND DIRECTEC => ADD BOTH WAYS
-                    else
-                    {
-                        if (s.Id != e.To.Id && s.Id == e.From.Id)
+                       // queue.Enqueue(target);
+                        e.To.Visited = true;
+                        res.Add(target);
+
+
+                        //IS MY EDGE AND DIRECTEC => ADD ONLY ONE
+                        if (e.Directed && actual.Id == e.From.Id)
                         {
-                            _stack.Push(e.To.Id);
-                        }else if (s.Id != e.From.Id && s.Id == e.To.Id)
-                        {
-                            _stack.Push(e.From.Id);
+                            queue.Enqueue(e.To);
                         }
+                        //IS MY EDGE AND DIRECTEC => ADD BOTH WAYS
+                        else
+                        {
+                            if (actual.Id != e.To.Id && actual.Id == e.From.Id)
+                            {
+                                queue.Enqueue(e.To);
+                            }
+                            else if (actual.Id != e.From.Id && actual.Id == e.To.Id)
+                            {
+                                queue.Enqueue(e.From);
+                            }
+                        }
+
+
                     }
                 }
-                
             }
-            return false;
+            return res;
         }
+        */
     }
 }

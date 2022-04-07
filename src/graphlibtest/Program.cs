@@ -26,13 +26,14 @@ namespace graphlibtest
             // Console.WriteLine(g.ToString());
 
 
-            // System.Collections.Generic.List<node> nt =algorithms.getDepthFirstSearchTrees(ref g, g.get_random_node(), false, true);
+           //  System.Collections.Generic.List<node> nt =algorithms.getDepthFirstSearchTrees(ref g, g.get_random_node(), false, true);
 
 
-            g.set_directed(true);
-
+           //g.set_directed(true);
+           //System.Collections.Generic.List<node> nt =  algorithms.getDepthFirstSearchTreesSimple(ref g, g.get_random_node(), null);
 
             int b = algorithms.getCorrelationComponents(g);
+            
             b = 5;
 
         }

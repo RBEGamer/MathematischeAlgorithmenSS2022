@@ -80,8 +80,11 @@ namespace graphlibvisu.Data
                 case ALOGORITHM.CLUSTER:
                     algorithms.CreateCorrelationComponentGroups(ref loaded_graph);
                     break;
-                case ALOGORITHM.BREITENSUCHE:
+                case ALOGORITHM.TIEFENSUCHE:
                     algorithms.getDepthFirstSearchTrees(ref loaded_graph, loaded_graph.get_random_node(), false, true);
+                    break;
+                case ALOGORITHM.BREITENSUCHE:
+                   // algorithms.getDepthFirstSearchTreesSimple(ref loaded_graph, loaded_graph.get_random_node(), null);
                     break;
                 case ALOGORITHM.RESET:
                     loaded_graph.set_all_unvisited();

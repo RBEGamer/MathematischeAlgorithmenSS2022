@@ -9,7 +9,7 @@ namespace graphlib
 
       //  private List<node> nodes;
         public Dictionary<int, node> node_lookup { get; }
-        
+        public bool Directed = false;
 
         public graph()
         {
@@ -89,10 +89,10 @@ namespace graphlib
             int nc = node_count();
             int ec = edge_count();
             int nc_check = int.Parse(lines[0]);
-            if (!check_node_completeness(int.Parse(lines[0])))
+            if (nc != nc_check)
             {
                 import_ok = false;
-                throw new AggregateException("node create failed");
+               // throw new AggregateException("node create failed");
                 
             }
 
@@ -255,6 +255,7 @@ namespace graphlib
 
         public void set_directed(bool _d)
         {
+            Directed = _d;
             foreach (edge e in get_all_edges())
             {
                 e.Directed = _d;

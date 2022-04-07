@@ -118,6 +118,12 @@ using graphlibvisu.Data;
         
     }
 
+    protected void tiefensuche()
+    {
+        FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.TIEFENSUCHE);
+        //JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        JS.InvokeVoidAsync("reload_page");
+    } 
     protected void breitensuche()
     {
         FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.BREITENSUCHE);
