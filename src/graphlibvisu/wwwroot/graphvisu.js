@@ -92,7 +92,8 @@ function create_alchemy_visualisation(_json_data) {
  //   debugger;
     if (graph.clusterColours !== null) {
         colors = graph.clusterColours;
-        if (colors.length > 1) {
+        debugger;
+        if (colors.length > 2) {
             cluster_en = true;
            
         }
@@ -101,7 +102,7 @@ function create_alchemy_visualisation(_json_data) {
 
     var config = {
         dataSource: graph.data,
-        forceLocked: false,
+        forceLocked: true,
         cluster: cluster_en,
         clusterColours: colors,
         linkDistance: function () { return 0.2; },
@@ -112,10 +113,10 @@ function create_alchemy_visualisation(_json_data) {
         },
         initialScale: 0.8,
 
-        graphHeight: function () { return 800; },
-        graphWidth: function () { return 1200; },
+        graphHeight: function () { return $(window).height(); },
+        graphWidth: function () { return $(window).width(); },
         captionToggle: false,
-        edgesToggle: false,
+        edgesToggle: true,
         nodesToggle: false,
         toggleRootNotes: false,
     
