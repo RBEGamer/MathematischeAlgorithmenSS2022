@@ -41,7 +41,14 @@ namespace graphlib
             edge e = (edge)obj;
             if(this.To == e.To && this.From == e.From && this.Weigth == e.Weigth && this.directed == e.directed && this.weigthed == e.weigthed)
             {
-                return true;
+                if (this.weigthed == e.weigthed && this.weigth == e.weigth) {
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+                
             }
             
             return base.Equals(obj);
@@ -60,11 +67,11 @@ namespace graphlib
         public override String ToString()
         {
 
-            string w = this.Weigth.ToString();
+            string w = "X";
 
-            if (!this.weigthed)
+            if (this.weigthed)
             {
-                w = "X";
+                w = this.Weigth.ToString();
             }
 
             if (this.directed)
@@ -81,11 +88,11 @@ namespace graphlib
         public String ToStringStatisticsEdgeOnly()
         {
 
-            string w = this.Weigth.ToString();
+            string w = "X";
 
-            if (!this.weigthed)
+            if (this.weigthed)
             {
-                w = "X";
+                w = this.Weigth.ToString();
             }
             if (this.directed)
             {
