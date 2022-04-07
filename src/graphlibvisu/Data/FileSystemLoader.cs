@@ -84,7 +84,9 @@ namespace graphlibvisu.Data
                     algorithms.getDepthFirstSearchTrees(ref loaded_graph, loaded_graph.get_random_node(), false, true);
                     break;
                 case ALOGORITHM.RESET:
-                    loaded_graph = org_loaded_graph;
+                    loaded_graph.set_all_unvisited();
+                    loaded_graph.ungroup_all();
+                        //= org_loaded_graph;
                     break;
                 default:
                     break;

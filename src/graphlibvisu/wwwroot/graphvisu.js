@@ -16,6 +16,11 @@ function getQueryParams(qs) {
     return params;
 }
 
+
+function reload_page() {
+    location.reload();
+}
+
 function insertUrlParam(key, value) {
     if (history.pushState) {
         let searchParams = new URLSearchParams(window.location.search);
@@ -52,8 +57,9 @@ function set_graph_select_combobox() {
 
 
 }
-var alchemy = new Alchemy();
 
+
+var alchemy = null;
 
 function init_alchemy() {
     alchemy = new Alchemy();
@@ -117,7 +123,7 @@ function create_alchemy_visualisation(_json_data) {
         graphWidth: function () { return $(window).width(); },
         captionToggle: false,
         edgesToggle: true,
-        nodesToggle: false,
+        nodesToggle: true,
         toggleRootNotes: false,
     
         zoomControls: true

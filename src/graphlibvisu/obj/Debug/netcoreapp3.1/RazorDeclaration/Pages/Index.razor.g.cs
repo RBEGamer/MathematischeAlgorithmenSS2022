@@ -98,7 +98,7 @@ using graphlibvisu.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 57 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
+#line 54 "C:\Users\prodevmo\Desktop\MathematischeAlgorithmenSS2022\src\graphlibvisu\Pages\Index.razor"
        
     private GraphLoadingItem[] graphs;
 
@@ -113,19 +113,23 @@ using graphlibvisu.Data;
     protected void greset()
     {
         FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.RESET);
-        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        //JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        JS.InvokeVoidAsync("reload_page");
+        
     }
 
     protected void breitensuche()
     {
         FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.BREITENSUCHE);
-        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        //JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        JS.InvokeVoidAsync("reload_page");
     }
 
     protected void cluster()
     {
         FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.CLUSTER);
-        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        //JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        JS.InvokeVoidAsync("reload_page");
     }
 
 

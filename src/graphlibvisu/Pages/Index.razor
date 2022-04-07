@@ -13,44 +13,41 @@
 <div class="alchemy gg_fullscreen" id="alchemy"></div>
 
 <div class="gg_overlay">
-<table>
-    <tr>
-        <th><a class="btn btn-primary" @onclick="greset" role="button">RESET</a></th>
-        <th><a class="btn btn-primary" @onclick="breitensuche" role="button">BREITENSUCHE</a></th>
-        <th><a class="btn btn-primary" @onclick="cluster" role="button">CLUSTER</a></th>
-    </tr>
-</table>
 
-<h1>Load example graphs</h1>
 
-<p>Please select a graph to load from the list below</p>
 
-@if (graphs == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <tbody>
-            <tr>
-                <td>
-                <select name="graphtoload" id="graphtoload" onchange="set_graph_file_param()">
-                @foreach (var g in graphs)
-                {
-                     <option value="@g.filename">@g.filename</option>
-                        //<a class="btn btn-primary" onclick="set_graph_file_param('@g.filename'); window.location.reload()" role="button">@g.filename</a>
-                    
-                }
-                </select>
-                </td>
-                <td>
-                    <a class="btn btn-primary" onclick="window.location.reload()" role="button" >LOAD</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-}
+    @if (graphs == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        <select name="graphtoload" id="graphtoload" onchange="set_graph_file_param()">
+                            @foreach (var g in graphs)
+                            {
+                                <option value="@g.filename">@g.filename</option>
+                            }
+                        </select>
+
+                        <a class="btn btn-primary" onclick="window.location.reload()" role="button">LOAD</a>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <th><a class="btn btn-primary" @onclick="greset" role="button">RESET</a></th>
+                                <th><a class="btn btn-primary" @onclick="cluster" role="button">CLUSTER VIA BREITENSUCHE</a></th>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    }
 </div>
 
 
@@ -68,19 +65,23 @@ else
     protected void greset()
     {
         FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.RESET);
-        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        //JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        JS.InvokeVoidAsync("reload_page");
+        
     }
 
     protected void breitensuche()
     {
         FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.BREITENSUCHE);
-        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        //JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        JS.InvokeVoidAsync("reload_page");
     }
 
     protected void cluster()
     {
         FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.CLUSTER);
-        JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        //JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        JS.InvokeVoidAsync("reload_page");
     }
 
 
