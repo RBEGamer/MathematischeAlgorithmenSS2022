@@ -80,17 +80,15 @@ namespace graphlib
             int result = 0;
 
             //AVOID WHILE
-            for (int i = 0; i < tmp_g.get_unvisited().Count; i++)
+            foreach (int n in tmp_g.get_node_ids())
             {
-                //PERFORM DEPTH SEARCH REPEAT FOR NEXT UNVISITED
-                
-                List<node> vs = getDepthFirstSearchTrees(ref tmp_g, tmp_g.get_unvisited().ElementAt(0), false, false);
+                List<node> vs = getDepthFirstSearchTrees(ref tmp_g, tmp_g.node_lookup[n], false, false);
                 if (vs.Count > 0)
-                //if(getDepthFirstSearchTreesSimple(ref tmp_g, tmp_g.get_unvisited().ElementAt(0), null).Count > 0)
                 {
                     result++;
                 }
             }
+            
 
             return result;
         }

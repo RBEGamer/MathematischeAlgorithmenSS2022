@@ -82,8 +82,8 @@ namespace graphlib
 
 
 
-            get_node_ids();
-            
+           
+            create_single_nodes(int.Parse(lines[0]));
 
             bool import_ok = true;
             int nc = node_count();
@@ -299,9 +299,7 @@ namespace graphlib
         }
 
         public List<int> get_node_ids()
-        {
-
-           
+        {    
             List<int> result = new List<int>();
             foreach (KeyValuePair<int, node> kv in node_lookup)
             {          
@@ -312,13 +310,13 @@ namespace graphlib
             return result;
         }
 
-        public bool check_node_completeness(int _to_id)
+        public bool create_single_nodes(int _to_id)
         {
             for(int i = 0; i < _to_id; i++)
             {
                 if (!contains_node_id(i))
                 {
-                    return false;
+                    node_lookup.Add(i, new node(i));
                 }
             }
             return true;
