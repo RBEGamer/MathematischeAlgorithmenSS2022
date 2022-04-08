@@ -29,7 +29,7 @@ namespace graphlib
             {
                 //PERFORM DEPTH SEARCH REPEAT FOR NEXT UNVISITED
 
-                List<node> found_nodes = getDepthFirstSearchTrees(ref _g, _g.get_unvisited().ElementAt(0), false, false);
+                List<node> found_nodes = getDepthFirstSearchTrees(ref _g, _g.get_unvisited().ElementAt(0));
                 if (found_nodes.Count > 0)
                 {
 
@@ -74,7 +74,8 @@ namespace graphlib
             System.Console.WriteLine("------------------------");
 
             graph tmp_g = new graph(_g);
-            tmp_g.set_directed(false); // !!!
+
+
             tmp_g.set_all_unvisited();
 
             int result = 0;
@@ -82,7 +83,7 @@ namespace graphlib
             //AVOID WHILE
             foreach (int n in tmp_g.get_node_ids())
             {
-                List<node> vs = getDepthFirstSearchTrees(ref tmp_g, tmp_g.node_lookup[n], false, false);
+                List<node> vs = getDepthFirstSearchTrees(ref tmp_g, tmp_g.node_lookup[n]);
                 if (vs.Count > 0)
                 {
                     result++;
@@ -99,37 +100,23 @@ namespace graphlib
         
 
 
-        public static List<node> getDepthFirstSearchTrees(ref graph _g, node _start, bool _copy, bool _startover)
+        public static List<node> getDepthFirstSearchTrees(ref graph _g, node _start)
         {
-            System.Console.WriteLine("------------------------");
-            System.Console.WriteLine("getDepthFirstSearchTrees");
-            System.Console.WriteLine("------------------------");
 
             List<node> depthFirstSearchTrees = new List<node>();
 
-            //COPY GRAPTH
-            graph tmp_g = _g;
-            node tmp_start = _start;
-            if (_copy)
+            if (_start.Visited)
             {
-                tmp_g = new graph(_g);
-                tmp_start = new node(_start);
+                return depthFirstSearchTrees;
             }
-
-
-            if (_startover)
-            {
-                tmp_g.set_all_unvisited();
-            }
-            
 
 
             Stack<int> stack = new Stack<int>();
-            stack.Push(tmp_start.Id);
+            stack.Push(_start.Id);
 
-            bool finished = false;
+           
 
-            while (stack.Count > 0 && !finished)
+            while (stack.Count > 0)
             {
 
 
@@ -143,113 +130,23 @@ namespace graphlib
                 if (!s.Visited)
                 {
                     depthFirstSearchTrees.Add(s);
-                    _g.node_lookup[sid].Visited = true;
+                    s.Visited = true;
 
-                    //FOR EACH EGDE IN GRPAH
-                    List<edge> ed = _g.node_lookup[sid].get_edges();
-                    if (!tmp_g.Directed)
-                    {
-                        ed = tmp_g.get_all_edges();
-                    }
-                    
-                    
-                    foreach (edge e in ed)
+
+                    //GET NEIGHBOURS
+                    foreach (node e in s.get_directed_neighbours())
                     {
                         //IS MY EDGE AND DIRECTEC => ADD ONLY ONE
-                        if (e.Directed && s.Id == e.From.Id && !e.To.Visited)
+                        if (!e.Visited)
                         {
-
-                            stack.Push(e.To.Id);
-                        }
-                        //IS MY EDGE AND DIRECTEC => ADD BOTH WAYS
-                        else
-                        {
-
-                            if (s.Id == e.To.Id && !e.From.Visited)
-                            {
-                                stack.Push(e.From.Id);
-                            }
-
-                            if (s.Id == e.From.Id && !e.To.Visited)
-                            {
-                                stack.Push(e.To.Id);
-                            }
-                        }
-                    }
-
+                            stack.Push(e.Id);
+                        }    
+                    }   
                 }
-
-
-
             }
-
-            
             return depthFirstSearchTrees;
         }
 
-    
 
-
-        /*
-        public static List<node> getDepthFirstSearchTreesSimple(ref graph _g, node _start, node? _goal)
-        {
-            List<node> res = new List<node>();
-            Queue<node> queue = new Queue<node>();
-            _g.set_all_unvisited();
-            queue.Enqueue(_start);
-
-            _g.get_node_with_id(_start.Id).Visited = true;
-
-            predesessor pre = new predesessor(_g, _start);
-
-            while (queue.Count > 0)
-            {
-                node actual = queue.Dequeue();
-                //ZIELKNOTEN ERREICHT
-                if (_goal != null && actual.Equals(_goal))
-                {
-                    break;
-                }
-
-                foreach (edge e in actual.get_edges())
-                {
-
-
-                   
-
-
-                    node target = e.To;
-                    if (!e.To.Visited)
-                    {
-                       // queue.Enqueue(target);
-                        e.To.Visited = true;
-                        res.Add(target);
-
-
-                        //IS MY EDGE AND DIRECTEC => ADD ONLY ONE
-                        if (e.Directed && actual.Id == e.From.Id)
-                        {
-                            queue.Enqueue(e.To);
-                        }
-                        //IS MY EDGE AND DIRECTEC => ADD BOTH WAYS
-                        else
-                        {
-                            if (actual.Id != e.To.Id && actual.Id == e.From.Id)
-                            {
-                                queue.Enqueue(e.To);
-                            }
-                            else if (actual.Id != e.From.Id && actual.Id == e.To.Id)
-                            {
-                                queue.Enqueue(e.From);
-                            }
-                        }
-
-
-                    }
-                }
-            }
-            return res;
-        }
-        */
     }
 }

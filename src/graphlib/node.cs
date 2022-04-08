@@ -70,6 +70,19 @@ namespace graphlib
             return edges;
         }
 
+
+        public List<node> get_directed_neighbours()
+        {
+            List<node> nodes = new List<node>();
+
+            foreach (edge e in edges)
+            {
+                nodes.Add(e.To);
+            }
+
+            return nodes;
+        }
+
         public List<edge> get_edges_to(node _node)
         {
             List<edge> edges_to = new List<edge>();

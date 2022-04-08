@@ -20,7 +20,7 @@ namespace graphlibtest
 
             graph g =  new graph();
 
-            g.load_from_file(files[0]);
+            g.load_from_file(files[0], true);
 
 
             // Console.WriteLine(g.ToString());

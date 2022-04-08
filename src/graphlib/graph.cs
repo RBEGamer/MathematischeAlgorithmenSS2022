@@ -23,7 +23,7 @@ namespace graphlib
         }
 
       
-        public bool load_from_file(string _file)
+        public bool load_from_file(string _file, bool _directed)
         {
             if (!File.Exists(_file))
             {
@@ -51,25 +51,28 @@ namespace graphlib
                         node from = new node(int.Parse(sp[0])); //FROM
                         node to = new node(int.Parse(sp[1])); //TO
 
-                        edge ed = new edge(from, to, false);
-                        
+                        edge edge_forward = new edge(from, to, false);
+                        edge edge_backward = new edge(to, from, false);
+
                         //ADD WEIGHT
                         if (sp.Length >= 3){
-                            ed.Weigth = float.Parse(sp[2]);
+                            edge_forward.Weigth = float.Parse(sp[2]);
+                            edge_backward.Weigth = float.Parse(sp[2]);
+
                         }
 
-                        //ADD STUFF
-                        bool res_from = add_node(from);
-                        bool res_to = add_node(to);
-                        if(!(res_from && res_to))
-                        {
-                           // throw new Exception("not insertation failed:" + from.ToString() + " => " + to.ToString());
-                        }
+                        //ADD NODES
                         add_node(from);
-                        add_edge(ed);
+                        add_node(to);
 
-                        //     Console.WriteLine(ed.ToString());
-                        //WEIGHTED EDGE
+                        //ADD DIRECTED
+                        add_edge(edge_forward);
+                        //IF NOT DIRECTED ADD BACKWARTS
+                        if (!_directed)
+                        {
+                            add_edge(edge_backward);
+                        }
+
                         imported_lines++;
                     }
                    
@@ -92,17 +95,16 @@ namespace graphlib
             if (nc != nc_check)
             {
                 import_ok = false;
-               // throw new AggregateException("node create failed");
+               throw new AggregateException("node create failed");
                 
             }
 
-//            if (imported_lines != ec)
- //           {
-  //            import_ok = false;
-  //             throw new AggregateException("edge creation failed");
+            if (imported_lines != ec)
+           {
+            import_ok = false;
+             throw new AggregateException("edge creation failed");
                 
-  //          }
-
+          }
 
             return import_ok;
         }
@@ -185,13 +187,6 @@ namespace graphlib
 
         public List<edge> get_edge_from_node(node _from, node? _to)
         {
-          
-            if (!contains_node(_from))
-            {
-                throw new KeyNotFoundException(_from.ToString() + " not found");
-            }
-
-
             if(_to == null)
             {
                 return node_lookup[_from.Id].get_edges();
@@ -344,8 +339,6 @@ namespace graphlib
                 }
                 
             }
-
-
             return id_list.ToList();
         }
 
