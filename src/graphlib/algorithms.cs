@@ -81,9 +81,9 @@ namespace graphlib
             int result = 0;
 
             //AVOID WHILE
-            foreach (int n in tmp_g.get_node_ids())
+            foreach (node n in _g.get_unvisited())
             {
-                List<node> vs = getDepthFirstSearchTrees(ref tmp_g, tmp_g.node_lookup[n]);
+                List<node> vs = getDepthFirstSearchTrees(ref tmp_g, n);
                 if (vs.Count > 0)
                 {
                     result++;
