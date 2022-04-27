@@ -4,31 +4,40 @@ using System.Text;
 
 namespace graphlib
 {
-    public class edge
+    public class edge: IComparable
     {
 
         private node? from = null;
         private node? to = null;
 
-        private bool directed = false;
+
         private bool weigthed = false;
 
         private float weigth = 0.0f;
 
 
-
-        public edge(node _from, node _to, bool directed = false)
+        public edge(node _from, node _to)
         {
-            from = _from;
-            To = _to;
-            this.directed = directed;
+            this.From = _from;
+            this.To = _to;
+
+            this.weigthed = false;
         }
 
- 
+        public edge(node _from, node _to, float weigth)
+        {
+            this.From = _from;
+            this.To = _to;
+
+            this.Weigth = weigth;
+            this.weigthed = true;
+        }
+
+
         public float Weigth { get => weigth; set => weigth = value; }
         public node To { get => to; set => to = value; }
         public node From { get => from; set => from = value; }
-        public bool Directed { get => directed; set => directed = value; }
+
 
         public override bool Equals(object obj)
         {
@@ -39,7 +48,7 @@ namespace graphlib
             }
 
             edge e = (edge)obj;
-            if(this.To == e.To && this.From == e.From && this.Weigth == e.Weigth && this.directed == e.directed && this.weigthed == e.weigthed)
+            if(this.To == e.To && this.From == e.From && this.Weigth == e.Weigth  && this.weigthed == e.weigthed)
             {
                 if (this.weigthed == e.weigthed && this.weigth == e.weigth) {
                     return true;
@@ -73,15 +82,9 @@ namespace graphlib
             {
                 w = this.Weigth.ToString();
             }
-
-            if (this.directed)
-            {
-                return "[" + this.From.ToString() + " <=> " + this.To.ToString() + " : " + w + "]";
-            }
-            else
-            {
-                return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + w + "]";
-            }
+            
+            return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + w + "]";
+           
             
         }
 
@@ -94,18 +97,41 @@ namespace graphlib
             {
                 w = this.Weigth.ToString();
             }
-            if (this.directed)
-            {
+         
                 return "==> [" + this.To.Id + " WEIGTH:" +w + "]";
+          
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) { return 1; }
+
+            edge other = obj as edge;
+            if (other != null)
+            {
+
+                if (this.Weigth > other.Weigth)
+                {
+                    return -1;
+
+                }
+                else if (this.Weigth > other.Weigth)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+
             }
             else
             {
-                return "<==> [" + this.To.Id + " WEIGTH:" +w + "]";
+                throw new ArgumentException("Object is not a edge");
             }
-          
-        }
-       
 
-       
+
+
+        }
     }
 }

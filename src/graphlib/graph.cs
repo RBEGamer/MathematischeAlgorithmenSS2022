@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Globalization;
+using System.Threading;
 namespace graphlib
 {
     public class graph
@@ -51,14 +53,14 @@ namespace graphlib
                         node from = new node(int.Parse(sp[0])); //FROM
                         node to = new node(int.Parse(sp[1])); //TO
 
-                        edge edge_forward = new edge(from, to, false);
-                        edge edge_backward = new edge(to, from, false);
+                        edge edge_forward = new edge(from, to);
+                        edge edge_backward = new edge(to, from);
 
                         //ADD WEIGHT
                         if (sp.Length >= 3){
-                            edge_forward.Weigth = float.Parse(sp[2]);
-                            edge_backward.Weigth = float.Parse(sp[2]);
-
+                            float w = float.Parse(sp[2], CultureInfo.InvariantCulture);
+                            edge_forward.Weigth = w;
+                            edge_backward.Weigth = w;
                         }
 
                         //ADD NODES
@@ -91,6 +93,12 @@ namespace graphlib
             bool import_ok = true;
             int nc = node_count();
             int ec = edge_count();
+            //double imported lines for 
+            if (!_directed)
+            {
+                imported_lines *= 2;
+            }
+
             int nc_check = int.Parse(lines[0]);
             if (nc != nc_check)
             {
@@ -149,6 +157,15 @@ namespace graphlib
             return false;
         }
 
+        public bool add_node(node _n, bool _override)
+        {
+            if((contains_node_id(_n.Id) && _override) || !contains_node_id(_n.Id))
+            {
+                node_lookup[_n.Id] = _n;
+                return true;
+            }
+            return false;
+        }
         public bool add_node(node _n)
         {
             if(contains_node(_n))
@@ -248,14 +265,6 @@ namespace graphlib
         }
 
 
-        public void set_directed(bool _d)
-        {
-            Directed = _d;
-            foreach (edge e in get_all_edges())
-            {
-                e.Directed = _d;
-            }
-        }
 
         public int count_visited()
         {

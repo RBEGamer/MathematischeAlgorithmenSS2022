@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using graphlib;
-
+using System.Collections.Generic;
 namespace graphlibtest
 {
     internal class Program
@@ -20,21 +20,13 @@ namespace graphlibtest
 
             graph g =  new graph();
 
-            g.load_from_file(files[0], true);
+            g.load_from_file(files[0], false);
 
-
-            // Console.WriteLine(g.ToString());
-
-
-           //  System.Collections.Generic.List<node> nt =algorithms.getDepthFirstSearchTrees(ref g, g.get_random_node(), false, true);
-
-
-           //g.set_directed(true);
-           //System.Collections.Generic.List<node> nt =  algorithms.getDepthFirstSearchTreesSimple(ref g, g.get_random_node(), null);
-
-            int b = algorithms.getCorrelationComponents(g);
-            
-            b = 5;
+            //X * 1000 knoten Y*1000 Kanten
+            //graph r = algorithms.Prim(g, g.node_lookup[0]);
+            graph r = algorithms.Kruskal(g);
+            double w = algorithms.calculateWeigth(r);
+            int b = 5;
 
         }
     }
