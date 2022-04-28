@@ -9,129 +9,45 @@ namespace graphlib
     public class algorithms
     {
 
-
-
-        static public graph Kruskal(graph _g)
+        private static double calculateMinMaxCosts(ref graph g)
         {
-            PriorityQueue<edge, float> q = new PriorityQueue<edge, float>();
-            // int[] visited = new int[_g.node_lookup.Count];
-            List<edge> edges = new List<edge>();
+            double costs = 0.0;
+            foreach (edge e in g.get_all_edges())
+            {
+                    costs += (e.Weigth);    
+            }
+            return costs;
+        }
+
+        static public graph Kruskal(ref graph _g)
+        {
             graph gres = new graph();
-
-
-            Dictionary<int, int> node_lookup = new Dictionary<int, int>();
-            Dictionary<int, List<node>> component_lookup = new Dictionary<int, List<node>>();
+            GroupHandler goups = new GroupHandler(_g.get_all_nodes());
+            PriorityQueue<edge, double> pq = new PriorityQueue<edge, double>();
+            List<edge> edges = new List<edge>();
             double costs = 0.0;
 
-            int component_id = 0;
-            //ADD ALL EDGES
-            foreach (edge e in _g.get_all_edges())
+          foreach(edge e in _g.get_all_edges())
             {
-                q.Enqueue(e, e.Weigth);
+                pq.Enqueue(e, e.Weigth);
             }
 
-            while (q.Count > 0)
+            while(pq.Count > 0)
             {
-                edge e = q.Dequeue();
-                node source = e.From;
-                node target = e.To;
-                //CHECK FOR VISIS
-                bool source_found = node_lookup.ContainsKey(source.Id);
-                bool target_found = node_lookup.ContainsKey(target.Id);
+                edge e = pq.Dequeue();
+                node from = e.From;
+                node to = e.To;
 
-                if (!source_found && !target_found)
+                int group_1 = goups.getGroupId(from);
+                int group_2 = goups.getGroupId(to);
+                if(group_1 != group_2)
                 {
-
-                    node_lookup[source.Id] = component_id;
-                    node_lookup[target.Id] = component_id;
-
-                    costs += e.Weigth;
-
-                    //edges.Add(e);
-                    if (!component_lookup.ContainsKey(component_id))
-                    {
-                        component_lookup.Add(component_id, new List<node>());
-                    }
-
-
-                    component_lookup[component_id].Add(source);
-                    component_lookup[component_id].Add(target);
-                    ++component_id;
-
-                    //ONLY ONE VISITED
-                }
-                else if (source_found != target_found)
-                {
-                    int add_component_id = -1;
-                    node add_vertex = null;
-
-                    if (source_found)
-                    {
-                        add_component_id = node_lookup[source.Id];
-                        add_vertex = target;
-                    }
-                    else
-                    {
-                        add_component_id = node_lookup[target.Id];
-                        add_vertex = source;
-                    }
-
-                    component_lookup[add_component_id].Add(add_vertex);
-                    costs += e.Weigth;
-
-                    //SOURCE AND TARGET FOUND
-                }
-                else
-                {
-
-                    int source_component_id = node_lookup[source.Id];
-                    int target_component_id = node_lookup[target.Id];
-
-                    if (source_component_id == target_component_id)
-                    {
-                        continue;
-                    }
-
-                    int source_count = 0;
-                    int target_count = 0;
-
-                    if (component_lookup.ContainsKey(source_component_id))
-                    {
-                        source_count = component_lookup[source_component_id].Count;
-                    }
-
-                    if (component_lookup.ContainsKey(target_component_id))
-                    {
-                        target_count = component_lookup[target_component_id].Count;
-                    }
-
-
-
-
-                    int from_component_id = -1;
-                    int to_component_id = -1;
-
-                    if (source_count < target_count)
-                    {
-                        from_component_id = source_component_id;
-                        to_component_id = target_component_id;
-                    }
-                    else
-                    {
-                        from_component_id = target_component_id;
-                        to_component_id = source_component_id;
-                    }
-
-                    foreach (node n in component_lookup[from_component_id])
-                    {
-                        node_lookup[n.Id] = to_component_id;
-                        component_lookup[to_component_id].Add((node)n);
-                    }
-                    component_lookup.Remove(from_component_id);
+                    goups.unionGroups(from, to);
+                    gres.add_edge(e);
+                    edges.Add(e);
                     costs += e.Weigth;
                 }
             }
-
             return gres;
         }
         static public graph Prim(ref graph _g, node _start)

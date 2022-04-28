@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Collections;
 
 namespace graphlib
 {
@@ -143,5 +144,9 @@ namespace graphlib
             node tmp = (node)obj;
             return Compare(this, tmp);
         }
-    }
+
+    
+
+}
+
 }

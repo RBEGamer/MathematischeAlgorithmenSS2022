@@ -23,9 +23,9 @@ namespace graphlibtest
             g.load_from_file(files[0], false);
 
             //X * 1000 knoten Y*1000 Kanten
-            graph r = algorithms.Prim(ref g, g.get_node_with_id(0));
-            //graph r = algorithms.Kruskal(g);
-            double w = algorithms.calculateWeigth(r);
+            //graph r = algorithms.Prim(ref g, g.get_node_with_id(0));
+            graph r = algorithms.Kruskal(ref g);
+        
             int b = 5;
 
         }

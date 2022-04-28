@@ -136,13 +136,19 @@ namespace graphlib
         }
         public bool add_edge(edge _e)
         {
-           
+
+            if (!node_lookup.ContainsKey(_e.From.Id)) {
+                add_node(_e.From);
+            }
+
+            if (!node_lookup.ContainsKey(_e.To.Id))
+            {
+                add_node(_e.To);
+            }
 
 
-
-           
             //ADD NODE
-            if(node_lookup[_e.From.Id] != null)
+            if (node_lookup[_e.From.Id] != null)
             {
                 node_lookup[_e.From.Id].add_edge(_e);
                 return true;
@@ -185,7 +191,17 @@ namespace graphlib
             return node_lookup.ContainsKey(_node_id);
         }
 
+        public List<node> get_all_nodes()
+        {
+            List<node> nodes = new List<node>();
 
+            foreach (KeyValuePair<int, node> entry in node_lookup)
+            {
+                nodes.Add(entry.Value);
+            }
+
+            return nodes;
+        }
         public int node_count()
         {
             return node_lookup.Count;
