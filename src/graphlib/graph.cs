@@ -59,13 +59,14 @@ namespace graphlib
                         //ADD WEIGHT
                         if (sp.Length >= 3){
                             float w = float.Parse(sp[2], CultureInfo.InvariantCulture);
-                            edge_forward.Weigth = w;
-                            edge_backward.Weigth = w;
+                            edge_forward.Weigth = w;              
+                            edge_backward.Weigth = w;                        
                         }
 
                         //ADD NODES
-                        add_node(from);
                         add_node(to);
+                        add_node(from);
+                        
 
                         //ADD DIRECTED
                         add_edge(edge_forward);
@@ -87,8 +88,9 @@ namespace graphlib
 
 
 
-           
-            create_single_nodes(int.Parse(lines[0]));
+   
+            
+         //   create_single_nodes(int.Parse(lines[0]));
 
             bool import_ok = true;
             int nc = node_count();
@@ -136,17 +138,9 @@ namespace graphlib
         {
            
 
-            if (!contains_node(_e.To))
-            {
-                throw new IndexOutOfRangeException("_e.To node did not exists:" +  _e.ToString());
-            }
-            if (!contains_node(_e.From))
-            {
-                throw new IndexOutOfRangeException("_e.From node did not exists:" + _e.ToString());
-            }
 
 
-             
+           
             //ADD NODE
             if(node_lookup[_e.From.Id] != null)
             {

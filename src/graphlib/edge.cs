@@ -11,7 +11,7 @@ namespace graphlib
         private node? to = null;
 
 
-        private bool weigthed = false;
+
 
         private float weigth = 0.0f;
 
@@ -21,7 +21,7 @@ namespace graphlib
             this.From = _from;
             this.To = _to;
 
-            this.weigthed = false;
+        
         }
 
         public edge(node _from, node _to, float weigth)
@@ -30,7 +30,7 @@ namespace graphlib
             this.To = _to;
 
             this.Weigth = weigth;
-            this.weigthed = true;
+     
         }
 
 
@@ -48,15 +48,9 @@ namespace graphlib
             }
 
             edge e = (edge)obj;
-            if(this.To == e.To && this.From == e.From && this.Weigth == e.Weigth  && this.weigthed == e.weigthed)
+            if(this.To == e.To && this.From == e.From && this.Weigth == e.Weigth  )
             {
-                if (this.weigthed == e.weigthed && this.weigth == e.weigth) {
-                    return true;
-                }
-                else
-                {
-                    return true;
-                }
+                return true;
                 
             }
             
@@ -78,28 +72,30 @@ namespace graphlib
 
             string w = "X";
 
-            if (this.weigthed)
-            {
-                w = this.Weigth.ToString();
-            }
-            
-            return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + w + "]";
+      
+            return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + this.Weigth.ToString() + "]";
            
             
         }
 
+        public node getTarget(node n)
+        {
+            if (this.To.Id == n.Id)
+            {
+                return From;
+            }
+            else if (this.From.Id == n.Id)
+            {
+                return To;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public String ToStringStatisticsEdgeOnly()
         {
-
-            string w = "X";
-
-            if (this.weigthed)
-            {
-                w = this.Weigth.ToString();
-            }
-         
-                return "==> [" + this.To.Id + " WEIGTH:" +w + "]";
-          
+                return "==> [" + this.To.Id+"]"; 
         }
 
         public int CompareTo(object obj)
