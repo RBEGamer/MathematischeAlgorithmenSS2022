@@ -86,11 +86,8 @@ namespace graphlib
                 }
             }
 
-
-
-   
-            
-         //   create_single_nodes(int.Parse(lines[0]));
+            //CREATE NOT CONNECTED NODES
+            create_single_nodes(int.Parse(lines[0]));
 
             bool import_ok = true;
             int nc = node_count();
@@ -134,7 +131,7 @@ namespace graphlib
 
             return node_lookup.ElementAt(new Random().Next(0, node_lookup.Count)).Value;
         }
-        public bool add_edge(edge _e)
+        public bool add_edge(edge _e, bool _replace = false)
         {
 
             if (!node_lookup.ContainsKey(_e.From.Id)) {
@@ -150,8 +147,13 @@ namespace graphlib
             //ADD NODE
             if (node_lookup[_e.From.Id] != null)
             {
-                node_lookup[_e.From.Id].add_edge(_e);
-                return true;
+                if (!_replace)
+                {
+                    node_lookup[_e.From.Id].add_edge(_e);
+                    return true;
+                }
+                
+               
             }
 
             return false;

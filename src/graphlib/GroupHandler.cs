@@ -11,6 +11,9 @@ namespace graphlib
         private List<List<node>> groupToNodes = new List<List<node>>();
         private List<int> nodeToGroup = new List<int>();
 
+
+        //ERSTELLE_ STARTGRUPPEN
+        //JEDER KNOTEN IST IN SEINER_ EIGENEN GRUPPE
         public GroupHandler(List<node> _nodes)
         {
 
@@ -39,9 +42,11 @@ namespace graphlib
             return groupToNodes[groupID];
         }
 
-        private void changeGroupId(List<node> nodes, int groupID, int oldGroup)
+
+        //KNOTEN LISTE EINER GRUPPE ZUWEISEN
+        private void changeGroupId(List<node> nodes, int groupID)
         {
-            //groupToNodes.set(oldGroup, new ArrayList<Node>());
+         
             foreach (node n in nodes)
             {
                 addNodeToGroup(n, groupID);
@@ -56,18 +61,17 @@ namespace graphlib
             {
                 return;
             }
-            //speichere Nodes einer Gruppe ab und überprüfe ob Nodelist von g1 größer als g2
-            //falls ja: füge Nodes der Gruppe g2 zur größeren Gruppe g1 hinzu und lösche g2
-            //falls nicht: füge Nodes der Gruppe g1 zur Gruppe g2 hinzu und lösche g1
+           //MERGE GRUPPE
+           //JENACHDEM WELCHE GRUPPE GROESSER IST
             List<node> nodes = getNodesToGroup(g1);
             if (groupToNodes[g2].Count< nodes.Count)
             {
                 nodes = getNodesToGroup(g2);
-                changeGroupId(nodes, g1, g2);
+                changeGroupId(nodes, g1);
             }
             else
             {
-                changeGroupId(nodes, g2, g1);
+                changeGroupId(nodes, g2);
             }
         }
     }

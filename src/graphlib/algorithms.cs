@@ -9,60 +9,62 @@ namespace graphlib
     public class algorithms
     {
 
-        private static double calculateMinMaxCosts(ref graph g)
+        public static double calculateMinMaxCosts( graph g)
         {
             double costs = 0.0;
             foreach (edge e in g.get_all_edges())
             {
-                    costs += (e.Weigth);    
+                costs += (e.Weigth);
             }
             return costs;
         }
+
+
 
         static public graph Kruskal(ref graph _g)
         {
             graph gres = new graph();
             GroupHandler goups = new GroupHandler(_g.get_all_nodes());
             PriorityQueue<edge, double> pq = new PriorityQueue<edge, double>();
-            List<edge> edges = new List<edge>();
             double costs = 0.0;
-
-          foreach(edge e in _g.get_all_edges())
+            //FÜGE ALLE KANTEN IN DIE PRIO QUEUE HINZU
+            foreach (edge e in _g.get_all_edges())
             {
                 pq.Enqueue(e, e.Weigth);
             }
-
-            while(pq.Count > 0)
+            //SOLANGE NOCH UNBESUCHTE KANTEN
+            while (pq.Count > 0)
             {
                 edge e = pq.Dequeue();
                 node from = e.From;
                 node to = e.To;
-
+                //SCHAUE OB KANTEN IN VERSCHIEDENEN GRUPPEN
                 int group_1 = goups.getGroupId(from);
                 int group_2 = goups.getGroupId(to);
-                if(group_1 != group_2)
+                if (group_1 != group_2)
                 {
+                    //WENN VERSCHIEDEN
+                    //VEREINIGE DIE GRUPPEN
                     goups.unionGroups(from, to);
                     gres.add_edge(e);
-                    edges.Add(e);
                     costs += e.Weigth;
                 }
             }
             return gres;
         }
+
+
+
         static public graph Prim(ref graph _g, node _start)
         {
-
-
             PriorityQueue<edge, float> q = new PriorityQueue<edge, float>();
             List<edge> edges = new List<edge>();
             bool[] visited = new bool[_g.node_lookup.Count];
-
+            double total_costs = 0.0f;
+            //MST GRAPH
             graph gres = new graph();
-            visited[_start.Id] = true;
-
-            float total_costs = 0.0f;
             //ADDE ALLE KANTEN DES STARTKNOTEN
+            visited[_start.Id] = true;
             foreach (edge e in _start.get_edges())
             {
                 q.Enqueue(e, e.Weigth);
@@ -70,19 +72,13 @@ namespace graphlib
             //SOLANGE LISTE NICHT LEER
             while (q.Count > 0)
             {
-
-
                 //HOLE KANTE MIT DEM KLEINSTEN GEWICHT
                 edge e = q.Dequeue();
-
-               // node target = e.To;
                 //CHECK FOR VISIS
                 bool target_visited = visited[e.To.Id];
                 //CHECK ONE UNVISITED VISITED
                 if (!target_visited)
                 {
-
-                    //System.Console.WriteLine(e);
                     //FÜR ALLE KANTEN DES ZIELKNOTENS
                     foreach (edge ea in _g.get_edge_from_node(e.To, null))
                     {
@@ -91,37 +87,23 @@ namespace graphlib
                         //SONST FÜGE KANTE HINZU
                         if (!new_target_visited)
                         {
-
                             q.Enqueue(ea, ea.Weigth);
                         }
-
                     }
-
                     //MARKIERE ZIEL ALS BESUCHT
                     visited[e.To.Id] = true;
                     //ADD WIGTH
                     total_costs += e.Weigth;
                     //ADD EDGES TO LIST FOR GRAPH RECONSTRUCTION
-                    edges.Add(e);
-
+                    gres.add_edge(e);
                 }
             }
-            //BUILD GRAPH
-            foreach (edge e in edges)
-            {
-                gres.add_node(e.To);
-                gres.add_node(e.From);
-                gres.add_edge(e);
-            }
-
-            return gres;
+           return gres;
         }
 
         static public int CreateCorrelationComponentGroups(ref graph _g)
         {
-            System.Console.WriteLine("--------------------------------");
-            System.Console.WriteLine("CreateCorrelationComponentGroups");
-            System.Console.WriteLine("--------------------------------");
+
             int group_count = 0;
 
             _g.set_all_unvisited();

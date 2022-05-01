@@ -23,9 +23,19 @@ namespace graphlibtest
             g.load_from_file(files[0], false);
 
             //X * 1000 knoten Y*1000 Kanten
-            //graph r = algorithms.Prim(ref g, g.get_node_with_id(0));
-            graph r = algorithms.Kruskal(ref g);
-        
+
+           
+            graph prim = algorithms.Prim(ref g, g.get_node_with_id(0));
+            
+
+
+
+            graph kruskal = algorithms.Kruskal(ref g);
+
+            double const_prim = algorithms.calculateMinMaxCosts(prim);
+            double const_kruskal = algorithms.calculateMinMaxCosts(kruskal);
+
+
             int b = 5;
 
         }
