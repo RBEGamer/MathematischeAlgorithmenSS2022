@@ -98,7 +98,7 @@ namespace graphlib
         {
             return bruteForceRoute(_g, true);
         }
-        public static route bruteForceRoute(graph _g, bool _check_for_cheapest)
+        public static route bruteForceRoute(graph _g, bool _check_branch_and_bound)
         {
             route cheapest = new route();
             List<node> unvisited = _g.get_all_nodes();
@@ -111,20 +111,47 @@ namespace graphlib
                 unvisited.RemoveAt(0);
 
                 route r = route.addEdgeToRoute(new route(), s, n, _g);
-                if (!_check_for_cheapest || route.checkCheapestRoute(r, cheapest))
+                if (!_check_branch_and_bound || route.checkCheapestRoute(r, cheapest))
                 {
-
-
-                   
-
-
+                    cheapest = recursiveBruteForce(_g, r, unvisited, cheapest, _check_branch_and_bound);
                 }
                 unvisited.Add(n);
             }
             return cheapest;
         }
 
+        private static route recursiveBruteForce(graph _g, route _r, List<node> _unvisited, route cheapest,bool _check_branch_and_bound)
+        {
+            if (_unvisited.Count() <= 0)
+            {
+                _r.connect_start_end(_g);
+                if (route.checkCheapestRoute(_r, cheapest))
+                {
+                    return _r;
+                }
+                else
+                {
+                    return cheapest;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _unvisited.Count(); i++)
+                {
+                    node n =_unvisited.First();
+                    _unvisited.RemoveAt(0);
 
+                    route newRoute = new route(_r);
+                    newRoute.addEdgeToRoute(_r.get_last_node(), n, _g);
+                    if (!_check_branch_and_bound || route.checkCheapestRoute(newRoute, cheapest))
+                    { 
+                        cheapest = recursiveBruteForce(_g, newRoute, _unvisited, cheapest, _check_branch_and_bound);
+                    }
+                    _unvisited.Add(n);
+                }
+                return cheapest;
+            }
+        }
 
 
 
@@ -261,8 +288,6 @@ namespace graphlib
             return gres;
         }
 
-
-
         public static List<List<edge>> getDepthFirstSearchTrees(graph _g)
         {
 
@@ -299,7 +324,6 @@ namespace graphlib
 
             return trees;
         }
-
 
     }
 }

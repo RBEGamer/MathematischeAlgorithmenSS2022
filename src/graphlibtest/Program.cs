@@ -30,11 +30,12 @@ namespace graphlibtest
             //1ms für K10e
             algorithms.double_tree(g, g.node_lookup[0]).get_total_route_costs();
 
-
+          
 
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+            double c = algorithms.bruteForceRoute(g, false).get_total_route_costs();
             stopwatch.Stop();
             double nna_time = stopwatch.ElapsedMilliseconds;
             //algorithms.bruteForceRoute(g, true);
