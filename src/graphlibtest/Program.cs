@@ -24,9 +24,20 @@ namespace graphlibtest
 
             //X * 1000 knoten Y*1000 Kanten
 
+           
+            //2ms für K10e
+            algorithms.nearest_neighbour(g,g.node_lookup[0]).get_total_route_costs();
+            //1ms für K10e
+            algorithms.double_tree(g, g.node_lookup[0]).get_total_route_costs();
 
-           double c =algorithms.nearest_neighbour(g,g.node_lookup[0]).get_total_route_costs();
-          
+
+
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            stopwatch.Stop();
+            double nna_time = stopwatch.ElapsedMilliseconds;
+            //algorithms.bruteForceRoute(g, true);
 
 
             int b = 5;

@@ -12,7 +12,7 @@ namespace graphlib
 
 
 
-        static public graph kruskal(ref graph _g)
+        static public graph kruskal(graph _g)
         {
             graph gres = new graph();
             group_handler goups = new group_handler(_g.get_all_nodes());
@@ -46,7 +46,7 @@ namespace graphlib
 
 
 
-        static public graph prim(ref graph _g, node _start)
+        static public graph prim(graph _g, node _start)
         {
             PriorityQueue<edge, double> q = new PriorityQueue<edge, double>();
             List<edge> edges = new List<edge>();
@@ -92,16 +92,87 @@ namespace graphlib
            return gres;
         }
 
-      
+        
+
+        public static route branch_and_bound(graph _g)
+        {
+            return bruteForceRoute(_g, true);
+        }
+        public static route bruteForceRoute(graph _g, bool _check_for_cheapest)
+        {
+            route cheapest = new route();
+            List<node> unvisited = _g.get_all_nodes();
+            node s = unvisited.First(); // Startknoten
+            unvisited.RemoveAt(0);
+
+            for (int i = 0; i < unvisited.Count(); i++)
+            {
+                node n = unvisited.First();
+                unvisited.RemoveAt(0);
+
+                route r = route.addEdgeToRoute(new route(), s, n, _g);
+                if (!_check_for_cheapest || route.checkCheapestRoute(r, cheapest))
+                {
+
+
+                   
+
+
+                }
+                unvisited.Add(n);
+            }
+            return cheapest;
+        }
+
+
+
+
 
         public static route double_tree(graph _g, node _s)
         {
             route rres = new route();
+            graph mst = prim(_g, _s);
+
+            List<List<edge>> all_dfs = getDepthFirstSearchTrees(mst);
+            if(all_dfs.Count <= 0)
+            {
+                throw new Exception("no relation compontens present");
+            }
+            List<edge> dfs = all_dfs[0];
+            bool[] visited = new bool[mst.node_count()];
+            node last_visited = null;
 
 
+            //FOR EACH EDGE IN DEPTH SEARCH RESULT
+            //AND CONNECT ADD THEY TO THE ROUTE DEPENDING
+            //THE VISIT STATE
+            foreach(edge e in dfs)
+            {
+                node from = e.From;
+                node to = e.To;
 
+                if(!visited[from.Id] && !visited[to.Id])
+                {
+                    rres.addEdgeToRoute(from, to, _g);
+                    last_visited = to;
+                }else if (!visited[from.Id])
+                {
+                    rres.addEdgeToRoute(last_visited, from, _g);
+                    last_visited = to;
+
+                }else if (!visited[to.Id]) {
+                    rres.addEdgeToRoute(last_visited, to, _g);
+                    last_visited = to;
+                }
+
+                visited[from.Id] = true;
+                visited[to.Id] = true;
+            }
+
+            //TO CREATE A COMPLETE CIRCLE
+            //CONNECT START AND END
+            rres.connect_start_end(_g);
             return rres;
-                ;
         }
         public static route nearest_neighbour(graph _g, node _start_node) {
         
@@ -133,12 +204,10 @@ namespace graphlib
             }
             //ADD STARTNODE AT THE END
             rres.addEdgeToRoute(actual,_start_node, _g);
-            
-
-
-
+           
             return rres;
         }
+
 
 
         public static int getRelatedComponents(graph _g)

@@ -64,7 +64,12 @@ namespace graphlib
           route.addEdgeToRoute(this, _from, _to, _g);
         }
 
-        public static void addEdgeToRoute(route _r ,node _from, node _to, graph _g)
+
+        public void connect_start_end(graph _g)
+        {
+            addEdgeToRoute(get_last_node(), get_first_node(), _g);
+        }
+        public static route addEdgeToRoute(route _r ,node _from, node _to, graph _g)
         {
             try
             {
@@ -76,8 +81,20 @@ namespace graphlib
             {
 
             }
+            return _r;
         }
 
+
+        public static bool checkCheapestRoute(route _r, route _current_cheapest)
+        {
+            if (_current_cheapest.count_edges() <= 0)
+            {
+                return true;
+            }
+            return _r.get_total_route_costs() < _current_cheapest.get_total_route_costs();
+        }
+
+        
     }
 }
 
