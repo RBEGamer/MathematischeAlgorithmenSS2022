@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace graphlib
 {
-    internal class GroupHandler
+    internal class group_handler
     {
         private List<List<node>> groupToNodes = new List<List<node>>();
         private List<int> nodeToGroup = new List<int>();
@@ -14,7 +14,7 @@ namespace graphlib
 
         //ERSTELLE_ STARTGRUPPEN
         //JEDER KNOTEN IST IN SEINER_ EIGENEN GRUPPE
-        public GroupHandler(List<node> _nodes)
+        public group_handler(List<node> _nodes)
         {
 
             _nodes = _nodes.OrderBy(o => o.Id).ToList();

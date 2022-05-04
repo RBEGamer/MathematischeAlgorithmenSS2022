@@ -12,10 +12,10 @@ namespace graphlib
 
 
 
-        static public graph Kruskal(ref graph _g)
+        static public graph kruskal(ref graph _g)
         {
             graph gres = new graph();
-            GroupHandler goups = new GroupHandler(_g.get_all_nodes());
+            group_handler goups = new group_handler(_g.get_all_nodes());
             PriorityQueue<edge, double> pq = new PriorityQueue<edge, double>();
             double costs = 0.0;
             //FÜGE ALLE KANTEN IN DIE PRIO QUEUE HINZU
@@ -46,7 +46,7 @@ namespace graphlib
 
 
 
-        static public graph Prim(ref graph _g, node _start)
+        static public graph prim(ref graph _g, node _start)
         {
             PriorityQueue<edge, float> q = new PriorityQueue<edge, float>();
             List<edge> edges = new List<edge>();
@@ -103,6 +103,53 @@ namespace graphlib
             return getDepthFirstSearchTrees(_g).Count;
 
         }
+
+
+        public static List<node> go_breadth_first_search(graph _g, node _start_node, node _target,visited_handler _vh)
+        {
+            List<node> gres = new List<node>();
+            Queue<node> q = new Queue<node>();
+
+            if(_vh == null)
+            {
+                _vh = new visited_handler(_g.node_count());
+            }
+            q.Enqueue(_start_node);
+            _vh.set_visited(_start_node);
+            predesessor pre = new predesessor(_g, _start_node);
+
+
+            while(q.Count > 0)
+            {
+                node actual = q.Dequeue();
+
+                foreach(edge e in _g.get_edge_from_node(actual, null)){
+                    node target = e.To;
+
+                    if (_vh.is_not_visited(target))
+                    {
+                        _vh.set_visited(target);
+                        q.Enqueue(target);
+                        pre.setPrevNode(target, actual);
+                        if (target.Equals(_target))
+                        {
+                            node tmp = target;
+                            while (!tmp.Equals(_start_node))
+                            {
+                                gres.Insert(0, tmp);
+                                tmp = pre.getPrevNode(tmp);
+                            }
+                            gres.Insert(0, _start_node);
+                            return gres;
+                        }
+                    }
+                }
+            }
+
+            return gres;
+        }
+
+
 
         public static List<List<edge>> getDepthFirstSearchTrees(graph _g)
         {
