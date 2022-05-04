@@ -33,7 +33,7 @@ namespace graphlib
 
         public bool is_visited(node _n)
         {
-            return visited[_n.Id]
+            return visited[_n.Id];
         }
 
         public bool is_not_visited(node _n)

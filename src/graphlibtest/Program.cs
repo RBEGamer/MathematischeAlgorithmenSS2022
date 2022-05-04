@@ -25,7 +25,7 @@ namespace graphlibtest
             //X * 1000 knoten Y*1000 Kanten
 
 
-            int ab = algorithms.getRelatedComponents(g);
+           double c =algorithms.nearest_neighbour(g,g.node_lookup[0]).get_total_route_costs();
           
 
 

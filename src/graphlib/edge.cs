@@ -13,7 +13,7 @@ namespace graphlib
 
 
 
-        private float weigth = 0.0f;
+        private double weigth = 0.0f;
 
 
         public edge(node _from, node _to)
@@ -24,7 +24,7 @@ namespace graphlib
         
         }
 
-        public edge(node _from, node _to, float weigth)
+        public edge(node _from, node _to, double weigth)
         {
             this.From = _from;
             this.To = _to;
@@ -34,7 +34,7 @@ namespace graphlib
         }
 
 
-        public float Weigth { get => weigth; set => weigth = value; }
+        public double Weigth { get => weigth; set => weigth = value; }
         public node To { get => to; set => to = value; }
         public node From { get => from; set => from = value; }
 

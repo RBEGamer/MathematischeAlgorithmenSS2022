@@ -48,7 +48,7 @@ namespace graphlib
 
         static public graph prim(ref graph _g, node _start)
         {
-            PriorityQueue<edge, float> q = new PriorityQueue<edge, float>();
+            PriorityQueue<edge, double> q = new PriorityQueue<edge, double>();
             List<edge> edges = new List<edge>();
             bool[] visited = new bool[_g.node_lookup.Count];
             double total_costs = 0.0f;
@@ -94,8 +94,51 @@ namespace graphlib
 
       
 
+        public static route double_tree(graph _g, node _s)
+        {
+            route rres = new route();
 
 
+
+            return rres;
+                ;
+        }
+        public static route nearest_neighbour(graph _g, node _start_node) {
+        
+            PriorityQueue<edge, double> pq = new PriorityQueue<edge, double>();
+            route rres = new route();
+            bool[] visited  = new bool[_g.node_count()];
+
+            visited[_start_node.Id] = true;
+            node actual = _start_node;
+            while(rres.count_edges() < _g.node_count() - 1)
+            {
+                pq.Clear();
+                foreach(edge pqe in _g.get_edge_from_node(actual, null))
+                {
+                    pq.Enqueue(pqe, pqe.Weigth);
+                }
+
+                edge e = null;
+                node target_node = null;
+                do
+                {
+                    e = pq.Dequeue();
+                    target_node = e.To;
+                } while(visited[target_node.Id]);
+
+                visited[target_node.Id] = true;
+                rres.addEdgeToRoute(actual, target_node, _g);
+                actual = target_node;
+            }
+            //ADD STARTNODE AT THE END
+            rres.addEdgeToRoute(actual,_start_node, _g);
+            
+
+
+
+            return rres;
+        }
 
 
         public static int getRelatedComponents(graph _g)

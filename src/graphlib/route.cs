@@ -29,7 +29,7 @@ namespace graphlib
         public void add_edge(edge _e)
         {
             edges.Add(_e);
-            route_costs -= _e.Weigth;
+            route_costs += _e.Weigth;
         }
 
         public int count_edges()
@@ -58,5 +58,26 @@ namespace graphlib
             return route_costs;
         }
 
+
+        public void addEdgeToRoute(node _from, node _to, graph _g)
+        {
+          route.addEdgeToRoute(this, _from, _to, _g);
+        }
+
+        public static void addEdgeToRoute(route _r ,node _from, node _to, graph _g)
+        {
+            try
+            {
+                List<edge> pn = _g.get_edge_from_node(_from, _to);
+                if(pn.Count <= 0) { throw new ArgumentOutOfRangeException("_g.get_edge_from_node(_from, _to).Count <= 0"); }
+                _r.add_edge(pn[0]);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+
+            }
+        }
+
     }
 }
+
