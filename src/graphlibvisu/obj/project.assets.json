@@ -114,36 +114,34 @@
     ]
   },
   "packageFolders": {
-    "/Users/marcelochsendorf/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\prodevmo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/graphlibvisu.csproj",
+      "projectUniqueName": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibvisu\\graphlibvisu.csproj",
       "projectName": "graphlibvisu",
-      "projectPath": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/graphlibvisu.csproj",
-      "packagesPath": "/Users/marcelochsendorf/.nuget/packages/",
-      "outputPath": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibvisu/obj/",
+      "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibvisu\\graphlibvisu.csproj",
+      "packagesPath": "C:\\Users\\prodevmo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlibvisu\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "/Users/marcelochsendorf/.config/NuGet/NuGet.Config"
+        "C:\\Users\\prodevmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj": {
-              "projectPath": "/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/graphlib.csproj"
+            "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj": {
+              "projectPath": "C:\\Users\\prodevmo\\Desktop\\MathematischeAlgorithmenSS2022\\src\\graphlib\\graphlib.csproj"
             }
           }
         }
@@ -181,7 +179,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

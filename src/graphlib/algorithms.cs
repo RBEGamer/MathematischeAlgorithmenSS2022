@@ -200,7 +200,7 @@ namespace graphlib
                 }else if (!visited[from.Id])
                 {
                     rres.addEdgeToRoute(last_visited, from, _g);
-                    last_visited = to;
+                    last_visited = from;
 
                 }else if (!visited[to.Id]) {
                     rres.addEdgeToRoute(last_visited, to, _g);
@@ -213,6 +213,7 @@ namespace graphlib
 
             //TO CREATE A COMPLETE CIRCLE
             //CONNECT START AND END
+            
             rres.connect_start_end(_g);
             return rres;
         }

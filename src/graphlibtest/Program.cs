@@ -26,10 +26,10 @@ namespace graphlibtest
 
 
             //2ms für K10e
-            System.Console.WriteLine(algorithms.nearest_neighbour(g,g.node_lookup[0]));
+            System.Console.WriteLine(algorithms.nearest_neighbour(g,g.get_node_with_id(0)));
 
             //1ms für K10e
-            System.Console.WriteLine(algorithms.double_tree(g, g.node_lookup[0]));
+            System.Console.WriteLine(algorithms.double_tree(g, g.get_node_with_id(0)));
 
           
 
