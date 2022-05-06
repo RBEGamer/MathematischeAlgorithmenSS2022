@@ -98,6 +98,7 @@ namespace graphlib
         {
             return bruteForceRoute(_g, true);
         }
+
         public static route bruteForceRoute(graph _g, bool _check_branch_and_bound)
         {
             route cheapest = new route();
@@ -161,6 +162,7 @@ namespace graphlib
             graph mst = prim(_g, _s);
 
             List<List<edge>> all_dfs = getDepthFirstSearchTrees(mst);
+            //CHECK FOR AT LEAST ONE RELATION COMPONENT
             if(all_dfs.Count <= 0)
             {
                 throw new Exception("no relation compontens present");
@@ -201,6 +203,8 @@ namespace graphlib
             rres.connect_start_end(_g);
             return rres;
         }
+
+
         public static route nearest_neighbour(graph _g, node _start_node) {
         
             PriorityQueue<edge, double> pq = new PriorityQueue<edge, double>();
@@ -211,12 +215,14 @@ namespace graphlib
             node actual = _start_node;
             while(rres.count_edges() < _g.node_count() - 1)
             {
+                //CLEAR PQ AND BUILD NEW PW WITH EDGES FROM NEW NODE
                 pq.Clear();
                 foreach(edge pqe in _g.get_edge_from_node(actual, null))
                 {
                     pq.Enqueue(pqe, pqe.Weigth);
                 }
-
+                //FIND THE NEXT UNVISITED NODE IN PQ LIST
+                // IN PQ THE CHEAPEST IS THE BEST
                 edge e = null;
                 node target_node = null;
                 do
@@ -225,7 +231,9 @@ namespace graphlib
                     target_node = e.To;
                 } while(visited[target_node.Id]);
 
+                
                 visited[target_node.Id] = true;
+                //ADD THE NEW TARGET NODE THE ROUTE
                 rres.addEdgeToRoute(actual, target_node, _g);
                 actual = target_node;
             }

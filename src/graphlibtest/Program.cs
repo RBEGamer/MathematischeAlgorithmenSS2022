@@ -26,20 +26,24 @@ namespace graphlibtest
 
            
             //2ms für K10e
-            algorithms.nearest_neighbour(g,g.node_lookup[0]).get_total_route_costs();
-            //1ms für K10e
-            algorithms.double_tree(g, g.node_lookup[0]).get_total_route_costs();
+            route r = algorithms.nearest_neighbour(g,g.node_lookup[0]);
+            System.Console.WriteLine("nearest_neighbour:" + r);
 
-          
+            //1ms für K10e
+            r = algorithms.double_tree(g, g.node_lookup[0]);
+            System.Console.WriteLine("double_tree:" + r);
+
+
 
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            double c = algorithms.bruteForceRoute(g, false).get_total_route_costs();
+            r = algorithms.bruteForceRoute(g, false);
+            System.Console.WriteLine("bruteForceRoute:" + r);
             stopwatch.Stop();
             double nna_time = stopwatch.ElapsedMilliseconds;
-            //algorithms.bruteForceRoute(g, true);
-
+            r = algorithms.bruteForceRoute(g, true);
+            System.Console.WriteLine("branch&bound:" + r);
 
             int b = 5;
 

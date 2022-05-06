@@ -50,7 +50,21 @@ namespace graphlib
 
         public override string ToString()
         {
-            return edges.ToString();
+            string sout = "route: ";
+            int c = 0;
+            foreach (edge e in edges) {
+                if (c <= 0)
+                {
+                    sout += e.From.Id.ToString() + " => " + e.To.Id.ToString();
+                }
+                else {
+                    sout += " => " + e.To.Id.ToString();
+                }
+               
+                c++;
+            }
+        
+            return sout;
         }
 
         public double get_total_route_costs()
