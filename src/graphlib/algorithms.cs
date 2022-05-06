@@ -93,9 +93,10 @@ namespace graphlib
         }
 
         
-
+       
         public static route branch_and_bound(graph _g)
         {
+            //CALL BRUTEFORCE WITH B&B CHECK SET TO TRUE
             return bruteForceRoute(_g, true);
         }
 
@@ -112,17 +113,23 @@ namespace graphlib
                 unvisited.RemoveAt(0);
 
                 route r = route.addEdgeToRoute(new route(), s, n, _g);
+                //CHECK IF NEW GENERATED ROUTE IS CHEAPTER THAN THE LAST ONE
+                //STORE THIS AS THE NEW CHEAPEST
                 if (!_check_branch_and_bound || route.checkCheapestRoute(r, cheapest))
                 {
-                    cheapest = recursiveBruteForce(_g, r, unvisited, cheapest, _check_branch_and_bound);
+                    cheapest = permutationBrusteForce(_g, r, unvisited, cheapest, _check_branch_and_bound);
                 }
                 unvisited.Add(n);
             }
             return cheapest;
         }
 
-        private static route recursiveBruteForce(graph _g, route _r, List<node> _unvisited, route cheapest,bool _check_branch_and_bound)
+        //PERMUTATION
+        private static route permutationBrusteForce(graph _g, route _r, List<node> _unvisited, route cheapest,bool _check_branch_and_bound)
         {
+            //END OF THE RECURSION
+            //IF NO NODE IS AVAILABLE RETURN AND CONNECT START TO END
+            //ALSO CHECK IF THIS ROUTE IS THE CHEAPEST
             if (_unvisited.Count() <= 0)
             {
                 _r.connect_start_end(_g);
@@ -137,6 +144,9 @@ namespace graphlib
             }
             else
             {
+                //FOR EACH NEXT POSSIBILITY
+                //CALL THE RECOURSIVE FUNCTION AGAIN
+                //
                 for (int i = 0; i < _unvisited.Count(); i++)
                 {
                     node n =_unvisited.First();
@@ -144,9 +154,12 @@ namespace graphlib
 
                     route newRoute = new route(_r);
                     newRoute.addEdgeToRoute(_r.get_last_node(), n, _g);
+
+                    //CHECK COSTS
+                    //
                     if (!_check_branch_and_bound || route.checkCheapestRoute(newRoute, cheapest))
                     { 
-                        cheapest = recursiveBruteForce(_g, newRoute, _unvisited, cheapest, _check_branch_and_bound);
+                        cheapest = permutationBrusteForce(_g, newRoute, _unvisited, cheapest, _check_branch_and_bound);
                     }
                     _unvisited.Add(n);
                 }
