@@ -93,11 +93,13 @@ namespace graphlib
         }
 
         
-
+       
         public static route branch_and_bound(graph _g)
         {
+            //CALL BRUTEFORCE WITH B&B CHECK SET TO TRUE
             return bruteForceRoute(_g, true);
         }
+
         public static route bruteForceRoute(graph _g, bool _check_branch_and_bound)
         {
             route cheapest = new route();
@@ -111,17 +113,23 @@ namespace graphlib
                 unvisited.RemoveAt(0);
 
                 route r = route.addEdgeToRoute(new route(), s, n, _g);
+                //CHECK IF NEW GENERATED ROUTE IS CHEAPTER THAN THE LAST ONE
+                //STORE THIS AS THE NEW CHEAPEST
                 if (!_check_branch_and_bound || route.checkCheapestRoute(r, cheapest))
                 {
-                    cheapest = recursiveBruteForce(_g, r, unvisited, cheapest, _check_branch_and_bound);
+                    cheapest = permutationBrusteForce(_g, r, unvisited, cheapest, _check_branch_and_bound);
                 }
                 unvisited.Add(n);
             }
             return cheapest;
         }
 
-        private static route recursiveBruteForce(graph _g, route _r, List<node> _unvisited, route cheapest,bool _check_branch_and_bound)
+        //PERMUTATION
+        private static route permutationBrusteForce(graph _g, route _r, List<node> _unvisited, route cheapest,bool _check_branch_and_bound)
         {
+            //END OF THE RECURSION
+            //IF NO NODE IS AVAILABLE RETURN AND CONNECT START TO END
+            //ALSO CHECK IF THIS ROUTE IS THE CHEAPEST
             if (_unvisited.Count() <= 0)
             {
                 _r.connect_start_end(_g);
@@ -136,6 +144,9 @@ namespace graphlib
             }
             else
             {
+                //FOR EACH NEXT POSSIBILITY
+                //CALL THE RECOURSIVE FUNCTION AGAIN
+                //
                 for (int i = 0; i < _unvisited.Count(); i++)
                 {
                     node n =_unvisited.First();
@@ -143,9 +154,12 @@ namespace graphlib
 
                     route newRoute = new route(_r);
                     newRoute.addEdgeToRoute(_r.get_last_node(), n, _g);
+
+                    //CHECK COSTS
+                    //
                     if (!_check_branch_and_bound || route.checkCheapestRoute(newRoute, cheapest))
                     { 
-                        cheapest = recursiveBruteForce(_g, newRoute, _unvisited, cheapest, _check_branch_and_bound);
+                        cheapest = permutationBrusteForce(_g, newRoute, _unvisited, cheapest, _check_branch_and_bound);
                     }
                     _unvisited.Add(n);
                 }
@@ -161,6 +175,7 @@ namespace graphlib
             graph mst = prim(_g, _s);
 
             List<List<edge>> all_dfs = getDepthFirstSearchTrees(mst);
+            //CHECK FOR AT LEAST ONE RELATION COMPONENT
             if(all_dfs.Count <= 0)
             {
                 throw new Exception("no relation compontens present");
@@ -201,6 +216,8 @@ namespace graphlib
             rres.connect_start_end(_g);
             return rres;
         }
+
+
         public static route nearest_neighbour(graph _g, node _start_node) {
         
             PriorityQueue<edge, double> pq = new PriorityQueue<edge, double>();
@@ -211,12 +228,14 @@ namespace graphlib
             node actual = _start_node;
             while(rres.count_edges() < _g.node_count() - 1)
             {
+                //CLEAR PQ AND BUILD NEW PW WITH EDGES FROM NEW NODE
                 pq.Clear();
                 foreach(edge pqe in _g.get_edge_from_node(actual, null))
                 {
                     pq.Enqueue(pqe, pqe.Weigth);
                 }
-
+                //FIND THE NEXT UNVISITED NODE IN PQ LIST
+                // IN PQ THE CHEAPEST IS THE BEST
                 edge e = null;
                 node target_node = null;
                 do
@@ -225,7 +244,9 @@ namespace graphlib
                     target_node = e.To;
                 } while(visited[target_node.Id]);
 
+                
                 visited[target_node.Id] = true;
+                //ADD THE NEW TARGET NODE THE ROUTE
                 rres.addEdgeToRoute(actual, target_node, _g);
                 actual = target_node;
             }
