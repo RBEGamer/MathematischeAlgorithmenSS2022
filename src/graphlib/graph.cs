@@ -21,7 +21,10 @@ namespace graphlib
 
         public graph(graph _g)
         {
-            node_lookup = _g.node_lookup;
+            foreach (edge e in _g.get_all_edges())
+            {
+                this.add_edge(new edge(e));
+            }
         }
 
       
@@ -126,6 +129,13 @@ namespace graphlib
 
             return node_lookup.ElementAt(new Random().Next(0, node_lookup.Count)).Value;
         }
+
+
+        public bool add_edge(int _from, int _to, double _weigth)
+        {        
+            return add_edge(new edge(new node(_from), new node(_to),_weigth));
+        }
+       
         public bool add_edge(edge _e, bool _replace = false)
         {
 

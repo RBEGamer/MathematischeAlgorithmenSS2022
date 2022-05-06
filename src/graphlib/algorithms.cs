@@ -86,7 +86,7 @@ namespace graphlib
                     //ADD WIGTH
                     total_costs += e.Weigth;
                     //ADD EDGES TO LIST FOR GRAPH RECONSTRUCTION
-                    gres.add_edge(e);
+                    gres.add_edge(e.From.Id, e.To.Id, e.Weigth);
                 }
             }
            return gres;

@@ -24,6 +24,16 @@ namespace graphlib
         
         }
 
+        public edge(edge _e)
+        {
+            this.From = _e.from;
+            this.To = _e.to;
+            this.Weigth = _e.weigth;
+
+
+        }
+
+
         public edge(node _from, node _to, double weigth)
         {
             this.From = _from;
@@ -69,13 +79,8 @@ namespace graphlib
 
         public override String ToString()
         {
-
-            string w = "X";
-
-      
             return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + this.Weigth.ToString() + "]";
            
-            
         }
 
         public node getTarget(node n)
@@ -95,7 +100,7 @@ namespace graphlib
         }
         public String ToStringStatisticsEdgeOnly()
         {
-                return "==> [" + this.To.Id+"]"; 
+                return "=> " + this.To.Id+""; 
         }
 
         public int CompareTo(object obj)

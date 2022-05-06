@@ -109,23 +109,27 @@ namespace graphlib
 
         public override string ToString()
         {
+            return Id.ToString();
+        }
+
+        public string ToStringFull()
+        {
             string tmp = "";
 
             tmp += "=> NODE " + Id.ToString();
             tmp += "\n";
-            
-            foreach(edge e in edges)
+
+            foreach (edge e in edges)
             {
                 if (!e.To.Equals(this))
                 {
-                    tmp += "" +e.ToStringStatisticsEdgeOnly() + "\n";
+                    tmp += "" + e.ToStringStatisticsEdgeOnly() + "\n";
                 }
             }
             tmp += "\n";
             return tmp;
         }
 
-       
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())

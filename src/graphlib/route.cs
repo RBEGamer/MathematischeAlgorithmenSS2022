@@ -50,7 +50,13 @@ namespace graphlib
 
         public override string ToString()
         {
-            return edges.ToString();
+            string tmp = "ROUTE COSTS "+ Math.Round(route_costs, 2).ToString()+":";
+            foreach (edge e in edges)
+            {
+                tmp += e.ToStringStatisticsEdgeOnly();
+            }
+
+            return tmp + '\n';
         }
 
         public double get_total_route_costs()
