@@ -106,7 +106,7 @@ namespace graphlib
             List<node> unvisited = _g.get_all_nodes();
             node s = unvisited.First(); // Startknoten
             unvisited.RemoveAt(0);
-
+//same as 128
             for (int i = 0; i < unvisited.Count(); i++)
             {
                 node n = unvisited.First();
@@ -135,7 +135,7 @@ namespace graphlib
                 _r.connect_start_end(_g);
                 if (route.checkCheapestRoute(_r, cheapest))
                 {
-                    return _r;
+                    return _r;//neue route komplett anlegen
                 }
                 else
                 {
@@ -151,7 +151,9 @@ namespace graphlib
                 {
                     node n =_unvisited.First();
                     _unvisited.RemoveAt(0);
-
+                    //nur eine route
+                    //remove kante route
+                    //anstatt 
                     route newRoute = new route(_r);
                     newRoute.addEdgeToRoute(_r.get_last_node(), n, _g);
 
@@ -188,15 +190,20 @@ namespace graphlib
             //FOR EACH EDGE IN DEPTH SEARCH RESULT
             //AND CONNECT ADD THEY TO THE ROUTE DEPENDING
             //THE VISIT STATE
+
+
+
             foreach(edge e in dfs)
             {
                 node from = e.From;
                 node to = e.To;
-
+                /// last viisted auf ersten
+                /// am start
                 if(!visited[from.Id] && !visited[to.Id])
                 {
                     rres.addEdgeToRoute(from, to, _g);
                     last_visited = to;
+                    ///nie vorkommt
                 }else if (!visited[from.Id])
                 {
                     rres.addEdgeToRoute(last_visited, from, _g);
@@ -237,6 +244,10 @@ namespace graphlib
                 }
                 //FIND THE NEXT UNVISITED NODE IN PQ LIST
                 // IN PQ THE CHEAPEST IS THE BEST
+
+                ///nur cheapest holen und damit checken auf visted
+                ///direkt die kante
+                ///route auf kante
                 edge e = null;
                 node target_node = null;
                 do
@@ -329,15 +340,17 @@ namespace graphlib
                 while(stack.Count > 0)
                 {
                     node n = stack.Pop();
+                    edges.Add(e);
                     visited[n.Id] = true;
                     List<edge> edges2 = _g.get_edge_from_node(n, null);
-
+                    //doppen kanten
                     foreach(edge e in edges2)
                     {
                         if (visited[e.To.Id]) { continue;}
-                        edges.Add(e);
+                        
                         stack.Push(e.To);
                         visited[e.To.Id] = false;
+                        break;
                     }
                 }
                 trees.Add(edges);

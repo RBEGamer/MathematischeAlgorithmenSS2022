@@ -42,6 +42,7 @@ namespace graphlib
             if(edges.Count == 0) { throw new ArgumentOutOfRangeException("edges.Count == 0"); }
             return edges[0].From;
         }
+
         public node get_last_node()
         {
             if (edges.Count == 0) { throw new ArgumentOutOfRangeException("edges.Count == 0"); }
@@ -75,6 +76,8 @@ namespace graphlib
         {
             addEdgeToRoute(get_last_node(), get_first_node(), _g);
         }
+
+
         public static route addEdgeToRoute(route _r ,node _from, node _to, graph _g)
         {
             try

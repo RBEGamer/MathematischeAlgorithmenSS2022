@@ -1,21 +1,18 @@
 ﻿<Properties StartupConfiguration="{BB1D821A-D235-4F0E-8142-EE9EE8CDF672}|Default">
   <MonoDevelop.Ide.ItemProperties.graphlibtest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="graphlib/algorithms.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="graphlibtest/Program.cs">
     <Files>
       <File FileName="graphlib/algorithms.cs" Line="241" Column="25" />
-      <File FileName="graphlibtest/Program.cs" />
-      <File FileName="graphlib/GLPriorityQueue.cs" />
-      <File FileName="graphlib/graph.cs" />
-      <File FileName="graphlib/route.cs" />
+      <File FileName="graphlibtest/Program.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="graphlib" expanded="True">
-            <Node name="graphlib" expanded="True">
-              <Node name="algorithms.cs" selected="True" />
+            <Node name="graphlib" expanded="True" />
+            <Node name="graphlibtest" expanded="True">
+              <Node name="Program.cs" selected="True" />
             </Node>
-            <Node name="graphlibtest" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -25,9 +22,7 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlibtest/Program.cs" relfile="graphlibtest/Program.cs" line="33" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>
