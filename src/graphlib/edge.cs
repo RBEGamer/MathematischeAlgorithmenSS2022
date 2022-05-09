@@ -14,7 +14,7 @@ namespace graphlib
 
 
         private double weigth = 0.0f;
-
+        private double capacity = 0.0f;
 
         public edge(node _from, node _to)
         {
@@ -45,6 +45,8 @@ namespace graphlib
 
 
         public double Weigth { get => weigth; set => weigth = value; }
+
+        public double Capacity { get => capacity; set => capacity = value; }
         public node To { get => to; set => to = value; }
         public node From { get => from; set => from = value; }
 

@@ -8,9 +8,35 @@ namespace graphlib
 {
     public class algorithms
     {
-
-
-
+/*
+        public static PreviousStructure djikstra(Graph g, Node s)
+        {
+            PreviousStructure tree = new PreviousStructure(g.countNodes(), s);
+            Visited v = new Visited(g.countNodes());
+            PriorityQueue<DijkstraQueueEntry> queue = new PriorityQueue<>();
+            queue.add(new DijkstraQueueEntry(s, 0.0));
+            while (v.notAllVisited())
+            {
+                Node min = queue.poll().getN();
+                v.setVisited(min);
+                for (Edge e : min.getEdges())
+                {
+                    Node target = e.getTarget(min);
+                    if (!v.isVisited(target))
+                    {
+                        double costs = (e.getCosts() + tree.getDist(min));
+                        if (tree.getDist(target) > costs)
+                        {
+                            tree.setPrev(target, min);
+                            tree.setDist(target, costs);
+                        }
+                        queue.add(new DijkstraQueueEntry(target, tree.getDist(target)));
+                    }
+                }
+            }
+            return tree;
+        }
+*/
 
         static public graph kruskal(graph _g)
         {
