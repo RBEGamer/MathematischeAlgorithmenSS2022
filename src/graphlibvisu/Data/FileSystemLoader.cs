@@ -19,7 +19,8 @@ namespace graphlibvisu.Data
             CLUSTER,
             BREITENSUCHE,
             TIEFENSUCHE,
-            RESET
+            RESET,
+            PRIM
         }
 
         static graph loaded_graph = new graph();
@@ -55,7 +56,7 @@ namespace graphlibvisu.Data
             if (fok && real_path != null && real_path.Length > 0)
             {
                 
-                if (loaded_graph.load_from_file(real_path))
+                if (loaded_graph.load_from_file(real_path, false))
                 {
                     org_loaded_graph = loaded_graph;
                 }
@@ -77,11 +78,13 @@ namespace graphlibvisu.Data
         {
             switch (_alg)
             {
-                case ALOGORITHM.CLUSTER:
-                    algorithms.CreateCorrelationComponentGroups(ref loaded_graph);
+                case ALOGORITHM.PRIM:
+                    loaded_graph = algorithms.prim(loaded_graph, loaded_graph.get_random_node());
+                    break;
+                    algorithms.getRelatedComponents(loaded_graph);
                     break;
                 case ALOGORITHM.TIEFENSUCHE:
-                    algorithms.getDepthFirstSearchTrees(ref loaded_graph, loaded_graph.get_random_node(), false, true);
+                    algorithms.getDepthFirstSearchTrees(loaded_graph);
                     break;
                 case ALOGORITHM.BREITENSUCHE:
                    // algorithms.getDepthFirstSearchTreesSimple(ref loaded_graph, loaded_graph.get_random_node(), null);

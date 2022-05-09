@@ -178,7 +178,7 @@ namespace graphlib
 
             List<List<edge>> all_dfs = getDepthFirstSearchTrees(mst);
             //CHECK FOR AT LEAST ONE RELATION COMPONENT
-            if(all_dfs.Count <= 0)
+            if (all_dfs.Count <= 0)
             {
                 throw new Exception("no relation compontens present");
             }
@@ -193,23 +193,26 @@ namespace graphlib
 
 
 
-            foreach(edge e in dfs)
+            foreach (edge e in dfs)
             {
                 node from = e.From;
                 node to = e.To;
                 /// last viisted auf ersten
                 /// am start
-                if(!visited[from.Id] && !visited[to.Id])
+                if (!visited[from.Id] && !visited[to.Id])
                 {
                     rres.addEdgeToRoute(from, to, _g);
                     last_visited = to;
                     ///nie vorkommt
-                }else if (!visited[from.Id])
+                }
+                else if (!visited[from.Id])
                 {
                     rres.addEdgeToRoute(last_visited, from, _g);
                     last_visited = from;
 
-                }else if (!visited[to.Id]) {
+                }
+                else if (!visited[to.Id])
+                {
                     rres.addEdgeToRoute(last_visited, to, _g);
                     last_visited = to;
                 }
@@ -220,10 +223,11 @@ namespace graphlib
 
             //TO CREATE A COMPLETE CIRCLE
             //CONNECT START AND END
-            
+
             rres.connect_start_end(_g);
             return rres;
         }
+
 
 
         public static route nearest_neighbour(graph _g, node _start_node) {
@@ -277,49 +281,6 @@ namespace graphlib
         }
 
 
-        public static List<node> go_breadth_first_search(graph _g, node _start_node, node _target,visited_handler _vh)
-        {
-            List<node> gres = new List<node>();
-            Queue<node> q = new Queue<node>();
-
-            if(_vh == null)
-            {
-                _vh = new visited_handler(_g.node_count());
-            }
-            q.Enqueue(_start_node);
-            _vh.set_visited(_start_node);
-            predesessor pre = new predesessor(_g, _start_node);
-
-
-            while(q.Count > 0)
-            {
-                node actual = q.Dequeue();
-
-                foreach(edge e in _g.get_edge_from_node(actual, null)){
-                    node target = e.To;
-
-                    if (_vh.is_not_visited(target))
-                    {
-                        _vh.set_visited(target);
-                        q.Enqueue(target);
-                        pre.setPrevNode(target, actual);
-                        if (target.Equals(_target))
-                        {
-                            node tmp = target;
-                            while (!tmp.Equals(_start_node))
-                            {
-                                gres.Insert(0, tmp);
-                                tmp = pre.getPrevNode(tmp);
-                            }
-                            gres.Insert(0, _start_node);
-                            return gres;
-                        }
-                    }
-                }
-            }
-
-            return gres;
-        }
 
         public static List<List<edge>> getDepthFirstSearchTrees(graph _g)
         {
@@ -330,31 +291,34 @@ namespace graphlib
 
             foreach (node node in known_nodes)
             {
-                if (visited[node.Id]) { continue; }
-                visited[node.Id] = true;
-                Stack<node> stack = new Stack<node>();
-                List<edge> edges = new List<edge>();
-                
-                stack.Push(node);
-
-                while(stack.Count > 0)
+                if (!visited[node.Id])
                 {
-                    node n = stack.Pop();
-                    edges.Add(e);
-                    visited[n.Id] = true;
-                    List<edge> edges2 = _g.get_edge_from_node(n, null);
-                    //doppen kanten
-                    foreach(edge e in edges2)
+                    visited[node.Id] = true;
+                    Stack<node> stack = new Stack<node>();
+                    List<edge> edges = new List<edge>();
+
+                    stack.Push(node);
+
+                    while (stack.Count > 0)
                     {
-                        if (visited[e.To.Id]) { continue;}
-                        
-                        stack.Push(e.To);
-                        visited[e.To.Id] = false;
-                        break;
+                        node n = stack.Pop();
+
+                        visited[n.Id] = true;
+                        List<edge> edges2 = _g.get_edge_from_node(n, null);
+                        //doppen kanten
+                        foreach (edge e in edges2)
+                        {
+                            node target = e.getTarget(n);
+                            if (!visited[target.Id])
+                            {
+                                edges.Add(e);
+                                stack.Push(target);
+                                visited[target.Id] = true;
+                            }
+                        }
                     }
-                }
-                trees.Add(edges);
-                
+                    trees.Add(edges);
+                } 
             }
 
             return trees;

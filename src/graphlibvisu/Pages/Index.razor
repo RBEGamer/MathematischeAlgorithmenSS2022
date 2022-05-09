@@ -40,6 +40,7 @@
                             <tr>
                                 <th><a class="btn btn-primary" @onclick="greset" role="button">RESET</a></th>
                                 <th><a class="btn btn-primary" @onclick="cluster" role="button">CLUSTER VIA BREITENSUCHE</a></th>
+                                <th><a class="btn btn-primary" @onclick="prim" role="button">PRIM</a></th>
                             </tr>
                         </table>
                     </td>
@@ -90,6 +91,12 @@
         JS.InvokeVoidAsync("reload_page");
     }
 
+    protected void prim()
+    {
+        FileSystemLoader.ApplyEffectOnGraph(FileSystemLoader.ALOGORITHM.PRIM);
+        //JS.InvokeVoidAsync("create_alchemy_visualisation", FileSystemLoader.CurrentGraphToJSONSTring());
+        JS.InvokeVoidAsync("reload_page");
+    }
 
 
     protected void load_graph(string _fs)
