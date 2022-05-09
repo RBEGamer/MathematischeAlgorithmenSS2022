@@ -66,19 +66,19 @@ namespace graphlib
         }
 
 
-        public void addEdgeToRoute(node _from, node _to, graph _g)
+        public void addEdgeToRoute(node _from, node _to, graph _g, bool _add_only_unique_nodes)
         {
-          route.addEdgeToRoute(this, _from, _to, _g);
+          route.addEdgeToRoute(this, _from, _to, _g, _add_only_unique_nodes);
         }
 
 
         public void connect_start_end(graph _g)
         {
-            addEdgeToRoute(get_last_node(), get_first_node(), _g);
+            addEdgeToRoute(get_last_node(), get_first_node(), _g, false);
         }
 
 
-        public static route addEdgeToRoute(route _r ,node _from, node _to, graph _g)
+        public static route addEdgeToRoute(route _r ,node _from, node _to, graph _g, bool _add_only_unique_nodes)
         {
             try
             {

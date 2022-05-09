@@ -43,9 +43,6 @@ namespace graphlib
             }
             return gres;
         }
-
-
-
         static public graph prim(graph _g, node _start)
         {
             PriorityQueue<edge, double> q = new PriorityQueue<edge, double>();
@@ -92,8 +89,6 @@ namespace graphlib
            return gres;
         }
 
-        
-       
         public static route branch_and_bound(graph _g)
         {
             //CALL BRUTEFORCE WITH B&B CHECK SET TO TRUE
@@ -112,7 +107,7 @@ namespace graphlib
                 node n = unvisited.First();
                 unvisited.RemoveAt(0);
 
-                route r = route.addEdgeToRoute(new route(), s, n, _g);
+                route r = route.addEdgeToRoute(new route(), s, n, _g, false);
                 //CHECK IF NEW GENERATED ROUTE IS CHEAPTER THAN THE LAST ONE
                 //STORE THIS AS THE NEW CHEAPEST
                 if (!_check_branch_and_bound || route.checkCheapestRoute(r, cheapest))
@@ -155,7 +150,7 @@ namespace graphlib
                     //remove kante route
                     //anstatt 
                     route newRoute = new route(_r);
-                    newRoute.addEdgeToRoute(_r.get_last_node(), n, _g);
+                    newRoute.addEdgeToRoute(_r.get_last_node(), n, _g, false);
 
                     //CHECK COSTS
                     //
@@ -168,8 +163,6 @@ namespace graphlib
                 return cheapest;
             }
         }
-
-
 
         public static route double_tree(graph _g, node _s)
         {
@@ -187,48 +180,44 @@ namespace graphlib
             node last_visited = null;
 
 
-            //FOR EACH EDGE IN DEPTH SEARCH RESULT
-            //AND CONNECT ADD THEY TO THE ROUTE DEPENDING
-            //THE VISIT STATE
 
 
-            /*
-            foreach (edge e in dfs)
+            for(int i=0; i< dfs.Count-1; i++)
             {
-                node from = e.From;
-                node to = e.To;
-                /// last viisted auf ersten
-                /// am start
+                node from = dfs[i];
+                node to = dfs[i+1];
+
                 if (!visited[from.Id] && !visited[to.Id])
                 {
-                    rres.addEdgeToRoute(from, to, _g);
+                    rres.addEdgeToRoute(from, to, _g, true);
                     last_visited = to;
                     ///nie vorkommt
                 }
                 else if (!visited[from.Id])
                 {
-                    rres.addEdgeToRoute(last_visited, from, _g);
+                    rres.addEdgeToRoute(last_visited, from, _g, true);
                     last_visited = from;
 
                 }
                 else if (!visited[to.Id])
                 {
-                    rres.addEdgeToRoute(last_visited, to, _g);
+                    rres.addEdgeToRoute(last_visited, to, _g, true);
                     last_visited = to;
                 }
 
                 visited[from.Id] = true;
                 visited[to.Id] = true;
             }
-            */
+
+           
+            
             //TO CREATE A COMPLETE CIRCLE
             //CONNECT START AND END
 
             rres.connect_start_end(_g);
+            rres.ToString();
             return rres;
         }
-
-
 
         public static route nearest_neighbour(graph _g, node _start_node) {
         
@@ -265,24 +254,20 @@ namespace graphlib
                 
                 visited[target_node.Id] = true;
                 //ADD THE NEW TARGET NODE THE ROUTE
-                rres.addEdgeToRoute(actual, target_node, _g);
+                rres.addEdgeToRoute(actual, target_node, _g, false);
                 actual = target_node;
             }
             //ADD STARTNODE AT THE END
-            rres.addEdgeToRoute(actual,_start_node, _g);
+            rres.addEdgeToRoute(actual,_start_node, _g, false);
            
             return rres;
         }
-
-
 
         public static int getRelatedComponents(graph _g)
         {
             return getDepthFirstSearchTreesNode(_g).Count;
 
         }
-
-
 
         public static List<List<node>> getDepthFirstSearchTreesNode(graph _g)
         {
@@ -295,14 +280,16 @@ namespace graphlib
             {
                 if (!visited[node.Id])
                 {
-                    visited[node.Id] = true;
+                   
                     Stack<node> stack = new Stack<node>();
                     List<node> edges = new List<node>();
 
-
                     stack.Push(node);
+                    visited[node.Id] = true;
 
-                        
+
+
+
 
                     while (stack.Count > 0)
                     {

@@ -58,7 +58,7 @@ namespace graphlibvisu.Data
                 
                 if (loaded_graph.load_from_file(real_path, false))
                 {
-                    org_loaded_graph = loaded_graph;
+                    loaded_graph = algorithms.prim(loaded_graph, loaded_graph.get_node_with_id(0));
                 }
             }
 
@@ -84,7 +84,7 @@ namespace graphlibvisu.Data
                     algorithms.getRelatedComponents(loaded_graph);
                     break;
                 case ALOGORITHM.TIEFENSUCHE:
-                    algorithms.getDepthFirstSearchTrees(loaded_graph);
+                    algorithms.getDepthFirstSearchTreesNode(loaded_graph);
                     break;
                 case ALOGORITHM.BREITENSUCHE:
                    // algorithms.getDepthFirstSearchTreesSimple(ref loaded_graph, loaded_graph.get_random_node(), null);
