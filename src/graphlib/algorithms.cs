@@ -176,13 +176,13 @@ namespace graphlib
             route rres = new route();
             graph mst = prim(_g, _s);
 
-            List<List<edge>> all_dfs = getDepthFirstSearchTrees(mst);
+            List<List<node>> all_dfs = getDepthFirstSearchTreesNode(mst);
             //CHECK FOR AT LEAST ONE RELATION COMPONENT
             if (all_dfs.Count <= 0)
             {
                 throw new Exception("no relation compontens present");
             }
-            List<edge> dfs = all_dfs[0];
+            List<node> dfs = all_dfs[0];
             bool[] visited = new bool[mst.node_count()];
             node last_visited = null;
 
@@ -192,7 +192,7 @@ namespace graphlib
             //THE VISIT STATE
 
 
-
+            /*
             foreach (edge e in dfs)
             {
                 node from = e.From;
@@ -220,7 +220,7 @@ namespace graphlib
                 visited[from.Id] = true;
                 visited[to.Id] = true;
             }
-
+            */
             //TO CREATE A COMPLETE CIRCLE
             //CONNECT START AND END
 
@@ -256,7 +256,9 @@ namespace graphlib
                 node target_node = null;
                 do
                 {
+                    if(pq.Count == 0) { break; }
                     e = pq.Dequeue();
+
                     target_node = e.To;
                 } while(visited[target_node.Id]);
 
@@ -276,16 +278,16 @@ namespace graphlib
 
         public static int getRelatedComponents(graph _g)
         {
-            return getDepthFirstSearchTrees(_g).Count;
+            return getDepthFirstSearchTreesNode(_g).Count;
 
         }
 
 
 
-        public static List<List<edge>> getDepthFirstSearchTrees(graph _g)
+        public static List<List<node>> getDepthFirstSearchTreesNode(graph _g)
         {
 
-            List<List<edge>> trees = new List<List<edge>>();
+            List<List<node>> trees = new List<List<node>>();
             bool[] visited = new bool[_g.node_count()];
             List<node> known_nodes = _g.get_all_nodes();
 
@@ -295,32 +297,34 @@ namespace graphlib
                 {
                     visited[node.Id] = true;
                     Stack<node> stack = new Stack<node>();
-                    List<edge> edges = new List<edge>();
+                    List<node> edges = new List<node>();
+
 
                     stack.Push(node);
+
+                        
 
                     while (stack.Count > 0)
                     {
                         node n = stack.Pop();
-
+                        System.Console.Out.WriteLine("pop:" + n.Id);
+                        edges.Add(n);
                         visited[n.Id] = true;
+                        
                         List<edge> edges2 = _g.get_edge_from_node(n, null);
-                        //doppen kanten
                         foreach (edge e in edges2)
                         {
                             node target = e.getTarget(n);
                             if (!visited[target.Id])
                             {
-                                edges.Add(e);
                                 stack.Push(target);
                                 visited[target.Id] = true;
-                            }
+                          }
                         }
                     }
                     trees.Add(edges);
                 } 
             }
-
             return trees;
         }
 
