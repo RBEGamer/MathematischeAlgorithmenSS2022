@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace graphlib
 {
-    internal class previous_structure
+    public class previous_structure
     {
 
         public enum PREV_STATE

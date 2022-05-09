@@ -13,9 +13,9 @@ namespace graphlib
 
 
 
-        private double weigth = 0.0f;
-        private double capacity = 0.0f;
-
+        private double weigth = 0.0;
+        private double capacity = 0.0;
+        private double costs = 0.0;
         public edge(node _from, node _to)
         {
             this.From = _from;
@@ -47,6 +47,8 @@ namespace graphlib
         public double Weigth { get => weigth; set => weigth = value; }
 
         public double Capacity { get => capacity; set => capacity = value; }
+
+        public double Costs { get => costs; set => costs = value; }
         public node To { get => to; set => to = value; }
         public node From { get => from; set => from = value; }
 

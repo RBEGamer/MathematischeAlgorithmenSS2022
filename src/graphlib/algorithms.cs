@@ -8,35 +8,37 @@ namespace graphlib
 {
     public class algorithms
     {
-/*
-        public static PreviousStructure djikstra(Graph g, Node s)
+
+        public static previous_structure djikstra(graph _g, node _startnode)
         {
-            PreviousStructure tree = new PreviousStructure(g.countNodes(), s);
-            Visited v = new Visited(g.countNodes());
-            PriorityQueue<DijkstraQueueEntry> queue = new PriorityQueue<>();
-            queue.add(new DijkstraQueueEntry(s, 0.0));
-            while (v.notAllVisited())
+            previous_structure tree = new previous_structure(_g.node_count(), _startnode);
+            visited_handler v = new visited_handler((_g.node_count());
+            PriorityQueue<node, double> queue = new PriorityQueue<node, double>();
+            
+            //STARTNODE TO THEMSELF = DISTANCE 0
+            queue.Enqueue(_startnode, 0.0);
+            while (v.is_not_all_visited())
             {
-                Node min = queue.poll().getN();
-                v.setVisited(min);
-                for (Edge e : min.getEdges())
+                node min = queue.Dequeue();
+                v.set_visited(min);
+                foreach (edge e in min.get_edges())
                 {
-                    Node target = e.getTarget(min);
-                    if (!v.isVisited(target))
+                    node target = e.getTarget(min);
+                    if (!v.is_visited(target))
                     {
-                        double costs = (e.getCosts() + tree.getDist(min));
-                        if (tree.getDist(target) > costs)
+                        double costs = (e.Costs + tree.get_distance(min));
+                        if (tree.get_distance(target) > costs)
                         {
-                            tree.setPrev(target, min);
-                            tree.setDist(target, costs);
+                            tree.set_previous(target, min);
+                            tree.set_distance(target, costs);
                         }
-                        queue.add(new DijkstraQueueEntry(target, tree.getDist(target)));
+                        queue.Enqueue(target, tree.get_distance(target));
                     }
                 }
             }
             return tree;
         }
-*/
+
 
         static public graph kruskal(graph _g)
         {
