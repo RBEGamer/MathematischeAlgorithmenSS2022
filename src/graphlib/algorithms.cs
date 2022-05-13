@@ -9,6 +9,8 @@ namespace graphlib
     public class algorithms
     {
 
+
+
         public static previous_structure bellman_ford(graph _g, node _s)
         {
             previous_structure tree = new previous_structure(_g.node_count(), _s);
@@ -17,41 +19,40 @@ namespace graphlib
             {
                 foreach (edge e in edges)
                 {
-                  //  if (e.getCapacity() > 0.0)
-                    //{
-                        node v = e.From;
-                        node w = e.To;
-                        double ce = e.Costs;
-                        double cw = tree.get_distance(w);
-                        double tmpc = tree.get_distance(v) + ce;
+                      if (e.Weigth > 0.0)
+                    {
+                    node v = e.From;
+                    node w = e.To;
+                    double ce = e.Costs;
+                    double cw = tree.get_distance(w);
+                    double tmpc = tree.get_distance(v) + ce;
 
-                        if (tmpc < cw)
-                        {
-                            tree.set_distance(w, tmpc);
-                            tree.set_previous(w, v);
-                        }
-                  //  }
+                    if (tmpc < cw)
+                    {
+                        tree.set_distance(w, tmpc);
+                        tree.set_previous(w, v);
+                    }
+                      }
                 }
             }
 
             foreach (edge e in edges)
             {
-              //  if (e.getCapacity() > 0.0)
-              //  {
-                    double cv = tree.get_distance(e.From);
-                    double ce = e.Costs;
-                    double cw = tree.get_distance(e.To);
-                    if ((cv + ce) < cw)
-                    {
-                        tree.set_to_negative_cycle();
-                        tree.construct_negative_cycle(e.From, _g);
-                        return tree;
-                    }
-               // }
+                  if (e.Weigth > 0.0)
+                  {
+                double cv = tree.get_distance(e.From);
+                double ce = e.Costs;
+                double cw = tree.get_distance(e.To);
+                if ((cv + ce) < cw)
+                {
+                    tree.set_to_negative_cycle();
+                    tree.construct_negative_cycle(e.From, _g);
+                    return tree;
+                }
+                 }
             }
             return tree;
         }
-
 
 
         public static previous_structure djikstra(graph _g, node _startnode)
@@ -83,6 +84,7 @@ namespace graphlib
             }
             return tree;
         }
+
 
         static public graph kruskal(graph _g)
         {
@@ -360,10 +362,6 @@ namespace graphlib
 
                     stack.Push(node);
                     visited[node.Id] = true;
-
-
-
-
 
                     while (stack.Count > 0)
                     {

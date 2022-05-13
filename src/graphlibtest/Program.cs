@@ -20,27 +20,31 @@ namespace graphlibtest
 
             graph g =  new graph();
 
-            g.load_from_file(files[0], false);
+            g.load_from_file(files[0], true);
 
             //X * 1000 knoten Y*1000 Kanten
 
           //  algorithms.getDepthFirstSearchTreesNode(g);
             //2ms für K10e
-           // System.Console.WriteLine(algorithms.nearest_neighbour(g,g.get_node_with_id(0)));
+           
 
             //1ms für K10e
-            System.Console.WriteLine(algorithms.double_tree(g, g.get_node_with_id(0)));
+         //   System.Console.WriteLine( algorithms.double_tree(g, g.get_node_with_id(0)));
 
-            //algorithms.djikstra(g, g.get_node_with_id(2));
+
+        //    System.Console.WriteLine("DBT:" + algorithms.nearest_neighbour(g,g.get_node_with_id(0)));
+
+
+            algorithms.djikstra(g, g.get_node_with_id(2));
 
             //algorithms.bellman_ford(g, g.get_node_with_id(2));
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            System.Console.WriteLine(algorithms.bruteForceRoute(g, false));
+        //    System.Console.WriteLine(algorithms.bruteForceRoute(g, false));
             stopwatch.Stop();
             double nna_time = stopwatch.ElapsedMilliseconds;
-            System.Console.WriteLine(algorithms.bruteForceRoute(g, true));
+          //  System.Console.WriteLine(algorithms.bruteForceRoute(g, true));
 
 
             int b = 5;
