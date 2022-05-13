@@ -84,7 +84,7 @@ namespace graphlib
         }
 
 
-        ^public double get_distance(node _node)
+        public double get_distance(node _node)
         {
             return dist[_node.Id];
         }
@@ -133,6 +133,9 @@ namespace graphlib
             }
         }
 
+        public void set_to_negative_cycle() {
+            status = PREV_STATE.IS_NEGATIVE_CYCLE;
+        }
 
         public override string ToString()
         {
@@ -141,7 +144,7 @@ namespace graphlib
             {
                 if (prev_nodes[i] != null)
                 {
-                    str.Append(prev_nodes[i].Id + " -> " + i + ": " + dist[i] + "\n");
+                    str.Append("["+prev_nodes[i].Id + " -> " + i + ": " + dist[i] + "]\n");
                 }
             }
             return str.ToString();

@@ -23,7 +23,7 @@ namespace graphlib
         }
 
         public bool is_not_all_visited() {
-            return is_all_visited();
+            return !is_all_visited();
         }
 
         public bool[] get_visited()

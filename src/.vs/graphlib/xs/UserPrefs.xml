@@ -2,8 +2,11 @@
   <MonoDevelop.Ide.ItemProperties.graphlibtest PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="graphlibtest/Program.cs">
     <Files>
-      <File FileName="graphlib/algorithms.cs" Line="241" Column="25" />
-      <File FileName="graphlibtest/Program.cs" Line="1" Column="1" />
+      <File FileName="graphlib/algorithms.cs" Line="254" Column="1" />
+      <File FileName="graphlibtest/Program.cs" Line="23" Column="45" />
+      <File FileName="graphlib/previous_structure.cs" />
+      <File FileName="graphlib/graph.cs" />
+      <File FileName="graphlib/route.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,7 +25,11 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/algorithms.cs" relfile="graphlib/algorithms.cs" line="84" column="1" />
+      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/algorithms.cs" relfile="graphlib/algorithms.cs" line="52" column="1" />
+      <Breakpoint file="/Users/marcelochsendorf/Downloads/MathematischeAlgorithmenSS2022/src/graphlib/algorithms.cs" relfile="graphlib/algorithms.cs" line="253" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

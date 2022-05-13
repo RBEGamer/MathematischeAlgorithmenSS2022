@@ -9,15 +9,60 @@ namespace graphlib
     public class algorithms
     {
 
+        public static previous_structure bellman_ford(graph _g, node _s)
+        {
+            previous_structure tree = new previous_structure(_g.node_count(), _s);
+            List<edge> edges = _g.get_all_edges();
+            for (int i = 1; i < _g.node_count(); i++)
+            {
+                foreach (edge e in edges)
+                {
+                  //  if (e.getCapacity() > 0.0)
+                    //{
+                        node v = e.From;
+                        node w = e.To;
+                        double ce = e.Costs;
+                        double cw = tree.get_distance(w);
+                        double tmpc = tree.get_distance(v) + ce;
+
+                        if (tmpc < cw)
+                        {
+                            tree.set_distance(w, tmpc);
+                            tree.set_previous(w, v);
+                        }
+                  //  }
+                }
+            }
+
+            foreach (edge e in edges)
+            {
+              //  if (e.getCapacity() > 0.0)
+              //  {
+                    double cv = tree.get_distance(e.From);
+                    double ce = e.Costs;
+                    double cw = tree.get_distance(e.To);
+                    if ((cv + ce) < cw)
+                    {
+                        tree.set_to_negative_cycle();
+                        tree.construct_negative_cycle(e.From, _g);
+                        return tree;
+                    }
+               // }
+            }
+            return tree;
+        }
+
+
+
         public static previous_structure djikstra(graph _g, node _startnode)
         {
             previous_structure tree = new previous_structure(_g.node_count(), _startnode);
-            visited_handler v = new visited_handler((_g.node_count());
+            visited_handler v = new visited_handler(_g.node_count());
             PriorityQueue<node, double> queue = new PriorityQueue<node, double>();
-            
+
             //STARTNODE TO THEMSELF = DISTANCE 0
             queue.Enqueue(_startnode, 0.0);
-            while (v.is_not_all_visited())
+            while (v.is_not_all_visited() && queue.Count > 0)
             {
                 node min = queue.Dequeue();
                 v.set_visited(min);
@@ -38,7 +83,6 @@ namespace graphlib
             }
             return tree;
         }
-
 
         static public graph kruskal(graph _g)
         {
@@ -71,6 +115,7 @@ namespace graphlib
             }
             return gres;
         }
+
         static public graph prim(graph _g, node _start)
         {
             PriorityQueue<edge, double> q = new PriorityQueue<edge, double>();
@@ -114,7 +159,7 @@ namespace graphlib
                     gres.add_edge(e.From.Id, e.To.Id, e.Weigth);
                 }
             }
-           return gres;
+            return gres;
         }
 
         public static route branch_and_bound(graph _g)
@@ -129,7 +174,7 @@ namespace graphlib
             List<node> unvisited = _g.get_all_nodes();
             node s = unvisited.First(); // Startknoten
             unvisited.RemoveAt(0);
-//same as 128
+            //same as 128
             for (int i = 0; i < unvisited.Count(); i++)
             {
                 node n = unvisited.First();
@@ -148,7 +193,7 @@ namespace graphlib
         }
 
         //PERMUTATION
-        private static route permutationBrusteForce(graph _g, route _r, List<node> _unvisited, route cheapest,bool _check_branch_and_bound)
+        private static route permutationBrusteForce(graph _g, route _r, List<node> _unvisited, route cheapest, bool _check_branch_and_bound)
         {
             //END OF THE RECURSION
             //IF NO NODE IS AVAILABLE RETURN AND CONNECT START TO END
@@ -172,7 +217,7 @@ namespace graphlib
                 //
                 for (int i = 0; i < _unvisited.Count(); i++)
                 {
-                    node n =_unvisited.First();
+                    node n = _unvisited.First();
                     _unvisited.RemoveAt(0);
                     //nur eine route
                     //remove kante route
@@ -183,7 +228,7 @@ namespace graphlib
                     //CHECK COSTS
                     //
                     if (!_check_branch_and_bound || route.checkCheapestRoute(newRoute, cheapest))
-                    { 
+                    {
                         cheapest = permutationBrusteForce(_g, newRoute, _unvisited, cheapest, _check_branch_and_bound);
                     }
                     _unvisited.Add(n);
@@ -210,16 +255,16 @@ namespace graphlib
 
 
 
-            for(int i=0; i< dfs.Count-1; i++)
+            for (int i = 0; i < dfs.Count - 1; i++)
             {
                 node from = dfs[i];
-                node to = dfs[i+1];
+                node to = dfs[i + 1];
 
                 if (!visited[from.Id] && !visited[to.Id])
                 {
                     rres.addEdgeToRoute(from, to, _g, true);
                     last_visited = to;
-                    ///nie vorkommt
+                    ///nie vorkommt => STARTCASE
                 }
                 else if (!visited[from.Id])
                 {
@@ -237,8 +282,8 @@ namespace graphlib
                 visited[to.Id] = true;
             }
 
-           
-            
+
+
             //TO CREATE A COMPLETE CIRCLE
             //CONNECT START AND END
 
@@ -247,19 +292,20 @@ namespace graphlib
             return rres;
         }
 
-        public static route nearest_neighbour(graph _g, node _start_node) {
-        
+        public static route nearest_neighbour(graph _g, node _start_node)
+        {
+
             PriorityQueue<edge, double> pq = new PriorityQueue<edge, double>();
             route rres = new route();
-            bool[] visited  = new bool[_g.node_count()];
+            bool[] visited = new bool[_g.node_count()];
 
             visited[_start_node.Id] = true;
             node actual = _start_node;
-            while(rres.count_edges() < _g.node_count() - 1)
+            while (rres.count_edges() < _g.node_count() - 1)
             {
                 //CLEAR PQ AND BUILD NEW PW WITH EDGES FROM NEW NODE
                 pq.Clear();
-                foreach(edge pqe in _g.get_edge_from_node(actual, null))
+                foreach (edge pqe in _g.get_edge_from_node(actual, null))
                 {
                     pq.Enqueue(pqe, pqe.Weigth);
                 }
@@ -273,21 +319,21 @@ namespace graphlib
                 node target_node = null;
                 do
                 {
-                    if(pq.Count == 0) { break; }
+                    if (pq.Count == 0) { break; }
                     e = pq.Dequeue();
 
                     target_node = e.To;
-                } while(visited[target_node.Id]);
+                } while (visited[target_node.Id]);
 
-                
+
                 visited[target_node.Id] = true;
                 //ADD THE NEW TARGET NODE THE ROUTE
                 rres.addEdgeToRoute(actual, target_node, _g, false);
                 actual = target_node;
             }
             //ADD STARTNODE AT THE END
-            rres.addEdgeToRoute(actual,_start_node, _g, false);
-           
+            rres.addEdgeToRoute(actual, _start_node, _g, false);
+
             return rres;
         }
 
@@ -308,7 +354,7 @@ namespace graphlib
             {
                 if (!visited[node.Id])
                 {
-                   
+
                     Stack<node> stack = new Stack<node>();
                     List<node> edges = new List<node>();
 
@@ -325,20 +371,23 @@ namespace graphlib
                         System.Console.Out.WriteLine("pop:" + n.Id);
                         edges.Add(n);
                         visited[n.Id] = true;
-                        
+
                         List<edge> edges2 = _g.get_edge_from_node(n, null);
                         foreach (edge e in edges2)
                         {
-                            node target = e.getTarget(n);
+                            node? target = e.getTarget(n);
+                            if (target == null) { continue; }
+
                             if (!visited[target.Id])
                             {
                                 stack.Push(target);
                                 visited[target.Id] = true;
-                          }
+                            }
                         }
                     }
+
                     trees.Add(edges);
-                } 
+                }
             }
             return trees;
         }

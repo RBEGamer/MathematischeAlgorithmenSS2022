@@ -24,15 +24,16 @@ namespace graphlibtest
 
             //X * 1000 knoten Y*1000 Kanten
 
-
+          //  algorithms.getDepthFirstSearchTreesNode(g);
             //2ms für K10e
-            System.Console.WriteLine(algorithms.nearest_neighbour(g,g.get_node_with_id(2)));
+           // System.Console.WriteLine(algorithms.nearest_neighbour(g,g.get_node_with_id(0)));
 
             //1ms für K10e
-            System.Console.WriteLine(algorithms.double_tree(g, g.get_node_with_id(2)));
+            System.Console.WriteLine(algorithms.double_tree(g, g.get_node_with_id(0)));
 
-          
+            //algorithms.djikstra(g, g.get_node_with_id(2));
 
+            //algorithms.bellman_ford(g, g.get_node_with_id(2));
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
