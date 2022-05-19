@@ -20,7 +20,7 @@ namespace graphlib
         private List<edge> negative_cycle = new List<edge>();
         private node[] prev_nodes;
         private PREV_STATE status = PREV_STATE.IS_TREE;
-        private double total_negative_cycle_costs = 0.0;
+
 
 
         public double getMinNegativCylcleCapacity

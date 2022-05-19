@@ -61,7 +61,7 @@ namespace graphlib
 
                         //ADD WEIGHT
                         if (sp.Length >= 3){
-                            double w = double.Parse(sp[2], CultureInfo.InvariantCulture);
+                            double w = double.Parse(sp[2], CultureInfo.InvariantCulture)*1.0;
                             edge_forward.Weigth = w;              
                             edge_backward.Weigth = w;                        
                         }
