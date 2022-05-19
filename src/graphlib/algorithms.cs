@@ -14,43 +14,44 @@ namespace graphlib
         public static previous_structure bellman_ford(graph _g, node _s)
         {
             previous_structure tree = new previous_structure(_g.node_count(), _s);
+
             List<edge> edges = _g.get_all_edges();
             for (int i = 1; i < _g.node_count(); i++)
             {
                 foreach (edge e in edges)
                 {
-                      if (e.Weigth > 0.0)
-                    {
-                    node v = e.From;
-                    node w = e.To;
-                    double ce = e.Costs;
-                    double cw = tree.get_distance(w);
-                    double tmpc = tree.get_distance(v) + ce;
+                    
+                        node v = e.From;
+                        node w = e.To;
+                        double ce = e.Weigth;
+                        double cw = tree.get_distance(w);
+                        double tmpc = tree.get_distance(v) + ce;
 
-                    if (tmpc < cw)
-                    {
-                        tree.set_distance(w, tmpc);
-                        tree.set_previous(w, v);
-                    }
-                      }
+                        if (tmpc < cw)
+                        {
+                            tree.set_distance(w, tmpc);
+                            tree.set_previous(w, v);
+                        }
+                    
                 }
             }
 
             foreach (edge e in edges)
             {
-                  if (e.Weigth > 0.0)
-                  {
-                double cv = tree.get_distance(e.From);
-                double ce = e.Costs;
-                double cw = tree.get_distance(e.To);
-                if ((cv + ce) < cw)
-                {
-                    tree.set_to_negative_cycle();
-                    tree.construct_negative_cycle(e.From, _g);
-                    return tree;
-                }
-                 }
+                
+                    double cv = tree.get_distance(e.From);
+                    double ce = e.Weigth;
+                    double cw = tree.get_distance(e.To);
+                    if ((cv + ce) < cw)
+                    {
+                        tree.set_to_negative_cycle();
+                       // tree.construct_negative_cycle(e.From, _g);
+                        return tree;
+                    }
+                
             }
+
+            double dd = tree.get_distance(_g.get_node_with_id(2));
             return tree;
         }
 
@@ -58,30 +59,33 @@ namespace graphlib
         public static previous_structure djikstra(graph _g, node _startnode)
         {
             previous_structure tree = new previous_structure(_g.node_count(), _startnode);
-            visited_handler v = new visited_handler(_g.node_count());
+            bool[] visited = new bool[_g.node_lookup.Count];
             PriorityQueue<node, double> queue = new PriorityQueue<node, double>();
 
             //STARTNODE TO THEMSELF = DISTANCE 0
             queue.Enqueue(_startnode, 0.0);
-            while (v.is_not_all_visited() && queue.Count > 0)
+            while (queue.Count > 0)
             {
+               
                 node min = queue.Dequeue();
-                v.set_visited(min);
-                foreach (edge e in min.get_edges())
+                visited[min.Id] = true;
+                foreach (edge e in _g.get_edge_from_node(min, null))
                 {
                     node target = e.getTarget(min);
-                    if (!v.is_visited(target))
+                    if (!visited[target.Id])
                     {
-                        double costs = (e.Costs + tree.get_distance(min));
+                        double costs = (e.Weigth + tree.get_distance(min));
                         if (tree.get_distance(target) > costs)
                         {
                             tree.set_previous(target, min);
                             tree.set_distance(target, costs);
                         }
+
                         queue.Enqueue(target, tree.get_distance(target));
                     }
                 }
             }
+            double c = tree.get_distance(_g.get_node_with_id(0));
             return tree;
         }
 

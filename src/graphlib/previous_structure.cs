@@ -12,11 +12,11 @@ namespace graphlib
         public enum PREV_STATE
         {
             IS_TREE = 0,
-            IS_NEGATIVE_CYCLE = 0
+            IS_NEGATIVE_CYCLE = 1
         }
 
         private double[] dist;
-        private double min_negative_cycle_capacity = double.MaxValue;
+        private double min_negative_cycle_capacity = double.PositiveInfinity;
         private List<edge> negative_cycle = new List<edge>();
         private node[] prev_nodes;
         private PREV_STATE status = PREV_STATE.IS_TREE;
@@ -38,33 +38,13 @@ namespace graphlib
             {
                 dist[i] = double.PositiveInfinity;
             }
-
+            set_to_tree_cycle();
             prev_nodes = new node[_node_count];
             set_distance(_start_node, 0.0);
             set_previous(_start_node, _start_node);
         }
 
 
-        public void construct_negative_cycle(node _current_node, graph _graph)
-        {
-            for (int i = 0; i < _graph.node_count(); i++)
-            {
-                _current_node = prev_nodes[_current_node.Id];
-            }
-
-            negative_cycle = new List<edge>();
-
-            if (is_negative_cycle())
-            {
-                node start_node = _current_node;
-                while(get_previous_node(_current_node).Id != start_node.Id)
-                {
-                    add_edge_to_cycle(_graph, get_previous_node(_current_node), _current_node);
-                    _current_node = get_previous_node(_current_node);
-                }
-                add_edge_to_cycle(_graph, get_previous_node(_current_node), _current_node);
-            }
-        }
 
         public List<node> get_path(node _start, node _to)
         {
@@ -72,13 +52,14 @@ namespace graphlib
             node curr = _to;
 
 
-            path.Add(_start);
+            path.Add(new node(_start));
             while(curr.Id != _start.Id)
             {
-                path.Add(curr);
-                curr = prev_nodes [curr.Id];
+                path.Add(new node(curr));
+                curr = prev_nodes[curr.Id];
             }
 
+            
             path.Reverse();
             return path;
         }
@@ -98,7 +79,7 @@ namespace graphlib
 
         public void set_previous(node _node, node _prev_node)
         {
-            prev_nodes[_node.Id] = _prev_node;
+            prev_nodes[_node.Id] = new node(_prev_node);
         }
 
 
@@ -118,35 +99,82 @@ namespace graphlib
             return prev_nodes[_node.Id];
         }
 
-        public void add_edge_to_cycle(graph _g, node _from, node _to)
+        public void set_to_negative_cycle() {
+            this.status = PREV_STATE.IS_NEGATIVE_CYCLE;
+        }
+        public void set_to_tree_cycle()
         {
-            try
-            {
-                List<edge> el =  _g.get_edge_from_node(_from, _to);
-                if(el.Count == 0) { throw new Exception("no edge from " + _from.ToString() + " " + _to.ToString()); }
-                edge e = el[0];
-                negative_cycle.Add(e);
-                min_negative_cycle_capacity = Math.Min(min_negative_cycle_capacity, e.Capacity);
-            }catch(Exception e)
-            {
-
-            }
+            this.status = PREV_STATE.IS_TREE;
         }
 
-        public void set_to_negative_cycle() {
-            status = PREV_STATE.IS_NEGATIVE_CYCLE;
+
+
+        public node get_min_dist(List<node> _unvisited)
+        {
+            if(_unvisited.Count == 0)
+            {
+                throw new Exception("empty list");
+            }
+
+            int pos = 0;
+            node min = _unvisited[pos];
+
+            for(int i = 0; i < _unvisited.Count; i++)
+            {
+                node n = _unvisited[i];
+                if(get_distance(min) > get_distance(n))
+                {
+                    min = n;
+                    pos = i;
+                }
+            }
+            _unvisited.RemoveAt(pos);
+            return min;
         }
 
         public override string ToString()
         {
             StringBuilder str = new StringBuilder();
+            str.Append("\n node:      ");
+            
+
+            for (int i = 0; i < dist.Length; i++)
+            {
+                    str.Append(i + "|");
+                
+            }
+            
+            str.Append("\n prev_node: ");
+
             for (int i = 0; i < dist.Length; i++)
             {
                 if (prev_nodes[i] != null)
                 {
-                    str.Append("["+prev_nodes[i].Id + " -> " + i + ": " + dist[i] + "]\n");
+                    str.Append(prev_nodes[i].Id + "|");
+                }
+                else
+                {
+                    str.Append(" | ");
                 }
             }
+
+            str.Append("\n dist:      ");
+
+            for (int i = 0; i < dist.Length; i++)
+            {
+                if (prev_nodes[i] != null)
+                {
+                    str.Append(dist[i] + "|");
+                }
+                else
+                {
+                    str.Append(" | ");
+                }
+            }
+
+            str.Append("\n");
+
+
             return str.ToString();
         }
 
