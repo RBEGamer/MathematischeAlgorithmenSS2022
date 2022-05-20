@@ -16,7 +16,7 @@ namespace graphlib
 
             
             if (corelaationComponentCount(_g) > 1) {
-                throw new Exception("unreachable nodes");
+           //     throw new Exception("unreachable nodes");
             };
             
 
