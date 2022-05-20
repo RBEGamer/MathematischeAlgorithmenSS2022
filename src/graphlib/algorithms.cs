@@ -13,45 +13,49 @@ namespace graphlib
 
         public static previous_structure bellman_ford(graph _g, node _s)
         {
+
+            
+            if (corelaationComponentCount(_g) > 1) {
+                throw new Exception("unreachable nodes");
+            };
+            
+
             previous_structure tree = new previous_structure(_g.node_count(), _s);
 
             List<edge> edges = _g.get_all_edges();
+            //FOR EACH EDGE SET PREVIOUS
             for (int i = 1; i < _g.node_count(); i++)
             {
                 foreach (edge e in edges)
                 {
-                    
-                        node v = e.From;
-                        node w = e.To;
-                        double ce = e.Weigth;
-                        double cw = tree.get_distance(w);
-                        double tmpc = tree.get_distance(v) + ce;
 
-                        if (tmpc < cw)
-                        {
-                            tree.set_distance(w, tmpc);
-                            tree.set_previous(w, v);
-                        }
-                    
+                    node from = e.From;
+                    node to = e.To;
+                    double current_distance = tree.get_distance(to);
+                    double new_distance = tree.get_distance(from) + e.Weigth;
+                    //RELAX
+                    if (new_distance < current_distance)
+                    {
+                        tree.set_previous(to, from, new_distance);
+                    }
+
                 }
             }
 
+            //FOR EACH EDGE CHECK NEGATIVE CYCLE
             foreach (edge e in edges)
             {
-                
-                    double cv = tree.get_distance(e.From);
-                    double ce = e.Weigth;
-                    double cw = tree.get_distance(e.To);
-                    if ((cv + ce) < cw)
-                    {
-                        tree.set_to_negative_cycle();
-                       // tree.construct_negative_cycle(e.From, _g);
-                        return tree;
-                    }
-                
+                double weigth_from = tree.get_distance(e.From);
+                double weigth = e.Weigth;
+                double weigth_to = tree.get_distance(e.To);
+                //CHECK THE TRIANGLE
+                if ((weigth_from + weigth) < weigth_to)
+                {
+                    tree.set_to_negative_cycle();
+                    return tree;
+                }
             }
-
-            double dd = tree.get_distance(_g.get_node_with_id(2));
+            
             return tree;
         }
 
@@ -63,11 +67,12 @@ namespace graphlib
             PriorityQueue<node, double> queue = new PriorityQueue<node, double>();
 
             //STARTNODE TO THEMSELF = DISTANCE 0
+            //
             queue.Enqueue(_startnode, 0.0);
             while (queue.Count > 0)
             {
-               
                 node min = queue.Dequeue();
+                if (visited[min.Id]) { continue; }
                 visited[min.Id] = true;
                 foreach (edge e in _g.get_edge_from_node(min, null))
                 {
@@ -77,15 +82,15 @@ namespace graphlib
                         double costs = (e.Weigth + tree.get_distance(min));
                         if (tree.get_distance(target) > costs)
                         {
-                            tree.set_previous(target, min);
-                            tree.set_distance(target, costs);
+                            tree.set_previous(target, min, costs);
+                            queue.Enqueue(target, tree.get_distance(target));
                         }
 
-                        queue.Enqueue(target, tree.get_distance(target));
+                        
                     }
                 }
             }
-            double c = tree.get_distance(_g.get_node_with_id(0));
+            System.Console.WriteLine(tree.ToString());        
             return tree;
         }
 
@@ -349,6 +354,18 @@ namespace graphlib
 
         }
 
+        public static int corelaationComponentCount(graph _g)
+        {
+            if (_g.Directed) {
+                return getDepthFirstSearchTreesNode(_g).Count() / 2;
+            }
+            else
+            {
+                return getDepthFirstSearchTreesNode(_g).Count();
+            }
+            
+        }
+
         public static List<List<node>> getDepthFirstSearchTreesNode(graph _g)
         {
 
@@ -370,7 +387,7 @@ namespace graphlib
                     while (stack.Count > 0)
                     {
                         node n = stack.Pop();
-                        System.Console.Out.WriteLine("pop:" + n.Id);
+                      //  System.Console.Out.WriteLine("pop:" + n.Id);
                         edges.Add(n);
                         visited[n.Id] = true;
 

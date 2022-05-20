@@ -35,6 +35,8 @@ namespace graphlib
                 throw new FileNotFoundException(_file + " not found");
             }
 
+            this.Directed = _directed;
+
             var lines = File.ReadAllLines(_file);
 
             int imported_lines = 0;
