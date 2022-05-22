@@ -21,7 +21,7 @@ namespace graphlib
         private node[] prev_nodes;
         private PREV_STATE status = PREV_STATE.IS_TREE;
 
-
+        private node init_node = null;
 
         public double getMinNegativCylcleCapacity
         {
@@ -42,6 +42,7 @@ namespace graphlib
             prev_nodes = new node[_node_count];
             set_distance(_start_node, 0.0);
             set_previous(_start_node, _start_node);
+            init_node = _start_node;
         }
 
 
@@ -70,8 +71,13 @@ namespace graphlib
             return dist[_node.Id];
         }
 
+        public void set_previous(node _node, node _prev, double _costs)
+        {
+            this.set_distance(_node, _costs);
+            this.set_previous(_node, _prev);
+        }
 
-    
+
         public void set_distance(node _node, double _costs_node)
         {
             dist[_node.Id] = _costs_node;
@@ -135,6 +141,10 @@ namespace graphlib
         public override string ToString()
         {
             StringBuilder str = new StringBuilder();
+
+
+            str.Append(init_node.ToString() + "\n");
+
             str.Append("\n node:      ");
             
 
