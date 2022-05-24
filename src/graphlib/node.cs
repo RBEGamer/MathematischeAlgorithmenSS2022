@@ -90,7 +90,7 @@ namespace graphlib
             
             foreach(edge e in edges)
             {
-                if (e.To.Equals(_node))
+                if (e.To.Id ==_node.Id)
                 {
                     edges_to.Add(e);
                 }
