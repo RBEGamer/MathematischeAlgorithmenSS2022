@@ -15,7 +15,11 @@ namespace graphlib
 
         private double weigth = 0.0;
         private double capacity = 0.0;
-        private double costs = 0.0;
+      //  private double costs = 0.0;
+        private double flow = 0.0f;
+
+        private bool residual_edge = false;
+
         public edge(node _from, node _to)
         {
             this.From = _from;
@@ -34,21 +38,31 @@ namespace graphlib
         }
 
 
-        public edge(node _from, node _to, double weigth)
+        public edge(node _from, node _to, double _weigth)
         {
             this.From = _from;
             this.To = _to;
+            this.Weigth = _weigth;
+        }
 
-            this.Weigth = weigth;
-     
+        public edge(node _from, node _to, double _weigth, double _capacity)
+        {
+            this.From = _from;
+            this.To = _to;
+            this.Weigth = _weigth;
+            this.capacity = _capacity;
         }
 
 
+
         public double Weigth { get => weigth; set => weigth = value; }
+        public double Flow { get => flow; set => flow = value; }
+        
+        public bool IsResidualEdge { get => residual_edge; set => residual_edge = value; }
 
         public double Capacity { get => capacity; set => capacity = value; }
 
-        public double Costs { get => costs; set => costs = value; }
+     //   public double Costs { get => costs; set => costs = value; }
         public node To { get => to; set => to = value; }
         public node From { get => from; set => from = value; }
 

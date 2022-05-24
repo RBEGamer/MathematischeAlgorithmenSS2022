@@ -11,14 +11,81 @@ namespace graphlib
 
 
 
+        public static flow_graph edmonds_karp(flow_graph _fg, node _start, node _target)
+        {
+            _fg.create_redisual_graph();
+            List<node> ds = breadth_first_search(_fg, _start, _target, null, true);
+
+            while (ds.Count > 0)
+            {
+                double max_path_flow = Double.PositiveInfinity;
+                for (int i = 0; i < ds.Count - 1; i++)
+                {
+                    node from = ds[i];
+                    node to = ds[i + 1];
+
+                    List<edge> es = _fg.get_edge_from_node(from, to);
+                    if (es.Count > 0)
+                    {
+                        edge e = es[0];
+                        max_path_flow = Math.Min(e.Capacity, max_path_flow);
+                    }
+                }
+
+
+
+
+
+                for (int i = 0; i < ds.Count -1; i++)
+                {
+                    node from = ds[i];
+                    node to = ds[i + 1];
+
+
+                    List<edge> es = _fg.get_edge_from_node(from, to);
+                    if (es.Count > 0)
+                    {
+                        edge e = es[0];
+                        e.Flow += max_path_flow;
+                        e.Capacity = e.Capacity - max_path_flow;
+
+
+                        List<edge> es_rev = _fg.get_edge_from_node(to, from);
+                        if (es_rev.Count > 0)
+                        {
+                            edge e_rev = es_rev[0];
+                            e_rev.Flow -= max_path_flow;
+                            if(e_rev.Flow < 0.0)
+                            {
+                                e_rev.Flow = 0.0;
+                            }
+
+                            e_rev.Capacity = e_rev.Capacity + max_path_flow;
+                        }
+
+                    }
+
+
+
+                }
+                //SET NEW TOTAL FLOW FOR GRAPH
+                _fg.MaxFlow = _fg.MaxFlow + max_path_flow;
+                //GET NEW PATH FOR NEXT INTERATION
+                ds = breadth_first_search(_fg, _start, _target, null, true);
+            }
+            return _fg;
+        }
+
+
         public static previous_structure bellman_ford(graph _g, node _s)
         {
 
-            
-            if (corelaationComponentCount(_g) > 1) {
-           //     throw new Exception("unreachable nodes");
+
+            if (corelaationComponentCount(_g) > 1)
+            {
+                //     throw new Exception("unreachable nodes");
             };
-            
+
 
             previous_structure tree = new previous_structure(_g.node_count(), _s);
 
@@ -55,7 +122,7 @@ namespace graphlib
                     return tree;
                 }
             }
-            
+
             return tree;
         }
 
@@ -86,11 +153,11 @@ namespace graphlib
                             queue.Enqueue(target, tree.get_distance(target));
                         }
 
-                        
+
                     }
                 }
             }
-            System.Console.WriteLine(tree.ToString());        
+            System.Console.WriteLine(tree.ToString());
             return tree;
         }
 
@@ -203,7 +270,6 @@ namespace graphlib
             return cheapest;
         }
 
-        //PERMUTATION
         private static route permutationBrusteForce(graph _g, route _r, List<node> _unvisited, route cheapest, bool _check_branch_and_bound)
         {
             //END OF THE RECURSION
@@ -356,14 +422,15 @@ namespace graphlib
 
         public static int corelaationComponentCount(graph _g)
         {
-            if (_g.Directed) {
+            if (_g.Directed)
+            {
                 return getDepthFirstSearchTreesNode(_g).Count() / 2;
             }
             else
             {
                 return getDepthFirstSearchTreesNode(_g).Count();
             }
-            
+
         }
 
         public static List<List<node>> getDepthFirstSearchTreesNode(graph _g)
@@ -387,7 +454,7 @@ namespace graphlib
                     while (stack.Count > 0)
                     {
                         node n = stack.Pop();
-                      //  System.Console.Out.WriteLine("pop:" + n.Id);
+                        //  System.Console.Out.WriteLine("pop:" + n.Id);
                         edges.Add(n);
                         visited[n.Id] = true;
 
@@ -411,5 +478,47 @@ namespace graphlib
             return trees;
         }
 
+        public static List<node> breadth_first_search(graph _g, node _start, node _target, visited_handler _visited, bool _allow_only_positive_capacity = false)
+        {
+            List<node> res = new List<node>();
+            Queue<node> queue = new Queue<node>();
+
+            if (_visited == null)
+            {
+                _visited = new visited_handler(_g.node_count());
+            }
+
+            queue.Enqueue(_start);
+            _visited.set_visited(_start);
+            predesessor pre = new predesessor(_g, _start);
+
+            while (queue.Count > 0)
+            {
+                node actual = queue.Dequeue();
+                foreach (edge e in _g.get_edge_from_node(actual, null))
+                {
+                    node target = e.getTarget(actual);
+                    if (_visited.is_not_visited(target) && (e.Capacity > 0.0 || !_allow_only_positive_capacity))
+                    {
+                        _visited.set_visited(target);
+                        queue.Enqueue(target);
+                        pre.setPrevNode(target, actual);
+                        if (target.Id == _target.Id)
+                        {
+                            node tmp = target;
+                            while (!tmp.Id.Equals(_start.Id))
+                            {
+                                res.Insert(0, tmp);
+                                tmp = pre.getPrevNode(tmp);
+                            }
+                            res.Insert(0, tmp);
+                            return res;
+                        }
+                    }
+                }
+            }
+
+            return res;
+        }
     }
 }
