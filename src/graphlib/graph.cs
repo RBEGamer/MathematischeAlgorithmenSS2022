@@ -64,8 +64,8 @@ namespace graphlib
                         //ADD WEIGHT
                         if (sp.Length >= 3){
                             double w = double.Parse(sp[2], CultureInfo.InvariantCulture)*1.0;
-                            edge_forward.Weigth = w;              
-                            edge_backward.Weigth = w;                        
+                            edge_forward.Costs = w;              
+                            edge_backward.Costs = w;                        
                         }
 
                         //ADD NODES
@@ -138,6 +138,41 @@ namespace graphlib
             return add_edge(new edge(new node(_from), new node(_to),_weigth));
         }
        
+        public List<node> get_sources()
+        {
+            List<node> targets = new List<node>();
+            List<edge> source_edge =get_all_edges();
+
+            foreach (edge e in source_edge)
+            {
+                targets.Add(e.From);
+            }
+
+            return targets;
+        }
+
+        public List<node> get_targets()
+        {
+            List<node> targets = new List<node>();  
+            List<node> sources = get_all_nodes().ToList();
+            
+            foreach(node node in sources)
+            {
+                targets.AddRange(node.get_directed_neighbours());
+            }
+
+            return targets;
+
+        }
+
+
+        public node add_empty_node()
+        {
+            int nid = node_count();
+            add_node(new node(nid), false);
+            return get_node_with_id(nid);
+        }
+
         public bool add_edge(edge _e, bool _replace = false)
         {
 

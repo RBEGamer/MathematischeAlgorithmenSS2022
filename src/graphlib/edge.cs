@@ -13,7 +13,7 @@ namespace graphlib
 
 
 
-        private double weigth = 0.0;
+        private double costs = 0.0;
         private double capacity = 0.0;
       //  private double costs = 0.0;
         private double flow = 0.0f;
@@ -30,9 +30,9 @@ namespace graphlib
 
         public edge(edge _e)
         {
-            this.From = _e.from;
-            this.To = _e.to;
-            this.Weigth = _e.weigth;
+            this.From = _e.From;
+            this.To = _e.To;
+            this.Costs = _e.Costs;
 
 
         }
@@ -42,20 +42,20 @@ namespace graphlib
         {
             this.From = _from;
             this.To = _to;
-            this.Weigth = _weigth;
+            this.Costs = _weigth;
         }
 
         public edge(node _from, node _to, double _weigth, double _capacity)
         {
             this.From = _from;
             this.To = _to;
-            this.Weigth = _weigth;
+            this.Costs = _weigth;
             this.capacity = _capacity;
         }
 
 
 
-        public double Weigth { get => weigth; set => weigth = value; }
+        public double Costs { get => costs; set => costs = value; }
         public double Flow { get => flow; set => flow = value; }
         
         public bool IsResidualEdge { get => residual_edge; set => residual_edge = value; }
@@ -76,7 +76,7 @@ namespace graphlib
             }
 
             edge e = (edge)obj;
-            if(this.To == e.To && this.From == e.From && this.Weigth == e.Weigth  )
+            if(this.To == e.To && this.From == e.From && this.Costs == e.Costs)
             {
                 return true;
                 
@@ -97,7 +97,7 @@ namespace graphlib
 
         public override String ToString()
         {
-            return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + this.Weigth.ToString() + "]";
+            return "[" + this.From.ToString() + " => " + this.To.ToString() + " : " + this.Costs.ToString() + "]";
            
         }
 
@@ -129,12 +129,12 @@ namespace graphlib
             if (other != null)
             {
 
-                if (this.Weigth > other.Weigth)
+                if (this.Costs > other.Costs)
                 {
                     return -1;
 
                 }
-                else if (this.Weigth > other.Weigth)
+                else if (this.Costs > other.Costs)
                 {
                     return 1;
                 }

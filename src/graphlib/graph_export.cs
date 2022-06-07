@@ -178,7 +178,7 @@ namespace graphlib
             //ADD EDGES
             foreach(edge e in _g.get_all_edges())
             {
-                gjson.edges.Add(new graph_json_format_edge(e.Weigth.ToString(), e.To.Id, e.From.Id));
+                gjson.edges.Add(new graph_json_format_edge(e.Costs.ToString(), e.To.Id, e.From.Id));
             }
 
 

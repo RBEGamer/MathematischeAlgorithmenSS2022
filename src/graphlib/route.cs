@@ -17,7 +17,7 @@ namespace graphlib
             foreach(edge e in _r.edges)
             {
                 edges.Add(e);
-                route_costs += e.Weigth;
+                route_costs += e.Costs;
             }
         }
 
@@ -29,7 +29,7 @@ namespace graphlib
         public void add_edge(edge _e)
         {
             edges.Add(_e);
-            route_costs += _e.Weigth;
+            route_costs += _e.Costs;
         }
 
         public int count_edges()

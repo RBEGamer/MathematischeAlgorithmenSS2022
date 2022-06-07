@@ -11,11 +11,11 @@ namespace graphlib
             public int Compare(edge a, edge b)
             {
                
-                if (a.Weigth == b.Weigth) //If both are fancy (Or both are not fancy, return 0 as they are equal)
+                if (a.Costs == b.Costs) //If both are fancy (Or both are not fancy, return 0 as they are equal)
                 {
                     return 0;
                 }
-                else if (a.Weigth < b.Weigth) //Otherwise if A is fancy (And therefore B is not), then return -1
+                else if (a.Costs < b.Costs) //Otherwise if A is fancy (And therefore B is not), then return -1
                 {
                     return -1;
                 }

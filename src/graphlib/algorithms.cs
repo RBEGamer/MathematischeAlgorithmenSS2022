@@ -9,64 +9,6 @@ namespace graphlib
     public class algorithms
     {
 
-
-        private static double calculate_min_max_costs(flow_graph _fg)
-        {
-            double costs = 0.0;
-            foreach (edge e in _fg.get_all_edges())
-            {
-                if (!e.IsResidualEdge)
-                {
-                    costs += (e.Flow * e.Weigth);
-                }
-            }
-            return costs;
-        }
-
-        private static node getTNode(flow_graph _fg, node _s)
-        {
-            if (_s == null)
-                return null;
-
-            visited_handler v = new visited_handler(_fg.node_count());
-            breadth_first_search(_fg, _s, null, v);
-            for (int i = 0; i < v.get_array().Length; i++)
-            {
-                node n = _fg.get_all_nodes().ElementAt(i);
-                if (v.is_visited(n) && (n.Balance - n.IsBalance) < 0)
-                {
-                    return n;
-                }
-            }
-
-            return null;
-        }
-
-        private static node getSNode(flow_graph _fg)
-        {
-            foreach (node n in _fg.get_all_nodes())
-            {
-                if ((n.Balance - n.IsBalance) > 0)
-                {
-                    return n;
-                }
-            }
-            return null;
-        }
-
-        private static bool is_cost_minimal(flow_graph _fg)
-        {
-            foreach (node n in _fg.get_all_nodes())
-            {
-                if (n.Balance != n.IsBalance)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-
         public struct SSP_RESULT
         {
             public bool is_costs_minimal;
@@ -85,29 +27,190 @@ namespace graphlib
 
             }
         }
+
+        private static double calculate_min_max_costs(flow_graph _fg)
+        {
+            double costs = 0.0;
+            foreach (edge e in _fg.get_all_edges())
+            {
+                if (!e.IsResidualEdge)
+                {
+                    costs += (e.Flow * e.Costs);
+                }
+            }
+            return costs;
+        }
+
+        private static node getTNode(flow_graph _fg, node _s)
+        {
+            if (_s == null) {
+                return null;
+            }
+
+            visited_handler v = new visited_handler(_fg.node_count());
+            breadth_first_search(_fg, _s, null, v, true);
+            for (int i = 0; i < v.get_array().Length; i++)
+            {
+                node n = _fg.node_lookup[i];
+                if (v.is_visited(n) && (n.Balance - n.IsBalance) < 0)
+                {
+                    return n;
+                }
+            }
+
+            return null;
+        }
+
+        private static node getSNode(flow_graph _fg)
+        {
+            node s = null;
+            foreach (node n in _fg.get_all_nodes())
+            {
+                if ((n.Balance - n.IsBalance) > 0)
+                {
+                    s = n;
+                    break;
+  
+                }
+            }
+            return s;
+        }
+
+        private static bool is_cost_minimal(flow_graph _fg)
+        {
+            foreach (node n in _fg.get_all_nodes())
+            {
+                if (n.Balance != n.IsBalance)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+
+
+        public static SSP_RESULT cycle_canceling(flow_graph _fg)
+        {
+            SSP_RESULT res = new SSP_RESULT();
+
+            List<node> sources = _fg.get_sources();
+            List<node> targets = _fg.get_targets();
+
+            //Schritt 1
+            node superS = _fg.add_empty_node();
+            foreach (node source in sources)
+            {
+                edge e = new edge(superS, source, 0.0, source.Balance);
+                superS.add_edge(e);
+                superS.Balance = (superS.Balance + source.Balance);
+                source.Balance = 0.0;
+
+            }
+
+            node superT = _fg.add_empty_node();
+            foreach (node target in targets)
+            {
+                double cap = target.Balance;
+                if (cap < 0)
+                {
+                    cap = cap * (-1.0);
+                }
+                edge e = new edge(target, superT, 0.0, cap);
+                target.add_edge(e);
+
+                superT.Balance = superT.Balance + target.Balance;
+                target.Balance = 0.0;
+
+            }
+
+            // Schritt 1
+            flow_graph fg2 = edmonds_karp(_fg, superS, superT);
+
+            if (fg2.MaxFlow == superS.Balance && -fg2.MaxFlow == superT.Balance)
+            {
+                bool ready = false;
+                visited_handler v = new visited_handler(fg2.node_count());
+                while (!ready)
+                {
+                    foreach (node n in fg2.get_all_nodes())
+                    {
+                        v.set_visited(n);
+                        // Schritt 3
+                        previous_structure prev = bellman_ford(fg2, n);
+
+                        List<edge> negativeCycle = prev.getNegativeCycle;
+
+                        if (v.is_all_visited())
+                        {
+                            ready = true;
+                            break;
+                        }
+
+                        // Schritt 4
+                        double minCapacity = prev.getMinNegativCylcleCapacity;
+                        foreach (edge e in negativeCycle)
+                        {
+                            e.Capacity -= minCapacity;
+                            e.Flow += minCapacity;
+
+                            List<edge> rev_ls = fg2.get_edge_from_node(e.To, e.From);
+                            if (rev_ls.Count > 0)
+                            {
+                                edge rev = rev_ls[0];
+                                rev.Capacity += minCapacity;
+                                rev.Flow -= minCapacity;
+                            }
+                            else
+                            {
+                                res.is_costs_minimal = false;
+                                return res;
+                            }
+
+                        }
+                    }
+                }
+
+                res.is_costs_minimal = true;
+                res.minimal_flow_value = calculate_min_max_costs(fg2);
+                return res;
+            }
+            else
+            {
+                res.is_costs_minimal = false;
+                return res;
+            }
+
+        }
+
+
+
+
+
         public static SSP_RESULT success_shortest_path(flow_graph _fg)
         {
             SSP_RESULT res;
-            res.is_costs_minimal = false;
+            res.is_costs_minimal = true;
             res.minimal_flow_value = 0.0;
 
             _fg.create_redisual_graph();
 
             foreach (edge e in _fg.get_all_edges())
             {
-                if (!e.IsResidualEdge && e.Capacity < 0)
+                if (!e.IsResidualEdge && e.Costs < 0)
                 {
                     e.Flow = e.Capacity;
                     e.Capacity = 0.0f;
-                }
-                //GET REVERSE EDGE
-                List<edge> rev_list = _fg.get_edge_from_node(e.To, e.From);
-                if (rev_list.Count > 0)
-                {
-                    edge rev = rev_list[0];
-                    rev.Capacity = e.Flow;
-                }
 
+                    //GET REVERSE EDGE
+                    List<edge> rev_list = _fg.get_edge_from_node(e.To, e.From);
+                    if (rev_list.Count > 0)
+                    {
+                        edge rev = rev_list[0];
+                        rev.Capacity = e.Flow;
+                    }
+                }
 
                 e.From.IsBalance += e.Flow;
                 e.To.IsBalance -= e.Flow;
@@ -249,11 +352,6 @@ namespace graphlib
         {
 
 
-            if (corelaationComponentCount(_g) > 1)
-            {
-                //     throw new Exception("unreachable nodes");
-            };
-
 
             previous_structure tree = new previous_structure(_g.node_count(), _s);
 
@@ -267,7 +365,7 @@ namespace graphlib
                     node from = e.From;
                     node to = e.To;
                     double current_distance = tree.get_distance(to);
-                    double new_distance = tree.get_distance(from) + e.Weigth;
+                    double new_distance = tree.get_distance(from) + e.Costs;
                     //RELAX
                     if (new_distance < current_distance)
                     {
@@ -281,7 +379,7 @@ namespace graphlib
             foreach (edge e in edges)
             {
                 double weigth_from = tree.get_distance(e.From);
-                double weigth = e.Weigth;
+                double weigth = e.Costs;
                 double weigth_to = tree.get_distance(e.To);
                 //CHECK THE TRIANGLE
                 if ((weigth_from + weigth) < weigth_to)
@@ -313,7 +411,7 @@ namespace graphlib
                     node target = e.getTarget(min);
                     if (!visited[target.Id])
                     {
-                        double costs = (e.Weigth + tree.get_distance(min));
+                        double costs = (e.Costs + tree.get_distance(min));
                         if (tree.get_distance(target) > costs)
                         {
                             tree.set_previous(target, min, costs);
@@ -337,7 +435,7 @@ namespace graphlib
             //FÜGE ALLE KANTEN IN DIE PRIO QUEUE HINZU
             foreach (edge e in _g.get_all_edges())
             {
-                pq.Enqueue(e, e.Weigth);
+                pq.Enqueue(e, e.Costs);
             }
             //SOLANGE NOCH UNBESUCHTE KANTEN
             while (pq.Count > 0)
@@ -354,7 +452,7 @@ namespace graphlib
                     //VEREINIGE DIE GRUPPEN
                     goups.unionGroups(from, to);
                     gres.add_edge(e);
-                    costs += e.Weigth;
+                    costs += e.Costs;
                 }
             }
             return gres;
@@ -372,7 +470,7 @@ namespace graphlib
             visited[_start.Id] = true;
             foreach (edge e in _start.get_edges())
             {
-                q.Enqueue(e, e.Weigth);
+                q.Enqueue(e, e.Costs);
             }
             //SOLANGE LISTE NICHT LEER
             while (q.Count > 0)
@@ -392,15 +490,15 @@ namespace graphlib
                         //SONST FÜGE KANTE HINZU
                         if (!new_target_visited)
                         {
-                            q.Enqueue(ea, ea.Weigth);
+                            q.Enqueue(ea, ea.Costs);
                         }
                     }
                     //MARKIERE ZIEL ALS BESUCHT
                     visited[e.To.Id] = true;
                     //ADD WIGTH
-                    total_costs += e.Weigth;
+                    total_costs += e.Costs;
                     //ADD EDGES TO LIST FOR GRAPH RECONSTRUCTION
-                    gres.add_edge(e.From.Id, e.To.Id, e.Weigth);
+                    gres.add_edge(e.From.Id, e.To.Id, e.Costs);
                 }
             }
             return gres;
@@ -550,7 +648,7 @@ namespace graphlib
                 pq.Clear();
                 foreach (edge pqe in _g.get_edge_from_node(actual, null))
                 {
-                    pq.Enqueue(pqe, pqe.Weigth);
+                    pq.Enqueue(pqe, pqe.Costs);
                 }
                 //FIND THE NEXT UNVISITED NODE IN PQ LIST
                 // IN PQ THE CHEAPEST IS THE BEST
@@ -669,7 +767,7 @@ namespace graphlib
                         _visited.set_visited(target);
                         queue.Enqueue(target);
                         pre.setPrevNode(target, actual);
-                        if (target.Id == _target.Id)
+                        if (_target != null && target.Id == _target.Id)
                         {
                             node tmp = target;
                             while (!tmp.Id.Equals(_start.Id))

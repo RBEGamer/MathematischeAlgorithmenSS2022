@@ -23,7 +23,7 @@ namespace graphlib
                 //NO RESIDUAL EDGE
                 if (get_edge_from_node(e.To, e.From).Count <= 0)
                 {
-                    edge rev = new edge(e.To, e.From, -e.Weigth);
+                    edge rev = new edge(e.To, e.From, -e.Costs);
                     rev.Capacity = 0;
                     rev.IsResidualEdge = true;
                     e.To.add_edge(rev);
@@ -79,7 +79,7 @@ namespace graphlib
                         if (sp.Length >= 3)
                         {
                             double w = double.Parse(sp[2], CultureInfo.InvariantCulture) * 1.0;
-                            edge_forward.Weigth = w;
+                            edge_forward.Costs = w;
                             
                         }
 
@@ -106,7 +106,7 @@ namespace graphlib
         {
             foreach (edge e in get_all_edges())
             {
-                e.Capacity = e.Weigth;
+                e.Capacity = e.Costs;
             }
         }
 
