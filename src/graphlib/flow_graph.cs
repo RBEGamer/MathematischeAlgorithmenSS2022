@@ -32,7 +32,7 @@ namespace graphlib
             }
         }
 
-        public bool load_from_file(string _file)
+        public bool load_flow_graph_from_file(string _file)
         {
             if (!File.Exists(_file))
             {
@@ -44,36 +44,35 @@ namespace graphlib
             var lines = File.ReadAllLines(_file);
 
             int imported_lines = 0;
-            int empty_lines = 0;
+      
             if (lines.Length >= 1)
             {
-                for (int i = 0; i < lines.Length; i++)
+                int node_count = int.Parse(lines[0]);
+
+                for(int i = 1; i < node_count+1; i++)
+                {
+                    node n = new node(i-1);
+                   // System.Console.WriteLine(n);
+                    n.Balance = double.Parse(lines[i], CultureInfo.InvariantCulture) * 1.0;
+                    add_node(n);
+                }
+                    //ADD NODES
+                   
+ 
+                for (int i = node_count+1; i < lines.Length; i++)
                 {
 
-                    if (lines[i] == "")
-                    {
-                        empty_lines++;
-                        continue;
-                    }
-
-
-
-                    //x=LINE 1
-                    //i =X
-
-
-
-
-
+                 
 
                     var sp = lines[i].Split('\t');
                     //NORMAL EDGE
                     if (sp.Length >= 2)
                     {
-                        node from = new node(int.Parse(sp[0])); //FROM
-                        node to = new node(int.Parse(sp[1])); //TO
+                        int from = int.Parse(sp[0]);
+                        int to = int.Parse(sp[1]);
 
-                        edge edge_forward = new edge(from, to);
+
+                        edge edge_forward = new edge(get_node_with_id(from), get_node_with_id(to));
 
 
                         //ADD WEIGHT
@@ -81,6 +80,7 @@ namespace graphlib
                         {
                             double w = double.Parse(sp[2], CultureInfo.InvariantCulture) * 1.0;
                             edge_forward.Weigth = w;
+                            
                         }
 
                         if (sp.Length >= 4)
@@ -89,9 +89,7 @@ namespace graphlib
                             edge_forward.Capacity = c;
                         }
 
-                        //ADD NODES
-                        add_node(to);
-                        add_node(from);
+                        
 
 
                         //ADD DIRECTED
@@ -101,6 +99,7 @@ namespace graphlib
                     }
                 }
             }
+            return true;
         }
 
             public void convert_costs_to_capacity()
