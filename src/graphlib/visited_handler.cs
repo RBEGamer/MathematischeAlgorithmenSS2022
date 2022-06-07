@@ -17,6 +17,12 @@ namespace graphlib
             visited = new bool[_sz];
         }
 
+
+        public bool[] get_array()
+        {
+            return visited;
+        }
+
         public bool is_all_visited()
         {
             return visited.Length == visited_counter;

@@ -10,6 +10,175 @@ namespace graphlib
     {
 
 
+        private static double calculate_min_max_costs(flow_graph _fg)
+        {
+            double costs = 0.0;
+            foreach (edge e in _fg.get_all_edges())
+            {
+                if (!e.IsResidualEdge)
+                {
+                    costs += (e.Flow * e.Weigth);
+                }
+            }
+            return costs;
+        }
+
+        private static node getTNode(flow_graph _fg, node _s)
+        {
+            if (_s == null)
+                return null;
+
+            visited_handler v = new visited_handler(_fg.node_count());
+            breadth_first_search(_fg, _s, null, v);
+            for (int i = 0; i < v.get_array().Length; i++)
+            {
+                node n = _fg.get_all_nodes().ElementAt(i);
+                if (v.is_visited(n) && (n.Balance - n.IsBalance) < 0)
+                {
+                    return n;
+                }
+            }
+
+            return null;
+        }
+
+        private static node getSNode(flow_graph _fg)
+        {
+            foreach (node n in _fg.get_all_nodes())
+            {
+                if ((n.Balance - n.IsBalance) > 0)
+                {
+                    return n;
+                }
+            }
+            return null;
+        }
+
+        private static bool is_cost_minimal(flow_graph _fg)
+        {
+            foreach (node n in _fg.get_all_nodes())
+            {
+                if (n.Balance != n.IsBalance)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        public struct SSP_RESULT
+        {
+            public bool is_costs_minimal;
+            public double minimal_flow_value;
+
+            public override string ToString()
+            {
+                if (is_costs_minimal)
+                {
+                    return "Minimal Flow: " + minimal_flow_value.ToString();
+                }
+                else
+                {
+                    return "NoCostMinimalFlow";
+                }
+
+            }
+        }
+        public static SSP_RESULT success_shortest_path(flow_graph _fg)
+        {
+            SSP_RESULT res;
+            res.is_costs_minimal = false;
+            res.minimal_flow_value = 0.0;
+
+            _fg.create_redisual_graph();
+
+            foreach (edge e in _fg.get_all_edges())
+            {
+                if (!e.IsResidualEdge && e.Capacity < 0)
+                {
+                    e.Flow = e.Capacity;
+                    e.Capacity = 0.0f;
+                }
+                //GET REVERSE EDGE
+                List<edge> rev_list = _fg.get_edge_from_node(e.To, e.From);
+                if (rev_list.Count > 0)
+                {
+                    edge rev = rev_list[0];
+                    rev.Capacity = e.Flow;
+                }
+
+
+                e.From.IsBalance += e.Flow;
+                e.To.IsBalance -= e.Flow;
+            }
+
+
+            int iteration = 0;
+
+            while (true)
+            {
+                node s = getSNode(_fg);
+                node t = getTNode(_fg, s);
+                if (s == null || t == null)
+                {
+                    if (is_cost_minimal(_fg))
+                    {
+                        res.is_costs_minimal = true;
+                        res.minimal_flow_value = calculate_min_max_costs(_fg);
+                        return res;
+                    }
+                    else
+                    {
+                        res.is_costs_minimal = false;
+                        return res;
+                    }
+                }
+
+                previous_structure prev = bellman_ford(_fg, s);
+                List<node> p = prev.get_path(s, t);
+
+                double gamma = Math.Min(s.Balance - s.IsBalance, t.IsBalance - t.Balance);
+                for (int i = 0; i < p.Count - 1; i++)
+                {
+                    node a = p.ElementAt(i);
+                    node b = p.ElementAt(i + 1);
+
+
+                    List<edge> e_list = _fg.get_edge_from_node(a, b);
+                    if (e_list.Count > 0)
+                    {
+                        gamma = Math.Min(gamma, e_list[0].Capacity);
+                    }
+                }
+
+                for (int i = 0; i < p.Count - 1; i++)
+                {
+                    node a = p.ElementAt(i);
+                    node b = p.ElementAt(i + 1);
+
+
+                    List<edge> es = _fg.get_edge_from_node(a, b);
+                    List<edge> rev_es = _fg.get_edge_from_node(b, a);
+
+                    if (es.Count <= 0 || rev_es.Count <= 0)
+                    {
+                        res.is_costs_minimal = false;
+                        return res;
+                    }
+
+                    es[0].Flow += gamma;
+                    es[0].Capacity -= gamma;
+                    rev_es[0].Flow -= gamma;
+                    rev_es[0].Capacity += gamma;
+
+                }
+                s.IsBalance += gamma;
+                t.IsBalance -= gamma;
+                iteration++;
+            }
+
+        }
 
         public static flow_graph edmonds_karp(flow_graph _fg, node _start, node _target)
         {
@@ -36,7 +205,7 @@ namespace graphlib
 
 
 
-                for (int i = 0; i < ds.Count -1; i++)
+                for (int i = 0; i < ds.Count - 1; i++)
                 {
                     node from = ds[i];
                     node to = ds[i + 1];
@@ -55,7 +224,7 @@ namespace graphlib
                         {
                             edge e_rev = es_rev[0];
                             e_rev.Flow -= max_path_flow;
-                            if(e_rev.Flow < 0.0)
+                            if (e_rev.Flow < 0.0)
                             {
                                 e_rev.Flow = 0.0;
                             }
@@ -75,7 +244,6 @@ namespace graphlib
             }
             return _fg;
         }
-
 
         public static previous_structure bellman_ford(graph _g, node _s)
         {
@@ -126,7 +294,6 @@ namespace graphlib
             return tree;
         }
 
-
         public static previous_structure djikstra(graph _g, node _startnode)
         {
             previous_structure tree = new previous_structure(_g.node_count(), _startnode);
@@ -160,7 +327,6 @@ namespace graphlib
             System.Console.WriteLine(tree.ToString());
             return tree;
         }
-
 
         static public graph kruskal(graph _g)
         {

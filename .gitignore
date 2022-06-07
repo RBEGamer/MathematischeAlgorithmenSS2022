@@ -76,3 +76,7 @@ Temporary Items
 src/graph_library/cmake-build-debug/Testing/Temporary/LastTest.log
 *.log
 *.log
+src/.vs/graphlib/xs/UserPrefs.xml
+src/graphlib/obj/Debug/net6.0/graphlib.assets.cache
+src/graphlibtest/obj/Debug/net6.0/graphlibtest.assets.cache
+src/graphlibvisu/obj/Debug/net6.0/graphlibvisu.assets.cache

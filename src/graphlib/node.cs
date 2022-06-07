@@ -21,7 +21,14 @@ namespace graphlib
         public string Label { get => label; set => label = value; }
         public int Group_id { get => group_id; }
 
-        
+        //private float isBalance = 0.0f;
+        private double balance;
+        private double is_balance;
+
+
+        public double Balance { get => balance; set => balance = value; }
+        public double IsBalance { get => is_balance; set => is_balance = value; }
+
         public node(int _id)
         {
             edges = new List<edge>();
