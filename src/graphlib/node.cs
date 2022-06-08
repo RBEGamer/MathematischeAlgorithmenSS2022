@@ -157,7 +157,25 @@ namespace graphlib
         }
 
     
+        public double get_is_balance()
+        {
+            return IsBalance;
+        }
 
+        public void set_is_balance(double _ib)
+        {
+            IsBalance = _ib;
+        }
+
+        public void increase_is_balance(double _ib)
+        {
+            IsBalance += _ib;
+        }
+
+        public void descrease_is_balance(double _ib)
+        {
+            IsBalance -= _ib;
+        }
 }
 
 }

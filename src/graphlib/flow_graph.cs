@@ -23,10 +23,11 @@ namespace graphlib
                 //NO RESIDUAL EDGE
                 if (get_edge_from_node(e.To, e.From).Count <= 0)
                 {
-                    edge rev = new edge(e.To, e.From, -e.Costs);
+                    edge rev = new edge(e.To, e.From);
+                    rev.Costs = -e.Costs;
                     rev.Capacity = 0;
                     rev.IsResidualEdge = true;
-                    e.To.add_edge(rev);
+                    add_edge(rev);
                 }
 
             }

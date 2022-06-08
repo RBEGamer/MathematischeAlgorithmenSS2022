@@ -213,8 +213,9 @@ namespace graphlib
                     }
                 }
 
-                e.From.IsBalance += e.Flow;
-                e.To.IsBalance -= e.Flow;
+                e.From.increase_is_balance(e.Flow);
+                e.To.descrease_is_balance(e.Flow);
+                int y = 0;
             }
 
 
@@ -284,8 +285,8 @@ namespace graphlib
                     rev.increase_capacity(gamma);
                     int wt = 0;
                 }
-                s.IsBalance += gamma;
-                t.IsBalance -= gamma;
+                s.increase_is_balance(gamma);
+                t.descrease_is_balance(gamma);
                 iteration++;
             }
 
