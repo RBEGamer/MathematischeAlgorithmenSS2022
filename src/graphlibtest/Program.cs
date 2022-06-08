@@ -39,7 +39,16 @@ namespace graphlibtest
             flow_graph fg4 = new flow_graph();
             fg4.load_flow_graph_from_file(Path.Combine(archiveFolder, "Kostenminimal4.txt"));
             System.Console.WriteLine("Kostenminimal4.txt SSP => X: " + algorithms.cycle_canceling(fg4));
-            
+
+
+            flow_graph fg5 = new flow_graph();
+            fg5.load_flow_graph_from_file(Path.Combine(archiveFolder, "Kostenminimal_gross1.txt"));
+            System.Console.WriteLine("Kostenminimal_gross1.txt SSP => 1537: " + algorithms.success_shortest_path(fg5));
+
+            flow_graph fg6 = new flow_graph();
+            fg6.load_flow_graph_from_file(Path.Combine(archiveFolder, "Kostenminimal_gross2.txt"));
+            System.Console.WriteLine("Kostenminimal_gross2.txt SSP => 1838: " + algorithms.success_shortest_path(fg6));
+
 
 
         }
