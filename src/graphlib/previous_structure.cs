@@ -28,6 +28,11 @@ namespace graphlib
             get => min_negative_cycle_capacity;
         }
 
+        public double getTotalNegativeCycleCosts
+        {
+            get => total_negative_cycle_costs;
+        }
+        
         public List<edge> getNegativeCycle{ get => negative_cycle; }
 
 

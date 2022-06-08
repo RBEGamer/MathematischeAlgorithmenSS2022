@@ -14,6 +14,11 @@ namespace graphlib
         private double total_min_max_flow_costs = 0.0;
 
         public double MaxFlow { get => max_flow; set => max_flow = value; }
+        public double totalMinMaxFlowCosts { get => total_min_max_flow_costs; set => total_min_max_flow_costs = value; }
+
+        private List<node> sources = new List<node>();
+        private List<node> targets = new List<node>();
+
 
         public void create_redisual_graph()
         {
@@ -45,25 +50,34 @@ namespace graphlib
             var lines = File.ReadAllLines(_file);
 
             int imported_lines = 0;
-      
+
             if (lines.Length >= 1)
             {
                 int node_count = int.Parse(lines[0]);
 
-                for(int i = 1; i < node_count+1; i++)
+                for (int i = 1; i < node_count + 1; i++)
                 {
-                    node n = new node(i-1);
-                   // System.Console.WriteLine(n);
+                    node n = new node(i - 1);
+                    // System.Console.WriteLine(n);
                     n.Balance = double.Parse(lines[i], CultureInfo.InvariantCulture) * 1.0;
                     add_node(n);
+
+                    if (n.Balance > 0.0)
+                    {
+                        sources.Add(n);
+                    }else if(n.Balance < 0.0)
+                    {
+                        targets.Add(n);
+                    }
+                    
                 }
-                    //ADD NODES
-                   
- 
-                for (int i = node_count+1; i < lines.Length; i++)
+                //ADD NODES
+
+
+                for (int i = node_count + 1; i < lines.Length; i++)
                 {
 
-                 
+
 
                     var sp = lines[i].Split('\t');
                     //NORMAL EDGE
@@ -81,7 +95,7 @@ namespace graphlib
                         {
                             double w = double.Parse(sp[2], CultureInfo.InvariantCulture) * 1.0;
                             edge_forward.Costs = w;
-                            
+
                         }
 
                         if (sp.Length >= 4)
@@ -90,12 +104,12 @@ namespace graphlib
                             edge_forward.Capacity = c;
                         }
 
-                        
+
 
 
                         //ADD DIRECTED
                         add_edge(edge_forward);
-   
+
                         imported_lines++;
                     }
                 }
@@ -103,7 +117,7 @@ namespace graphlib
             return true;
         }
 
-            public void convert_costs_to_capacity()
+        public void convert_costs_to_capacity()
         {
             foreach (edge e in get_all_edges())
             {
@@ -118,6 +132,20 @@ namespace graphlib
         }
 
 
+
+        public List<node> get_sources()
+        {
+            
+            return sources;
+        }
+
+        public List<node> get_targets()
+        {
+     
+
+            return targets;
+
+        }
 
     }
 }

@@ -95,11 +95,12 @@ namespace graphlib
         public static SSP_RESULT cycle_canceling(flow_graph _fg)
         {
             SSP_RESULT res = new SSP_RESULT();
-
+            //GET SOURCE NODES WITH BALANCE > 0
             List<node> sources = _fg.get_sources();
+            //GET REV NODES WITH BALANCE < 0
             List<node> targets = _fg.get_targets();
 
-            //Schritt 1
+            //ADD A NEW EMPTY SUPERNODE
             node superS = _fg.add_empty_node();
             foreach (node source in sources)
             {
@@ -153,15 +154,15 @@ namespace graphlib
                         double minCapacity = prev.getMinNegativCylcleCapacity;
                         foreach (edge e in negativeCycle)
                         {
-                            e.Capacity -= minCapacity;
-                            e.Flow += minCapacity;
+                            e.decrease_capacity(minCapacity);
+                            e.increase_flow(minCapacity);
 
                             List<edge> rev_ls = fg2.get_edge_from_node(e.To, e.From);
                             if (rev_ls.Count > 0)
                             {
                                 edge rev = rev_ls[0];
-                                rev.Capacity += minCapacity;
-                                rev.Flow -= minCapacity;
+                                rev.increase_capacity(minCapacity);
+                                rev.decrease_flow(minCapacity);
                             }
                             else
                             {
@@ -170,6 +171,7 @@ namespace graphlib
                             }
 
                         }
+                        fg2.totalMinMaxFlowCosts = prev.getTotalNegativeCycleCosts * prev.getMinNegativCylcleCapacity;
                     }
                 }
 

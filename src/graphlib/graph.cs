@@ -138,32 +138,7 @@ namespace graphlib
             return add_edge(new edge(new node(_from), new node(_to),_weigth));
         }
        
-        public List<node> get_sources()
-        {
-            List<node> targets = new List<node>();
-            List<edge> source_edge =get_all_edges();
-
-            foreach (edge e in source_edge)
-            {
-                targets.Add(e.From);
-            }
-
-            return targets;
-        }
-
-        public List<node> get_targets()
-        {
-            List<node> targets = new List<node>();  
-            List<node> sources = get_all_nodes().ToList();
-            
-            foreach(node node in sources)
-            {
-                targets.AddRange(node.get_directed_neighbours());
-            }
-
-            return targets;
-
-        }
+        
 
 
         public node add_empty_node()
