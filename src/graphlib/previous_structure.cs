@@ -20,7 +20,7 @@ namespace graphlib
         private List<edge> negative_cycle = new List<edge>();
         private node[] prev_nodes;
         private PREV_STATE status = PREV_STATE.IS_TREE;
-
+        private double total_negative_cycle_costs = 0.0;
         private node init_node = null;
 
         public double getMinNegativCylcleCapacity
@@ -45,9 +45,48 @@ namespace graphlib
             init_node = _start_node;
         }
 
+        public void construct_negative_cycle(node _current_node, graph _g)
+        {
+            for (int i = 0; i < _g.node_count(); i++)
+            {
+                _current_node = prev_nodes[_current_node.Id];
+            }
 
 
-        public List<node> get_path(node _start, node _to)
+            negative_cycle = new List<edge>();
+            if (is_negative_cycle())
+            {
+                node start = _current_node;
+
+                while (get_previous_node(_current_node).Id != start.Id)
+                {
+                        List<edge> es1 = _g.get_edge_from_node(get_previous_node(_current_node), _current_node);
+                        if(es1.Count > 0)
+                        {
+                            edge e = es1[0];
+                            
+                            negative_cycle.Add(e);
+                            total_negative_cycle_costs += e.Costs;
+                            min_negative_cycle_capacity = Math.Min(min_negative_cycle_capacity, e.Capacity);
+                            _current_node = get_previous_node(_current_node);
+                        }
+                }
+
+                List<edge> es = _g.get_edge_from_node(get_previous_node(_current_node), _current_node);
+                if(es.Count > 0)
+                {
+                    edge e = es[0];
+                    negative_cycle.Add(e);
+                    total_negative_cycle_costs += e.Costs;
+                    min_negative_cycle_capacity = Math.Min(min_negative_cycle_capacity, e.Capacity);
+                }
+                
+
+
+            }
+        }
+
+        public List<node> get_path(node _start, node _to, bool _reverse)
         {
             List<node> path = new List<node> ();
             node curr = _to;
@@ -60,8 +99,11 @@ namespace graphlib
                 curr = prev_nodes[curr.Id];
             }
 
+            if (_reverse)
+            {
+                path.Reverse();
+            }
             
-            path.Reverse();
             return path;
         }
 

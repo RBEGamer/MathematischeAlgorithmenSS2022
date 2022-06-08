@@ -152,5 +152,34 @@ namespace graphlib
 
 
         }
+
+
+        public void decrease_capacity(double _cap)
+        {
+            Capacity -= _cap;
+            if(Capacity < 0.0)
+            {
+                Capacity = 0.0;
+            }
+        }
+
+        public void increase_capacity(double _cap)
+        {
+            Capacity += _cap;
+        }
+
+        public void increase_flow(double _flow)
+        {
+            Flow += _flow;
+        }
+
+        public void decrease_flow(double _flow)
+        {
+            Flow -= _flow;
+            if (Flow < 0.0)
+            {
+                //Flow = 0.0;
+            }
+        }
     }
 }

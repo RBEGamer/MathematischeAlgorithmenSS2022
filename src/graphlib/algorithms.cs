@@ -43,7 +43,8 @@ namespace graphlib
 
         private static node getTNode(flow_graph _fg, node _s)
         {
-            if (_s == null) {
+            if (_s == null)
+            {
                 return null;
             }
 
@@ -70,7 +71,7 @@ namespace graphlib
                 {
                     s = n;
                     break;
-  
+
                 }
             }
             return s;
@@ -239,7 +240,8 @@ namespace graphlib
                 }
 
                 previous_structure prev = bellman_ford(_fg, s);
-                List<node> p = prev.get_path(s, t);
+                //previous_structure prev = djikstra(_fg, s);
+                List<node> p = prev.get_path(s, t, false);
 
                 double gamma = Math.Min(s.Balance - s.IsBalance, t.IsBalance - t.Balance);
                 for (int i = 0; i < p.Count - 1; i++)
@@ -251,7 +253,9 @@ namespace graphlib
                     List<edge> e_list = _fg.get_edge_from_node(a, b);
                     if (e_list.Count > 0)
                     {
-                        gamma = Math.Min(gamma, e_list[0].Capacity);
+                        edge e = e_list[0];
+                        gamma = Math.Min(gamma, e.Capacity);
+                        int wer = 0;
                     }
                 }
 
@@ -270,11 +274,15 @@ namespace graphlib
                         return res;
                     }
 
-                    es[0].Flow += gamma;
-                    es[0].Capacity -= gamma;
-                    rev_es[0].Flow -= gamma;
-                    rev_es[0].Capacity += gamma;
+                    edge e = es[0];
+                    edge rev = rev_es[0];
 
+                    e.increase_flow(gamma);
+                    e.decrease_capacity(gamma);
+
+                    rev.decrease_flow(gamma);
+                    rev.increase_capacity(gamma);
+                    int wt = 0;
                 }
                 s.IsBalance += gamma;
                 t.IsBalance -= gamma;
@@ -361,31 +369,38 @@ namespace graphlib
             {
                 foreach (edge e in edges)
                 {
-
-                    node from = e.From;
-                    node to = e.To;
-                    double current_distance = tree.get_distance(to);
-                    double new_distance = tree.get_distance(from) + e.Costs;
-                    //RELAX
-                    if (new_distance < current_distance)
+                    if (e.Capacity > 0.0)
                     {
-                        tree.set_previous(to, from, new_distance);
-                    }
+                        node from = e.From;
+                        node to = e.To;
+                        double costs_edge = e.Costs;
 
+                        double current_distance = tree.get_distance(to);
+                        double new_distance = tree.get_distance(from) + costs_edge;
+                        //RELAX
+                        if (new_distance < current_distance)
+                        {
+                            tree.set_previous(to, from, new_distance);
+                        }
+                    }
                 }
             }
 
             //FOR EACH EDGE CHECK NEGATIVE CYCLE
             foreach (edge e in edges)
             {
-                double weigth_from = tree.get_distance(e.From);
-                double weigth = e.Costs;
-                double weigth_to = tree.get_distance(e.To);
-                //CHECK THE TRIANGLE
-                if ((weigth_from + weigth) < weigth_to)
+                if (e.Capacity > 0.0)
                 {
-                    tree.set_to_negative_cycle();
-                    return tree;
+                    double weigth_from = tree.get_distance(e.From);
+                    double weigth = e.Costs;
+                    double weigth_to = tree.get_distance(e.To);
+                    //CHECK THE TRIANGLE
+                    if ((weigth_from + weigth) < weigth_to)
+                    {
+                        tree.set_to_negative_cycle();
+                        tree.construct_negative_cycle(e.From, _g);
+                        return tree;
+                    }
                 }
             }
 
