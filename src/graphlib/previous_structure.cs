@@ -92,12 +92,16 @@ namespace graphlib
             node curr = _to;
 
 
-            path.Add(new node(_start));
+            
             while(curr.Id != _start.Id)
             {
-                path.Add(new node(curr));
+                path.Insert(0, new node(curr));
                 curr = prev_nodes[curr.Id];
             }
+            path.Insert(0, _start);
+
+
+
 
             if (_reverse)
             {
