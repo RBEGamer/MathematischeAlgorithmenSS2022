@@ -194,7 +194,6 @@ namespace graphlib
                             }
 
                         }
-                        fg2.totalMinMaxFlowCosts = prev.getTotalNegativeCycleCosts * prev.getMinNegativCylcleCapacity;
                     }
                 }
 
@@ -288,6 +287,7 @@ namespace graphlib
                 //γ:= min{ b(s) - b'(s), |b(t) - b'(t)}
                 //GAMME IS THE VALUE FOR NEXT MAX Utilization OF PATH EDGES
                 //ITS THE MIN CAPCACITY OF TOTAL EDGES IN PATH
+                // THE MIN gamma IS NEEDED TO NOT OVERSHOOT THE SOURCE/CONSUMER
                 double gamma = Math.Min(s.Balance - s.IsBalance, t.IsBalance - t.Balance);
                 // FOR EACH NODE IN SHORTEST PATH FROM SOURCE TO CONSUMER
                 for (int i = 0; i < p.Count - 1; i++)
