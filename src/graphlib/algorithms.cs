@@ -45,7 +45,7 @@ namespace graphlib
         //GET CONSUMER NODE  THAT IS REACABLE FROM THE _s SOURCE NODE
         //USING BREADTH FIRST SEARCH
         //THEN RETURN A NOT VISITED NODE WITH A NEGATIVE BALANCE => CONSUMER
-        private static node getTNode(flow_graph _fg, node _s)
+        private static node get_t_node(flow_graph _fg, node _s)
         {
             if (_s == null)
             {
@@ -67,7 +67,7 @@ namespace graphlib
 
         // GET SOURCE NODE
         // THIS IS A NODE WITH A TOTAL POSITIVE BALANCE STARTED - CURRENT BALANCE
-        private static node getSNode(flow_graph _fg)
+        private static node get_s_node(flow_graph _fg)
         {
             node s = null;
             foreach (node n in _fg.get_all_nodes())
@@ -221,6 +221,13 @@ namespace graphlib
 
             _fg.create_redisual_graph();
 
+
+            //STEP 0
+            //INITIALISIERUNG
+            // ONLY FOR THE NORMAL EDGES: SET FLOW TO CAPACITY
+            // FOR ALL (NORM + RESIDUAL):
+            // => INCREASE FROM BALANCE TO FLOW
+            // => DECREASE TO BALANCE TO FLOW 
             foreach (edge e in _fg.get_all_edges())
             {
                 if (!e.IsResidualEdge && e.Costs < 0)
@@ -236,7 +243,8 @@ namespace graphlib
                         rev.Capacity = e.Flow;
                     }
                 }
-
+                // B GRAPH BALANCE SETUP
+                //B(V) = 
                 e.From.increase_is_balance(e.Flow);
                 e.To.descrease_is_balance(e.Flow);
             }
@@ -246,8 +254,11 @@ namespace graphlib
 
             while (true)
             {
-                node s = getSNode(_fg);
-                node t = getTNode(_fg, s);
+                //STEP 1
+                //GET SOURCE NODE WITH LEFT POSITIVE BALANCE
+                node s = get_s_node(_fg);
+                // GET CONSUMER 
+                node t = get_t_node(_fg, s);
                 if (s == null || t == null)
                 {
                     if (is_cost_minimal(_fg))
