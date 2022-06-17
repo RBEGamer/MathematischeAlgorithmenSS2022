@@ -41,6 +41,10 @@ namespace graphlib
             return costs;
         }
 
+
+        //GET CONSUMER NODE  THAT IS REACABLE FROM THE _s SOURCE NODE
+        //USING BREADTH FIRST SEARCH
+        //THEN RETURN A NOT VISITED NODE 
         private static node getTNode(flow_graph _fg, node _s)
         {
             if (_s == null)
@@ -62,6 +66,9 @@ namespace graphlib
             return null;
         }
 
+
+        // GET SOURCE NODE
+        // THIS IS A NODE WITH A TOTAL POSITIVE BALANCE STARTED - CURRENT BALANCE
         private static node getSNode(flow_graph _fg)
         {
             node s = null;
@@ -99,9 +106,10 @@ namespace graphlib
             List<node> sources = _fg.get_sources();
             //GET REV NODES WITH BALANCE < 0
             List<node> targets = _fg.get_targets();
-
+            //STEP 0
             //ADD A NEW EMPTY SUPERNODE
             node superS = _fg.add_empty_node();
+            // ADD BALANCE OF ALL SOURCE NODES TO THE SUPER NODE
             foreach (node source in sources)
             {
                 edge e = new edge(superS, source, 0.0, source.Balance);
@@ -110,15 +118,14 @@ namespace graphlib
                 source.Balance = 0.0;
 
             }
-
+            //ADD THE SAME FOR CONSUMERS
             node superT = _fg.add_empty_node();
             foreach (node target in targets)
             {
-                double cap = target.Balance;
-                if (cap < 0)
-                {
-                    cap = cap * (-1.0);
-                }
+                //BUT ONLY WITH POSITIVE CAPACITEIS
+                // IF CAP IS NEGATIVE => USE IT AS POSIVIVE CAPACITY
+                // USED FOR edmonds_karp => WHICH WORKS ONLY IN POSITIVE BALANCES
+                double cap = Math.Abs(target.Balance);
                 edge e = new edge(target, superT, 0.0, cap);
                 target.add_edge(e);
 
@@ -126,37 +133,52 @@ namespace graphlib
                 target.Balance = 0.0;
 
             }
-
-            // Schritt 1
+            // STEP 1
+            // GET SHORTEST PATH FFROM SUPER_SOURCE TO SUPER_CONSUMER
+            // THIS IS THE B GRAPH
             flow_graph fg2 = edmonds_karp(_fg, superS, superT);
-
+            // CHECK IF B GRAPH IS VALUD
             if (fg2.MaxFlow == superS.Balance && -fg2.MaxFlow == superT.Balance)
             {
                 bool ready = false;
                 visited_handler v = new visited_handler(fg2.node_count());
+                // PERFROM THE FOLLOWING STEPS UNTIL VERY NODES IS VISTED
+                // OR THE COSTS MINIMAL FLOW IS FOUND
                 while (!ready)
                 {
+                    //ITERATE THOUGH ALL NODES IN THE B GRAPH
+                    // UNTIL:
+                    // 1. ALLL NODES ARE VISITED => MINIMAL FLOW FOUND
+                    // 2. NO CAPACITED LEFT OR NOT RESOLVABLE NEGATIVE CYCLES => NO_COST MINIMAL FLOW FOUND 
                     foreach (node n in fg2.get_all_nodes())
                     {
                         v.set_visited(n);
-                        // Schritt 3
-                        previous_structure prev = bellman_ford(fg2, n);
-
-                        List<edge> negativeCycle = prev.getNegativeCycle;
-
                         if (v.is_all_visited())
                         {
                             ready = true;
                             break;
                         }
+                        // STEP 3
+                        //
+                        // GET SHORTEST PATHS FROM ALL NODES WITH BELLMAN FORD FROM CURRENT SELECTED NODE
+                        // BF WAS MODFIEID TO RETURN THE NEGATIVE CYCLE AS WELL
+                        // 
+                        // F-augmentierenden Zykel Z in G
+                        previous_structure prev = bellman_ford(fg2, n);
+                        //GET LIST OF EDGES ARE PRESENT IN THE CURRENT NEGATVIE CYCLE
+                        List<edge> negativeCycle = prev.getNegativeCycle;
 
-                        // Schritt 4
+                        
+                        // STEP 4
+                        // REFRESH B GRAPH
+                        // => ITERATE OVER EACH EDGE IN NEGATIVE CYCLE
+                        // => AND SUBTRACT THE RESIDUAL CAPACITY
                         double minCapacity = prev.getMinNegativCylcleCapacity;
                         foreach (edge e in negativeCycle)
                         {
                             e.decrease_capacity(minCapacity);
                             e.increase_flow(minCapacity);
-
+                            // REFRESH RESIDUAL EDGE
                             List<edge> rev_ls = fg2.get_edge_from_node(e.To, e.From);
                             if (rev_ls.Count > 0)
                             {
@@ -175,6 +197,7 @@ namespace graphlib
                     }
                 }
 
+                //RETRUN COSTS OF THE B GRPAH
                 res.is_costs_minimal = true;
                 res.minimal_flow_value = calculate_min_max_costs(fg2);
                 return res;
@@ -217,7 +240,6 @@ namespace graphlib
 
                 e.From.increase_is_balance(e.Flow);
                 e.To.descrease_is_balance(e.Flow);
-                int y = 0;
             }
 
 
@@ -258,7 +280,6 @@ namespace graphlib
                     {
                         edge e = e_list[0];
                         gamma = Math.Min(gamma, e.Capacity);
-                        int wer = 0;
                     }
                 }
 
@@ -285,7 +306,7 @@ namespace graphlib
 
                     rev.decrease_flow(gamma);
                     rev.increase_capacity(gamma);
-                    int wt = 0;
+
                 }
                 s.increase_is_balance(gamma);
                 t.descrease_is_balance(gamma);
