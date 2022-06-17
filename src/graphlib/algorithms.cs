@@ -44,14 +44,13 @@ namespace graphlib
 
         //GET CONSUMER NODE  THAT IS REACABLE FROM THE _s SOURCE NODE
         //USING BREADTH FIRST SEARCH
-        //THEN RETURN A NOT VISITED NODE 
+        //THEN RETURN A NOT VISITED NODE WITH A NEGATIVE BALANCE => CONSUMER
         private static node getTNode(flow_graph _fg, node _s)
         {
             if (_s == null)
             {
                 return null;
             }
-
             visited_handler v = new visited_handler(_fg.node_count());
             breadth_first_search(_fg, _s, null, v, true);
             for (int i = 0; i < v.get_array().Length; i++)
@@ -62,7 +61,6 @@ namespace graphlib
                     return n;
                 }
             }
-
             return null;
         }
 
@@ -84,11 +82,12 @@ namespace graphlib
             return s;
         }
 
+        //=> NO UNUSED BALANCE FOUND => COST MINIMAL
         private static bool is_cost_minimal(flow_graph _fg)
         {
             foreach (node n in _fg.get_all_nodes())
             {
-                if (n.Balance != n.IsBalance)
+                if (Math.Abs(n.Balance - n.IsBalance) > 0)
                 {
                     return false;
                 }
