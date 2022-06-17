@@ -97,7 +97,7 @@ namespace graphlib
 
 
 
-
+        //
         public static SSP_RESULT cycle_canceling(flow_graph _fg)
         {
             SSP_RESULT res = new SSP_RESULT();
@@ -108,6 +108,8 @@ namespace graphlib
             //STEP 0
             //ADD A NEW EMPTY SUPERNODE
             node superS = _fg.add_empty_node();
+            // IN GENERAL WE NEED ONE SOURCE AND ONE CONSUMER NODE (COMBINED FROM SEVERAL NODE)
+            // edmonds_karp IS ONLY WORKING ON ON SOURCE/CONSUMER NODE NOT ON MULTIBLE
             // ADD BALANCE OF ALL SOURCE NODES TO THE SUPER NODE
             foreach (node source in sources)
             {
@@ -212,7 +214,8 @@ namespace graphlib
 
 
 
-
+        //GOAL => UPDATE THE FLOW VALUES TO MATCH THE BALANCES
+        //SO DONT WORK ON THE BANALNCES
         public static SSP_RESULT success_shortest_path(flow_graph _fg)
         {
             SSP_RESULT res;
@@ -249,18 +252,19 @@ namespace graphlib
                 e.To.descrease_is_balance(e.Flow);
             }
 
-
-            int iteration = 0;
-
             while (true)
             {
                 //STEP 1
                 //GET SOURCE NODE WITH LEFT POSITIVE BALANCE
                 node s = get_s_node(_fg);
-                // GET CONSUMER 
+                // GET CONSUMER NODE WHICH IS REACHABLE FROM SOURCE NODE
                 node t = get_t_node(_fg, s);
+                //IF NO S T NODE FOUND (e.g NO CONSUMER DEMAND LEFT or SOURCE HAS CAPABILITES)
                 if (s == null || t == null)
                 {
+                    //CHECK IS GRAPH IS COST MINIMAL
+                    // => IS MINIMAL => RETURN VALUE
+                    // => ELSE: GRPAH IS NOT COST MINIMAL
                     if (is_cost_minimal(_fg))
                     {
                         res.is_costs_minimal = true;
@@ -274,32 +278,45 @@ namespace graphlib
                     }
                 }
 
+
+                //STEP 2
+                // GET SHORTEST S-T PATH IN GRAPH
+                // AND GET RESIDUAL GRAPTH WITH PATH
                 previous_structure prev = bellman_ford(_fg, s);
                 //previous_structure prev = djikstra(_fg, s);
                 List<node> p = prev.get_path(s, t, false);
-
+                //γ:= min{ b(s) - b'(s), |b(t) - b'(t)}
+                //GAMME IS THE VALUE FOR NEXT MAX Utilization OF PATH EDGES
+                //ITS THE MIN CAPCACITY OF TOTAL EDGES IN PATH
                 double gamma = Math.Min(s.Balance - s.IsBalance, t.IsBalance - t.Balance);
+                // FOR EACH NODE IN SHORTEST PATH FROM SOURCE TO CONSUMER
                 for (int i = 0; i < p.Count - 1; i++)
                 {
+                    //STEP 2.1 FIND MINIMUM GAMMA
+                    //GET CORRESPONDING EDGE
                     node a = p.ElementAt(i);
                     node b = p.ElementAt(i + 1);
-
-
                     List<edge> e_list = _fg.get_edge_from_node(a, b);
+                    //IF A EDGE WAS FOUND
+                    // FIND MINIMUM GAMMA
                     if (e_list.Count > 0)
                     {
                         edge e = e_list[0];
+                        //GET THE TOTAL MINIMAL CORRECTION FACOTR  Y
+                        //γ:= min{min{uf(e)}, b(s) - b'(s), |b(t) - b'(t) |}
+                        // => MINIMUM FROM current.edge_capacity AND THE geamme from S-T NODES
                         gamma = Math.Min(gamma, e.Capacity);
                     }
                 }
-
+                // APPLY THE FOUND GAMME VALUE TO PATH IN GRAPH AND RESIDUAL GRAP
                 for (int i = 0; i < p.Count - 1; i++)
                 {
                     node a = p.ElementAt(i);
                     node b = p.ElementAt(i + 1);
 
-
+                    //NORMAL EDGE 
                     List<edge> es = _fg.get_edge_from_node(a, b);
+                    //RESIDUAL EDGE
                     List<edge> rev_es = _fg.get_edge_from_node(b, a);
 
                     if (es.Count <= 0 || rev_es.Count <= 0)
@@ -318,9 +335,9 @@ namespace graphlib
                     rev.increase_capacity(gamma);
 
                 }
+                //ALSO APPLY GAMMA TO UPDATE THE S-T NODES
                 s.increase_is_balance(gamma);
                 t.descrease_is_balance(gamma);
-                iteration++;
             }
 
         }
